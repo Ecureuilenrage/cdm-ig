@@ -1,0 +1,61 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Default thumbnail 1200×630 — Scribble Pitch</title>
+  <link rel="stylesheet" href="/templates/fonts/fonts.css">
+  <link rel="stylesheet" href="/brand/tokens.css">
+  <style>
+    * { box-sizing: border-box; margin: 0; }
+    body {
+      width: 1200px; height: 630px; overflow: hidden; position: relative;
+      background: var(--paper); color: var(--ink);
+      display: flex; flex-direction: column; align-items: center;
+      padding-top: 64px;
+    }
+    #doodles { position: absolute; inset: 0; pointer-events: none; }
+    .wordmark {
+      font-family: var(--font-title); font-weight: 800; font-size: 108px;
+      letter-spacing: 1px; line-height: 1; position: relative; z-index: 1;
+    }
+    .tagline {
+      font-family: var(--font-body); font-size: 46px; color: var(--ink-soft);
+      margin-top: 46px; position: relative; z-index: 1;
+    }
+    .handle {
+      font-family: var(--font-note); font-weight: 700; font-size: 42px;
+      color: var(--orange); margin-top: 6px; position: relative; z-index: 1;
+    }
+    .cast {
+      position: absolute; bottom: -34px; left: 0; right: 0;
+      display: flex; justify-content: center; align-items: flex-end; gap: 56px;
+    }
+    .cast svg { display: block; }
+  </style>
+</head>
+<body>
+  <svg id="doodles" width="1200" height="630" viewBox="0 0 1200 630" fill="none"></svg>
+  <div class="wordmark">Scribble Pitch</div>
+  <div class="tagline">One illustrated story. Every matchday.</div>
+  <div class="handle">@scribblepitch</div>
+  <div class="cast" id="cast"></div>
+  <script type="module">
+    import rough from '/templates/lib/rough.esm.js';
+    import { analyst } from '/brand/character/poses.js';
+
+    // Le trio, Otto au centre (la signature) — Vera carton jaune (rien ne chauffe ici)
+    document.getElementById('cast').innerHTML =
+      analyst({ character: 'numa', pose: 'neutral', size: 300 }) +
+      analyst({ character: 'otto', pose: 'pointing', size: 330 }) +
+      analyst({ character: 'vera', pose: 'neutral', size: 300, flip: true });
+
+    // Soulignement rough sous le wordmark — orange, seed fixe (déterministe)
+    const rc = rough.svg(document.getElementById('doodles'));
+    const opts = { seed: 20260612, stroke: '#F76B15', strokeWidth: 6, roughness: 1.8, bowing: 1.4 };
+    document.getElementById('doodles').appendChild(rc.line(310, 196, 890, 190, opts));
+
+    await document.fonts.ready;
+    window.__shotReady = true;
+  </script>
+</body>
+</html>

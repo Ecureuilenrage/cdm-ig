@@ -24,7 +24,9 @@
 
 - [x] **Compte IG créé, arrobase obtenu** ✅ (12/06)
 - [x] Clé API football-data dans `.env` (gitignoré, header `X-Auth-Token`) — **compétition `WC` (FIFA World Cup) confirmée dans le free tier** ✅
-- [ ] **[TOI] Ouvrir Beehiiv** : créer la publication + activer la page d'inscription hébergée → **c'est le link in bio jour 1** (dernier compte manquant)
+- [x] **[TOI] Ouvrir Beehiiv** : créer la publication + activer la page d'inscription hébergée → **c'est le link in bio jour 1** (dernier compte manquant)
+- [x] **Assets Beehiiv générés** (12/06 soir) : `brand/assets/out/logo-1024.png` (carré, tête d'Otto — logo de publication + favicon + mobile app icon) et `brand/assets/out/thumbnail-1200x630.png` (default thumbnail / og-image). Sources `brand/assets/logo.html` + `thumb.html`, re-rendables via `npm run shoot`. Logo provisoire : le logotype final reste un item post-J1.
+- [ ] **[TOI] Uploader les 2 assets dans Beehiiv** (Settings → logo, favicon/app icon, default thumbnail) — et utiliser le même `logo-1024.png` en avatar IG pour la cohérence
 - [ ] ~~Poster le 12 entre 15h-17h~~ **manqué (constaté à 21h)** → rattrapage le 13, voir ci-dessous. Pas grave : le compte vient d'être créé, personne n'attendait.
 
 ### 🔴 13 juin — rattrapage J1 + jour 2 (la vraie journée de lancement)
@@ -38,7 +40,7 @@
 
 ### 🟠 13 juin matin (S1bis : retouches templates demandées le 12/06) — [CLAUDE]
 
-- [ ] **Micro-CTA sur chaque slide** : enrichir le footer avec "follow + link in bio" en plus de "one illustrated story every matchday" — discret, dans la zone footer ; la CTA pleine reste sur la dernière slide
+- [ ] **Micro-CTA sur chaque slide** (spec validée 12/06) : en plus du tagline "one illustrated story every matchday", chaque slide porte UNE micro-demande dans le footer, **en rotation sur le carrousel** pour couvrir tous les asks sans surcharger : follow → like/save → share/repost → "newsletter, link in bio". La slide CTA finale garde la demande complète (follow + newsletter). Une seule demande par slide, zone footer uniquement.
 - [ ] **Rotation du personnage signature** sur la slide CTA et la dernière story : UN personnage par jour (pas le trio, pas Otto fixe) + **slot "invité"** (placeholder) pour les guests du vivier casting (ex. Scout)
   - ⚠️ Conflit doc : `identity.md` dit "Otto signe la CTA chaque jour" → trancher d'abord (reco : rotation pilotée par le contenu du jour, Otto reste l'avatar — voir Décision 7 du BACKLOG)
 - [ ] Mettre à jour `identity.md` + `_schema.md` une fois la règle tranchée

@@ -8,14 +8,14 @@
 ## ⚡ PLAN DE SESSIONS — fenêtre "Journée 1" (12 → ~17 juin)
 
 > Objectif : tout ce qui suit est tranché ou livré avant la fin du 1er match de chaque groupe (dernier "match 1" : **17 juin, confirmé**).
-> **MAJ 12/06 soir** : S0 quasi bouclée (compte IG ✅, git ✅ → `github.com/Ecureuilenrage/cdm-ig`, clé football-data ✅ en `.env` — compétition `WC` dispo en free tier ; reste **Beehiiv**) ; S1 cast ✅ (Otto/Numa/Vera intégrés) ; S3 stories ✅ (`npm run stories`). Post du 12 manqué → rattrapage le 13 en double post. Détail d'exécution : `TODO.md`.
+> **MAJ 12/06 soir** : S0 bouclée (compte IG ✅, **Beehiiv ✅**, git ✅ → `github.com/Ecureuilenrage/cdm-ig`, clé football-data ✅ en `.env` — compétition `WC` dispo en free tier) ; S1 cast ✅ (Otto/Numa/Vera intégrés) ; S3 stories ✅ (`npm run stories`) ; **assets Beehiiv générés** (logo provisoire tête d'Otto 1024² + thumbnail 1200×630, `brand/assets/out/`). Post du 12 manqué → rattrapage le 13 en double post. Détail d'exécution : `TODO.md`.
 > Contrainte transverse : la **routine quotidienne** (carrousel du jour, ~1-2h chaque matin) tourne en parallèle de TOUTES ces sessions. Chaque session est dimensionnée en plus de cette charge.
 
 ### S0 — AUJOURD'HUI 12 juin : lancement du compte (bloquant absolu, ~2-3h, surtout côté utilisateur)
-- [ ] Créer le compte IG `@scribblepitch` (vérifier dispo ; fallbacks : whistleandink, sketchytactics)
+- [x] Créer le compte IG `@scribblepitch` (vérifier dispo ; fallbacks : whistleandink, sketchytactics)
 - [ ] Avatar **provisoire** = tête du coach (le logo ne bloque PAS le lancement — voir Décision 4)
 - [ ] Bio + disclaimer "Not affiliated with FIFA or any federation"
-- [ ] Ouvrir le compte **Beehiiv** + page d'inscription hébergée → c'est le **link in bio jour 1** (le site Next.js ne bloque pas non plus)
+- [x] Ouvrir le compte **Beehiiv** + page d'inscription hébergée → c'est le **link in bio jour 1** (le site Next.js ne bloque pas non plus)
 - [ ] **Poster le carrousel J1 entre 15h-17h FR** — il est DANS les temps : matchs du 11 postés le 12 = le rythme prévu par CLAUDE.md. Chaque jour de retard maintenant coûte le pic d'attention de la semaine d'ouverture.
 - [ ] Compte football-data.org + clé API ; **vérifier que le tier gratuit couvre la compétition 2026** avant d'investir dans le script
 - [ ] `git init` + premier commit (15 min — le projet n'est pas versionné, voir Gap 5)
@@ -97,7 +97,7 @@
 - [ ] Définir le rythme pour les phases à élimination directe (16e, 8e, QF, SF, finale, 3e place)
 
 ### Idées ajoutées le 12/06 au soir
-- [ ] **Micro-CTA sur chaque slide** — footer enrichi : "follow + link in bio" en plus du tagline "one illustrated story every matchday" ; rester discret, l'espace blanc prime (règle de la charte)
+- [ ] **Micro-CTA sur chaque slide** — footer enrichi, validé 12/06 : UNE micro-demande par slide en rotation sur le carrousel (follow → like/save → share/repost → "newsletter, link in bio"), en plus du tagline "one illustrated story every matchday" ; la slide CTA finale garde la demande complète ; rester discret, l'espace blanc prime (règle de la charte)
 - [ ] **Rotation du personnage signature** — sur la slide CTA et la dernière story : UN personnage par jour (rotation Otto/Numa/Vera) au lieu du trio ou d'Otto fixe ; prévoir un **slot invité** (placeholder) pour accueillir un personnage du vivier casting (ex. Scout en semaine 3)
   - ⚠️ En conflit avec la règle actuelle d'`identity.md` ("Otto signe la CTA chaque jour") → voir Décision 7
 

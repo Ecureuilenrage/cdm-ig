@@ -1,0 +1,37 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Logo carré — Scribble Pitch (tête d'Otto)</title>
+  <link rel="stylesheet" href="/templates/fonts/fonts.css">
+  <link rel="stylesheet" href="/brand/tokens.css">
+  <style>
+    * { box-sizing: border-box; margin: 0; }
+    body {
+      width: 1024px; height: 1024px; overflow: hidden;
+      background: var(--paper);
+      display: flex; align-items: center; justify-content: center;
+    }
+    #mark svg { display: block; }
+  </style>
+</head>
+<body>
+  <div id="mark"></div>
+  <script type="module">
+    import { analystParts } from '/brand/character/poses.js';
+
+    // Tête d'Otto recadrée — le viewBox coupe le corps (vb plein : 0 0 200 280).
+    // pose dejected = bras baissés + marqueur au sol (rien dans la zone tête),
+    // expression happy forcée. Visière de la casquette incluse (x max ≈ 173).
+    const inner = analystParts({ character: 'otto', pose: 'dejected', expression: 'happy' });
+    document.getElementById('mark').innerHTML = `
+      <svg width="940" height="940" viewBox="38 0 136 136" fill="none"
+           stroke="#1A1A1A" stroke-width="6" stroke-linecap="round" stroke-linejoin="round">
+        ${inner}
+      </svg>`;
+
+    await document.fonts.ready;
+    window.__shotReady = true;
+  </script>
+</body>
+</html>
