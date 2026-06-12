@@ -1,0 +1,77 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8">
+  <title>Composition d'équipe — mix &amp; match</title>
+  <link rel="stylesheet" href="/templates/fonts/fonts.css">
+  <link rel="stylesheet" href="/brand/tokens.css">
+  <style>
+    * { box-sizing: border-box; margin: 0; }
+    body { background: var(--paper); color: var(--ink); font-family: var(--font-body); padding: 30px 40px; width: 1460px; }
+    h1 { font-family: var(--font-title); font-size: 38px; }
+    h2 { font-family: var(--font-title); font-size: 28px; margin-top: 30px; border-bottom: 3px solid var(--ink); padding-bottom: 4px; }
+    .sub { font-size: 22px; color: #777; }
+    .opts { display: flex; gap: 30px; margin-top: 14px; flex-wrap: wrap; }
+    .opt { border: 2px dashed #bbb; border-radius: 10px; padding: 12px 18px; text-align: center; }
+    .opt .pair { display: flex; gap: 18px; align-items: flex-end; justify-content: center; }
+    .opt .nm { font-family: var(--font-title); font-size: 22px; margin-top: 6px; }
+    .opt .what { font-size: 19px; color: #888; }
+    .ring { width: 160px; height: 160px; border-radius: 50%; padding: 6px; background: linear-gradient(45deg, #ccc, #999); margin: 0 auto; }
+    .ring .inner { width: 100%; height: 100%; border-radius: 50%; border: 6px solid #fff; overflow: hidden; background: var(--paper); }
+    .trios { display: flex; gap: 36px; margin-top: 14px; flex-wrap: wrap; }
+    .trio { border: 3px solid var(--ink); border-radius: 12px; padding: 14px 20px; text-align: center; }
+    .trio .lineup { display: flex; gap: 8px; align-items: flex-end; }
+    .trio .nm { font-family: var(--font-title); font-size: 23px; margin-top: 8px; }
+    .trio .why { font-size: 19px; color: #777; max-width: 380px; }
+  </style>
+</head>
+<body>
+  <h1>Composer l'équipe — Otto est fixé : le coach humain</h1>
+  <div class="sub">Pour Numa et Vera, chaque option est montrée en pied (200 px) + en icône de highlight taille réelle (160 px).</div>
+  <div id="roles"></div>
+  <h2>Trios suggérés (test silhouettes côte à côte)</h2>
+  <div class="trios" id="trios"></div>
+  <script type="module">
+    import { CANDIDATES } from '/brand/character/casting/candidates.js';
+    import { wrap } from '/brand/character/casting/rig.js';
+
+    const get = (id) => CANDIDATES.find((c) => c.id === id);
+    const icon = (c, size = 148) => {
+      const f = c.iconFocus;
+      return `<div class="ring" style="width:${size + 12}px;height:${size + 12}px"><div class="inner">${wrap(c.parts({ pose: 'neutral' }), { size, vb: `${f.x - f.r} ${f.y - f.r} ${2 * f.r} ${2 * f.r}` })}</div></div>`;
+    };
+
+    const ROLES = [
+      { title: 'NUMA — les nombres (bleu)', ids: ['numa-watch', 'numa-abacus', 'numa-nerd', 'numa-ball'] },
+      { title: 'VERA — la discipline (rouge)', ids: ['vera-card', 'vera-lineflag', 'vera-book', 'vera-whistle', 'vera-ref'] },
+    ];
+    const rolesEl = document.getElementById('roles');
+    for (const r of ROLES) {
+      const opts = r.ids.map((id) => {
+        const c = get(id);
+        return `<div class="opt">
+          <div class="pair"><div>${wrap(c.parts({ pose: 'neutral' }), { size: 200 })}</div><div>${icon(c)}</div></div>
+          <div class="nm">${c.id}</div><div class="what">${c.label}</div>
+        </div>`;
+      }).join('');
+      rolesEl.insertAdjacentHTML('beforeend', `<h2>${r.title}</h2><div class="opts">${opts}</div>`);
+    }
+
+    const TRIOS = [
+      { name: 'C — coach + chrono + carton', ids: ['otto-coach', 'numa-watch', 'vera-card'], why: 'Rond vs rectangle, le carton apporte la couleur. Le plus contrasté.' },
+      { name: 'D — coach + boulier + drapeau', ids: ['otto-coach', 'numa-abacus', 'vera-lineflag'], why: 'Le boulier raconte mieux “je compte tout” ; le damier est très graphique.' },
+      { name: 'E — coach + chrono + drapeau', ids: ['otto-coach', 'numa-watch', 'vera-lineflag'], why: 'Trois silhouettes radicalement différentes : humain / cercle / drapeau.' },
+      { name: 'F — coach + boulier + carton', ids: ['otto-coach', 'numa-abacus', 'vera-card'], why: 'Deux rectangles côte à côte — à juger ici.' },
+    ];
+    const triosEl = document.getElementById('trios');
+    for (const t of TRIOS) {
+      triosEl.insertAdjacentHTML('beforeend', `<div class="trio">
+        <div class="lineup">${t.ids.map((id) => wrap(get(id).parts({ pose: 'neutral' }), { size: 190 })).join('')}</div>
+        <div class="nm">${t.name}</div><div class="why">${t.why}</div>
+      </div>`);
+    }
+
+    window.__shotReady = true;
+  </script>
+</body>
+</html>

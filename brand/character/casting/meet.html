@@ -1,0 +1,86 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Meet the team — slide 1080×1350</title>
+  <link rel="stylesheet" href="/templates/fonts/fonts.css">
+  <link rel="stylesheet" href="/brand/tokens.css">
+  <style>
+    * { box-sizing: border-box; margin: 0; }
+    body { background: #888; }
+    .slide { position: relative; width: 1080px; height: 1350px; background: var(--paper); overflow: hidden; color: var(--ink); }
+    svg.under, svg.over { position: absolute; inset: 0; pointer-events: none; }
+    svg.over { z-index: 2; }
+    .content { position: absolute; inset: 0; z-index: 1; padding: 70px; }
+    .kicker { font-family: var(--font-note); font-size: 46px; font-weight: 700; text-transform: uppercase; letter-spacing: .04em; transform: rotate(-1.2deg); margin-top: 16px; }
+    h1 { font-family: var(--font-title); font-weight: 800; font-size: 92px; line-height: 1.08; margin-top: 40px; }
+    .team { position: absolute; left: 70px; right: 70px; bottom: 290px; display: flex; justify-content: space-around; align-items: flex-end; }
+    .member { text-align: center; }
+    .member .nm { font-family: var(--font-title); font-weight: 700; font-size: 44px; margin-top: 14px; }
+    .member .role { font-family: var(--font-note); font-weight: 700; font-size: 36px; margin-top: 34px; }
+    .footer-note { position: absolute; left: 0; right: 0; bottom: 150px; text-align: center;
+      font-family: var(--font-note); font-weight: 700; font-size: 42px; }
+    .c-red { color: var(--red); } .c-orange { color: var(--orange); } .c-blue { color: var(--blue); }
+    .brand-footer { position: absolute; z-index: 3; left: 70px; right: 70px; bottom: 44px;
+      display: flex; justify-content: space-between; font-family: var(--font-note); font-size: 38px; color: rgba(26,26,26,.55); }
+  </style>
+</head>
+<body>
+  <div class="slide" id="slide">
+    <svg class="under" width="1080" height="1350" viewBox="0 0 1080 1350"></svg>
+    <div class="content" id="content"></div>
+    <svg class="over" width="1080" height="1350" viewBox="0 0 1080 1350"></svg>
+    <div class="brand-footer"><span>@scribblepitch</span><span>1 / 1</span></div>
+  </div>
+  <script type="module">
+    import { createKit, hashSeed, md } from '/templates/lib/slide-kit.js';
+    import { CANDIDATES } from '/brand/character/casting/candidates.js';
+    import { TEAMS } from '/brand/character/casting/coach-adapter.js';
+    import { wrap } from '/brand/character/casting/rig.js';
+
+    const params = new URLSearchParams(location.search);
+    const team = TEAMS[params.get('team') || 'C'];
+    const get = (id) => CANDIDATES.find((c) => c.id === id);
+
+    const MEMBERS = [
+      { key: 'otto', name: 'Otto', role: 'draws it', accent: 'orange', pose: 'pointing' },
+      { key: 'numa', name: 'Numa', role: 'counts it', accent: 'blue', pose: 'neutral' },
+      { key: 'vera', name: 'Vera', role: 'files it', accent: 'red', pose: 'neutral' },
+    ];
+
+    await Promise.all([
+      document.fonts.load('800 92px "Shantell Sans"'),
+      document.fonts.load('700 46px "Caveat"'),
+    ]);
+    await document.fonts.ready;
+
+    const content = document.getElementById('content');
+    content.innerHTML = `
+      <div class="kicker c-orange">Scribble Pitch · the panel</div>
+      <h1>One match. <span data-u>Three verdicts.</span></h1>
+      <div class="team">
+        ${MEMBERS.map((m) => `
+          <div class="member">
+            ${wrap(get(team[m.key]).parts({ pose: m.pose }), { size: 300 })}
+            <div class="nm" id="nm-${m.key}">${m.name.toUpperCase()}</div>
+            <div class="role c-${m.accent}">${m.role}</div>
+          </div>`).join('')}
+      </div>
+      <div class="footer-note c-orange">Every matchday, from tomorrow.</div>`;
+
+    const slideEl = document.getElementById('slide');
+    const kit = createKit({
+      svgUnder: slideEl.querySelector('svg.under'),
+      svgOver: slideEl.querySelector('svg.over'),
+      slideEl,
+      seed: hashSeed('meet-the-team'),
+    });
+    kit.underlineAll(content, 'orange');
+    kit.circle('#nm-otto', { color: 'orange', padX: 34, padY: 18 });
+    kit.circle('#nm-numa', { color: 'blue', padX: 34, padY: 18 });
+    kit.circle('#nm-vera', { color: 'red', padX: 34, padY: 18 });
+
+    window.__shotReady = true;
+  </script>
+</body>
+</html>

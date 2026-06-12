@@ -1,0 +1,36 @@
+@font-face {
+  font-family: 'Shantell Sans';
+  font-style: normal;
+  font-weight: 400;
+  src: url('./shantell-sans-latin-400-normal.woff2') format('woff2');
+}
+@font-face {
+  font-family: 'Shantell Sans';
+  font-style: normal;
+  font-weight: 700;
+  src: url('./shantell-sans-latin-700-normal.woff2') format('woff2');
+}
+@font-face {
+  font-family: 'Shantell Sans';
+  font-style: normal;
+  font-weight: 800;
+  src: url('./shantell-sans-latin-800-normal.woff2') format('woff2');
+}
+@font-face {
+  font-family: 'Patrick Hand';
+  font-style: normal;
+  font-weight: 400;
+  src: url('./patrick-hand-latin-400-normal.woff2') format('woff2');
+}
+@font-face {
+  font-family: 'Caveat';
+  font-style: normal;
+  font-weight: 400;
+  src: url('./caveat-latin-400-normal.woff2') format('woff2');
+}
+@font-face {
+  font-family: 'Caveat';
+  font-style: normal;
+  font-weight: 700;
+  src: url('./caveat-latin-700-normal.woff2') format('woff2');
+}

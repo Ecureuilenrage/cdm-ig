@@ -1,0 +1,19 @@
+{
+  "name": "scribble-pitch",
+  "version": "0.1.0",
+  "description": "Hand-drawn football match storytelling — daily illustrated carousels",
+  "private": true,
+  "scripts": {
+    "render": "node scripts/render.mjs",
+    "stories": "node scripts/stories.mjs",
+    "shoot": "node scripts/shoot.mjs"
+  },
+  "type": "commonjs",
+  "dependencies": {
+    "@fontsource/caveat": "^5.2.8",
+    "@fontsource/patrick-hand": "^5.2.8",
+    "@fontsource/shantell-sans": "^5.2.7",
+    "playwright": "^1.60.0",
+    "roughjs": "^4.6.6"
+  }
+}

@@ -1,0 +1,120 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Story template — Scribble Pitch</title>
+  <link rel="stylesheet" href="/templates/fonts/fonts.css">
+  <link rel="stylesheet" href="/brand/tokens.css">
+  <style>
+    * { box-sizing: border-box; margin: 0; }
+    body { background: #888; }
+    .story { position: relative; width: 1080px; height: 1920px; background: var(--paper); overflow: hidden; color: var(--ink); }
+    svg.under, svg.over { position: absolute; inset: 0; pointer-events: none; }
+    .content { position: absolute; inset: 0; z-index: 1; }
+    svg.over { z-index: 2; }
+    /* zones réservées à l'UI Instagram (250px haut et bas) — matérialisées dans le mock */
+    .ui-zone { position: absolute; left: 0; right: 0; height: 250px; z-index: 3;
+      background: repeating-linear-gradient(45deg, rgba(26,26,26,.05), rgba(26,26,26,.05) 14px, transparent 14px, transparent 28px);
+      display: flex; align-items: center; justify-content: center;
+      font-family: var(--font-note); font-size: 34px; color: rgba(26,26,26,.45); }
+    .ui-zone.top { top: 0; border-bottom: 2px dashed rgba(26,26,26,.25); }
+    .ui-zone.bottom { bottom: 0; border-top: 2px dashed rgba(26,26,26,.25); }
+    .kicker { position: absolute; top: 300px; left: 80px; font-family: var(--font-note);
+      font-size: 52px; font-weight: 700; letter-spacing: .04em; text-transform: uppercase; transform: rotate(-1.2deg); }
+    .big { position: absolute; top: 480px; left: 80px; right: 80px;
+      font-family: var(--font-title); font-weight: 800; font-size: 88px; line-height: 1.1; }
+    .note-mid { position: absolute; top: 850px; left: 120px; max-width: 600px;
+      font-family: var(--font-note); font-weight: 700; font-size: 46px; transform: rotate(-1.5deg); }
+    .mega { position: absolute; top: 430px; left: 0; right: 0; text-align: center;
+      font-family: var(--font-title); font-weight: 800; font-size: 300px; line-height: 1; }
+    .mega-unit { position: absolute; top: 760px; left: 0; right: 0; text-align: center;
+      font-family: var(--font-note); font-weight: 700; font-size: 64px; }
+    .char { position: absolute; left: 90px; bottom: 420px; }
+    .sticker { position: absolute; right: 90px; width: 520px; height: 200px; bottom: 560px;
+      border: 4px dashed rgba(26,26,26,.4); border-radius: 24px;
+      display: flex; align-items: center; justify-content: center; text-align: center;
+      font-family: var(--font-note); font-size: 38px; color: rgba(26,26,26,.55); padding: 20px; }
+    .cta-line { position: absolute; bottom: 300px; left: 0; right: 0; text-align: center;
+      font-family: var(--font-note); font-weight: 700; font-size: 44px; }
+    .c-red { color: var(--red); } .c-orange { color: var(--orange); } .c-blue { color: var(--blue); }
+  </style>
+</head>
+<body>
+  <div class="story" id="story">
+    <svg class="under" width="1080" height="1920" viewBox="0 0 1080 1920"></svg>
+    <div class="content" id="content"></div>
+    <svg class="over" width="1080" height="1920" viewBox="0 0 1080 1920"></svg>
+    <div class="ui-zone top">↑ zone UI Instagram — avatar, nom, croix (250 px)</div>
+    <div class="ui-zone bottom">↓ zone UI Instagram — barre de réponse (250 px)</div>
+  </div>
+  <script type="module">
+    import { createKit, hashSeed } from '/templates/lib/slide-kit.js';
+    import { CANDIDATES } from '/brand/character/casting/candidates.js';
+    import { TEAMS, coach } from '/brand/character/casting/coach-adapter.js';
+
+    const params = new URLSearchParams(location.search);
+    const member = params.get('member') || 'otto';
+
+    // un format de story par personnage : hot take / stat express / dossier + sondage
+    const STORIES = {
+      otto: {
+        accent: 'orange',
+        kicker: "OTTO'S BOARD · matchday 1",
+        big: `Korea didn't come back. <span data-u>Czechia let go.</span>`,
+        note: 'Hot take. The board never lies.',
+        pose: 'pointing',
+        sticker: '[ question sticker: “Agree?” ]',
+        cta: 'Full story → today’s post',
+      },
+      numa: {
+        accent: 'blue',
+        kicker: "NUMA'S NUMBER · matchday 1",
+        mega: '13',
+        unit: 'minutes to flip a World Cup match',
+        pose: 'celebrating',
+        sticker: '[ emoji slider: “How wild?” ]',
+        cta: 'The full 13 minutes → today’s post',
+      },
+      vera: {
+        accent: 'red',
+        kicker: "VERA'S FILE · matchday 1",
+        big: `Three reds at the Azteca. Grade: <span data-u>F.</span>`,
+        note: 'Vera was seen smiling.',
+        pose: 'celebrating',
+        sticker: '[ poll: “Too harsh? / Fair.” ]',
+        cta: 'The whole file → today’s post',
+      },
+    };
+    const story = STORIES[member];
+
+    await Promise.all([
+      document.fonts.load('800 88px "Shantell Sans"'),
+      document.fonts.load('700 52px "Caveat"'),
+    ]);
+    await document.fonts.ready;
+
+    const content = document.getElementById('content');
+    const storyEl = document.getElementById('story');
+    content.innerHTML = `
+      <div class="kicker c-${story.accent}" id="kicker">${story.kicker}</div>
+      ${story.big ? `<h1 class="big">${story.big}</h1>` : ''}
+      ${story.note ? `<div class="note-mid c-${story.accent}">${story.note}</div>` : ''}
+      ${story.mega ? `<div class="mega" id="mega">${story.mega}</div><div class="mega-unit c-${story.accent}">${story.unit}</div>` : ''}
+      <div class="char">${coach({ pose: story.pose, size: 470 })}</div>
+      <div class="sticker">${story.sticker}</div>
+      <div class="cta-line c-${story.accent}">${story.cta}</div>`;
+
+    const kit = createKit({
+      svgUnder: storyEl.querySelector('svg.under'),
+      svgOver: storyEl.querySelector('svg.over'),
+      slideEl: storyEl,
+      seed: hashSeed(`story#${member}`),
+    });
+    kit.underline('#kicker', { color: story.accent, offset: 8 });
+    kit.underlineAll(content, story.accent);
+    if (story.mega) kit.circle('#mega', { color: story.accent, padX: 80, padY: 20 });
+
+    window.__shotReady = true;
+  </script>
+</body>
+</html>

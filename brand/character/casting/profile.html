@@ -1,0 +1,101 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Profil IG — mock vitrine</title>
+  <link rel="stylesheet" href="/templates/fonts/fonts.css">
+  <link rel="stylesheet" href="/brand/tokens.css">
+  <style>
+    * { box-sizing: border-box; margin: 0; }
+    body { background: #fff; width: 1080px; font-family: -apple-system, 'Segoe UI', Roboto, sans-serif; color: #111; }
+    .top { display: flex; align-items: center; gap: 14px; padding: 28px 40px 10px; font-size: 44px; font-weight: 700; }
+    .header { display: flex; gap: 60px; padding: 30px 60px; align-items: center; }
+    .avatar { width: 280px; height: 280px; border-radius: 50%; border: 4px solid #ddd; overflow: hidden; background: var(--paper); flex: 0 0 auto; }
+    .stats { display: flex; gap: 70px; font-size: 40px; text-align: center; }
+    .stats b { display: block; font-size: 52px; }
+    .bio { padding: 10px 60px; font-size: 38px; line-height: 1.4; }
+    .bio .nm { font-weight: 700; }
+    .bio .link { color: #00376b; }
+    .hl-row { display: flex; gap: 44px; padding: 40px 60px 30px; }
+    .hl { text-align: center; }
+    .hl .ring { width: 160px; height: 160px; border-radius: 50%; padding: 6px;
+      background: linear-gradient(45deg, #ccc, #999); }
+    .hl .inner { width: 100%; height: 100%; border-radius: 50%; border: 6px solid #fff; overflow: hidden; background: var(--paper); }
+    .hl .nm { font-size: 32px; margin-top: 10px; }
+    .tabs { display: flex; justify-content: space-around; border-top: 2px solid #ddd; margin-top: 10px; padding: 24px 0; font-size: 36px; color: #999; }
+    .tabs .on { color: #111; font-weight: 700; }
+    .grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 4px; }
+    .grid img { width: 100%; aspect-ratio: 3 / 4; object-fit: cover; display: block; background: var(--paper); }
+  </style>
+</head>
+<body>
+  <div class="top">scribblepitch <span style="font-size:30px">▾</span></div>
+  <div class="header">
+    <div class="avatar" id="avatar"></div>
+    <div class="stats">
+      <div><b>6</b>posts</div>
+      <div><b>—</b>followers</div>
+      <div><b>—</b>following</div>
+    </div>
+  </div>
+  <div class="bio">
+    <div class="nm">Scribble Pitch</div>
+    One illustrated story. Every matchday.<br>
+    ⚽ Otto draws it · Numa counts it · Vera files it<br>
+    Not affiliated with FIFA or any federation.<br>
+    <span class="link">scribblepitch.com + newsletter</span>
+  </div>
+  <div class="hl-row" id="highlights"></div>
+  <div class="tabs"><span class="on">▦ Posts</span><span>▷ Reels</span><span>♡ Highlights</span></div>
+  <div class="grid" id="grid"></div>
+  <script type="module">
+    import { CANDIDATES } from '/brand/character/casting/candidates.js';
+    import { TEAMS } from '/brand/character/casting/coach-adapter.js';
+    import { wrap } from '/brand/character/casting/rig.js';
+
+    const params = new URLSearchParams(location.search);
+    const teamId = params.get('team') || 'A';
+    const team = TEAMS[teamId];
+    const get = (id) => CANDIDATES.find((c) => c.id === id);
+
+    // avatar = l'otto de l'équipe, recadré tête
+    const av = get(team.otto);
+    const f = av.iconFocus;
+    document.getElementById('avatar').innerHTML =
+      wrap(av.parts({ pose: 'neutral' }), { size: 268, vb: `${f.x - f.r} ${f.y - f.r} ${2 * f.r} ${2 * f.r}` });
+
+    // highlights par prénom + Start here
+    const hl = document.getElementById('highlights');
+    for (const member of ['otto', 'numa', 'vera']) {
+      const c = get(team[member]);
+      const fo = c.iconFocus;
+      hl.insertAdjacentHTML('beforeend', `
+        <div class="hl">
+          <div class="ring"><div class="inner">${wrap(c.parts({ pose: 'neutral' }), { size: 136, vb: `${fo.x - fo.r} ${fo.y - fo.r} ${2 * fo.r} ${2 * fo.r}` })}</div></div>
+          <div class="nm">${c.name.toUpperCase()}</div>
+        </div>`);
+    }
+    hl.insertAdjacentHTML('beforeend', `
+      <div class="hl">
+        <div class="ring"><div class="inner" style="display:flex;align-items:center;justify-content:center;font-family:var(--font-note);font-weight:700;font-size:40px;color:var(--orange)">Start<br>here</div></div>
+        <div class="nm">START</div>
+      </div>`);
+
+    // grille 3:4 : les rendus en situation de l'équipe + slides existantes
+    const situ = (t, n) => `/brand/character/casting/out/situ-${t}-${n}.png`;
+    const old = (n) => `/content/2026-06-11/out/slide-0${n}.png`;
+    const MAP = {
+      A: [situ('A', 'cover'), situ('A', 'tp'), old(3), old(4), old(5), situ('A', 'cta')],
+      B: [situ('B', 'cover'), situ('B', 'tp'), old(3), old(4), old(5), situ('B', 'cta')],
+      C: [situ('A', 'cover'), situ('B', 'tp'), old(3), old(4), old(5), situ('A', 'cta')],
+      D: [situ('A', 'cover'), situ('D', 'tp'), old(3), old(4), old(5), situ('A', 'cta')],
+    };
+    const grid = document.getElementById('grid');
+    for (const src of MAP[teamId]) grid.insertAdjacentHTML('beforeend', `<img src="${src}">`);
+
+    await Promise.all([...document.images].map((img) =>
+      img.complete ? null : new Promise((r) => { img.onload = r; img.onerror = r; })));
+    window.__shotReady = true;
+  </script>
+</body>
+</html>

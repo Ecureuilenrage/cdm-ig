@@ -1,0 +1,173 @@
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+body { background: #888; }
+
+.slide {
+  position: relative;
+  width: 1080px;
+  height: 1350px;
+  background: var(--paper);
+  overflow: hidden;
+  color: var(--ink);
+}
+
+.slide svg.under,
+.slide svg.over {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+.slide svg.under { z-index: 0; }
+.slide .content  { position: absolute; inset: 0; z-index: 1; }
+.slide svg.over  { z-index: 2; }
+
+.footer {
+  position: absolute;
+  z-index: 3;
+  left: var(--margin);
+  right: var(--margin);
+  bottom: 44px;
+  display: flex;
+  justify-content: space-between;
+  font-family: var(--font-note);
+  font-size: 38px;
+  color: var(--ink-soft);
+}
+
+/* ---- text roles ---- */
+.kicker {
+  font-family: var(--font-note);
+  font-size: 46px;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+.hook {
+  font-family: var(--font-title);
+  font-weight: 800;
+  font-size: 96px;
+  line-height: 1.08;
+}
+.headline {
+  font-family: var(--font-title);
+  font-weight: 700;
+  font-size: 76px;
+  line-height: 1.12;
+}
+.body-text {
+  font-family: var(--font-body);
+  font-size: 44px;
+  line-height: 1.5;
+}
+.note {
+  font-family: var(--font-note);
+  font-size: 42px;
+  line-height: 1.25;
+}
+
+.c-red    { color: var(--red); }
+.c-orange { color: var(--orange); }
+.c-blue   { color: var(--blue); }
+.c-ink    { color: var(--ink); }
+
+/* ---- cover ---- */
+.cover { position: absolute; inset: 0; padding: var(--margin); }
+.cover .kicker { margin-top: 16px; transform: rotate(-1.2deg); }
+.cover .hook { margin-top: 44px; max-width: 920px; }
+.scoreboard {
+  position: absolute;
+  left: 90px; right: 90px;
+  display: grid;
+  grid-template-columns: 1fr auto auto auto 1fr;
+  align-items: center;
+  gap: 28px;
+  padding: 38px 30px;
+}
+.scoreboard .tname {
+  font-family: var(--font-body);
+  font-size: 42px;
+  line-height: 1.15;
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+}
+.scoreboard .home { text-align: right; }
+.scoreboard .away { text-align: left; }
+.scoreboard .tscore {
+  font-family: var(--font-title);
+  font-weight: 800;
+  font-size: 120px;
+  line-height: 1;
+}
+.scoreboard .dash {
+  font-family: var(--font-title);
+  font-weight: 700;
+  font-size: 70px;
+}
+.cover-note {
+  position: absolute;
+  max-width: 430px;
+  transform: rotate(-2.5deg);
+  font-weight: 700;
+}
+.coach-spot { position: absolute; }
+
+/* ---- turning point ---- */
+.tp { position: absolute; inset: 0; padding: var(--margin); }
+.minute-badge {
+  position: absolute;
+  top: 86px; left: 86px;
+  width: 150px; height: 150px;
+  display: flex; align-items: center; justify-content: center;
+  font-family: var(--font-title);
+  font-weight: 700;
+  font-size: 58px;
+}
+.tp .kicker { position: absolute; top: 128px; left: 290px; }
+.tp .headline { position: absolute; top: 300px; left: var(--margin); max-width: 920px; }
+.tp .body-text { position: absolute; left: var(--margin); max-width: 900px; }
+.tp .annotations { position: absolute; left: var(--margin); bottom: 150px; max-width: 700px; }
+.tp .annotation { transform: rotate(-1.5deg); font-weight: 700; margin-top: 26px; }
+
+/* ---- stat card ---- */
+.stat { position: absolute; inset: 0; padding: var(--margin); text-align: center; }
+.stat .kicker { margin-top: 30px; }
+.stat .big-wrap { position: absolute; left: 0; right: 0; }
+.stat .big {
+  font-family: var(--font-title);
+  font-weight: 800;
+  line-height: 1;
+  display: inline-block;
+  padding: 30px 60px;
+}
+.stat .unit { font-family: var(--font-note); font-weight: 700; font-size: 80px; margin-top: 8px; }
+.stat .context {
+  position: absolute;
+  left: 50%; transform: translateX(-50%);
+  bottom: 170px;
+  width: 860px;
+  font-family: var(--font-body);
+  font-size: 44px;
+  line-height: 1.45;
+}
+
+/* ---- cta ---- */
+.cta { position: absolute; inset: 0; padding: var(--margin); text-align: center; }
+.cta .headline { margin-top: 90px; }
+.cta .coach-spot { position: static; margin-top: 60px; display: inline-block; }
+.cta .follow {
+  position: absolute;
+  left: 50%; transform: translateX(-50%);
+  bottom: 290px;
+  font-family: var(--font-title);
+  font-weight: 700;
+  font-size: 58px;
+  padding: 26px 54px;
+  white-space: nowrap;
+}
+.cta .note {
+  position: absolute;
+  left: 50%; transform: translateX(-50%) rotate(-1.5deg);
+  bottom: 160px;
+  width: 800px;
+  font-weight: 700;
+}

@@ -1,0 +1,58 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Le cast — planche de poses</title>
+  <link rel="stylesheet" href="/brand/tokens.css">
+  <style>
+    body { background: var(--paper); font-family: monospace; padding: 40px; }
+    h1 { margin-bottom: 4px; }
+    h2 { margin: 26px 0 6px; }
+    .row { display: flex; gap: 36px; flex-wrap: wrap; }
+    .cell { text-align: center; border: 1px dashed #ccc; padding: 14px; }
+    .small svg { width: 70px; height: auto; }
+    .icon { width: 44px; height: 44px; border-radius: 50%; border: 2px solid #999; overflow: hidden; display: inline-block; background: var(--paper); }
+  </style>
+</head>
+<body>
+  <h1>Le cast Scribble Pitch — Otto · Numa · Vera</h1>
+  <div id="board"></div>
+  <h2>Vera — humeur du carton (jaune calme / rouge fâché)</h2>
+  <div class="row" id="moods"></div>
+  <h2>Lisibilité petite taille (~70 px) + icônes de highlight (44 px)</h2>
+  <div class="row small" id="small"></div>
+  <script type="module">
+    import { analyst, analystParts, CHARACTERS, POSES } from '/brand/character/poses.js';
+
+    // recadrage tête/corps pour les icônes rondes
+    const ICON_VB = {
+      otto: '42 22 116 116',
+      numa: '26 74 148 148',
+      vera: '40 56 124 124',
+    };
+
+    const board = document.getElementById('board');
+    for (const character of CHARACTERS) {
+      const cells = POSES.map((pose) =>
+        `<div class="cell">${analyst({ character, pose, size: 240 })}<div>${pose}</div></div>`).join('');
+      board.insertAdjacentHTML('beforeend', `<h2>${character.toUpperCase()}</h2><div class="row">${cells}</div>`);
+    }
+
+    const moods = document.getElementById('moods');
+    moods.insertAdjacentHTML('beforeend',
+      `<div class="cell">${analyst({ character: 'vera', pose: 'neutral', mood: 'yellow', size: 240 })}<div>mood: yellow</div></div>
+       <div class="cell">${analyst({ character: 'vera', pose: 'neutral', mood: 'red', expression: 'angry', size: 240 })}<div>mood: red</div></div>
+       <div class="cell">${analyst({ character: 'vera', pose: 'pointing', flip: true, size: 240 })}<div>pointing flip</div></div>`);
+
+    const sm = document.getElementById('small');
+    for (const character of CHARACTERS) {
+      sm.insertAdjacentHTML('beforeend', `<div class="cell">
+        ${analyst({ character, size: 280 })}
+        <div class="icon"><svg width="44" height="44" viewBox="${ICON_VB[character]}" fill="none" stroke="#1A1A1A" stroke-width="6" stroke-linecap="round" stroke-linejoin="round">${analystParts({ character })}</svg></div>
+        <div>${character}</div>
+      </div>`);
+    }
+    window.__shotReady = true;
+  </script>
+</body>
+</html>

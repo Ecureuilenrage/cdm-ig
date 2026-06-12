@@ -1,0 +1,18 @@
+/* Scribble Pitch — design tokens
+   Une slide = UNE couleur d'accent dominante.
+   red = erreur / danger / carton · orange = mouvement / transition · blue = stat / preuve / score */
+:root {
+  --paper: #FDFDFB;
+  --ink: #1A1A1A;
+  --ink-soft: rgba(26, 26, 26, 0.55);
+  --red: #E5484D;
+  --orange: #F76B15;
+  --blue: #2563EB;
+  --yellow: #EAB308; /* réservé au carton de Vera — jamais accent de slide */
+
+  --font-title: 'Shantell Sans', cursive;
+  --font-body: 'Patrick Hand', cursive;
+  --font-note: 'Caveat', cursive;
+
+  --margin: 70px;
+}

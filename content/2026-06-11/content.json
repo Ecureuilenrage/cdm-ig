@@ -1,0 +1,94 @@
+{
+  "matchDate": "2026-06-11",
+  "title": "The 13-minute heist",
+  "slides": [
+    {
+      "type": "cover",
+      "kicker": "Matchday 1 · June 11, 2026",
+      "hook": "Down 0-1. Then Korea stole it in *13 minutes*.",
+      "score": { "home": "South Korea", "away": "Czechia", "homeGoals": 2, "awayGoals": 1 },
+      "note": "13 minutes. THIRTEEN.",
+      "pose": "shocked",
+      "accent": "orange"
+    },
+    {
+      "type": "turning-point",
+      "minute": 59,
+      "kicker": "The setup",
+      "headline": "Krejci silences Guadalajara",
+      "body": "Czechia waited a full hour to land the first punch. Krejci's goal on 59 minutes put South Korea on the wrong side of an *opening-day upset* — one goal down, half an hour to fix it.",
+      "annotations": [
+        { "text": "0-1 with 31 minutes left on the clock", "color": "red" }
+      ],
+      "pose": "neutral",
+      "expression": "angry",
+      "accent": "red"
+    },
+    {
+      "type": "turning-point",
+      "minute": 67,
+      "kicker": "The turnaround",
+      "headline": "Thirteen minutes that flipped the game",
+      "body": "Hwang In-beom levelled it on 67. Oh Hyeon-gyu finished the job on 80. Two goals in *thirteen minutes* — and a crowd that thought it was watching an upset got a comeback instead.",
+      "annotations": [
+        { "text": "67' Hwang In-beom — level", "color": "orange" },
+        { "text": "80' Oh Hyeon-gyu — ahead", "color": "orange" }
+      ],
+      "pose": "celebrating",
+      "accent": "orange"
+    },
+    {
+      "type": "stat-card",
+      "kicker": "Meanwhile at the Azteca",
+      "value": "3",
+      "unit": "red cards",
+      "context": "Mexico 2-0 South Africa opened the tournament. Goals from Quinones and Jimenez — and *three* sendings-off before the night was done.",
+      "accent": "red"
+    },
+    {
+      "type": "stat-card",
+      "kicker": "Opening night, by the numbers",
+      "value": "80,824",
+      "unit": "fans at the Azteca",
+      "context": "Quinones on 9 minutes, Jimenez on 67. Mexico eased past South Africa in front of a *packed* Estadio Azteca.",
+      "accent": "blue"
+    },
+    {
+      "type": "cta",
+      "text": "One illustrated story. *Every matchday.*",
+      "pose": "pointing",
+      "note": "Tomorrow: Canada and the USA kick off their tournament.",
+      "accent": "orange"
+    }
+  ],
+  "stories": [
+    {
+      "character": "otto",
+      "kicker": "Today's story · matchday 1",
+      "big": "Down 0-1. Then Korea stole it in *13 minutes*.",
+      "note": "Full breakdown on the board.",
+      "pose": "pointing",
+      "sticker": "[ link sticker: today's post ]",
+      "cta": "Full story → today's post"
+    },
+    {
+      "character": "numa",
+      "kicker": "Numa's number · matchday 1",
+      "mega": "80,824",
+      "unit": "fans at the Azteca on *night one*",
+      "pose": "celebrating",
+      "sticker": "[ emoji slider: “How loud?” ]",
+      "cta": "All the numbers → today's post"
+    },
+    {
+      "character": "vera",
+      "kicker": "Vera's file · matchday 1",
+      "big": "Three reds at the Azteca. Grade: *F.*",
+      "note": "Vera was seen smiling.",
+      "pose": "celebrating",
+      "mood": "red",
+      "sticker": "[ poll: “Too harsh? / Fair.” ]",
+      "cta": "The whole file → today's post"
+    }
+  ]
+}

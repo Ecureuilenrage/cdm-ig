@@ -1,0 +1,49 @@
+{
+  "matchDate": "YYYY-MM-DD",
+  "title": "",
+  "slides": [
+    {
+      "type": "cover",
+      "kicker": "Matchday N · Month D, 2026",
+      "hook": "",
+      "score": { "home": "", "away": "", "homeGoals": 0, "awayGoals": 0 },
+      "note": "",
+      "pose": "shocked",
+      "accent": "orange"
+    },
+    {
+      "type": "turning-point",
+      "minute": 0,
+      "kicker": "The setup",
+      "headline": "",
+      "body": "",
+      "annotations": [],
+      "accent": "red"
+    },
+    {
+      "type": "turning-point",
+      "minute": 0,
+      "kicker": "The turnaround",
+      "headline": "",
+      "body": "",
+      "annotations": [],
+      "pose": "celebrating",
+      "accent": "orange"
+    },
+    {
+      "type": "stat-card",
+      "kicker": "",
+      "value": "",
+      "unit": "",
+      "context": "",
+      "accent": "blue"
+    },
+    {
+      "type": "cta",
+      "text": "One illustrated story. *Every matchday.*",
+      "note": "Tomorrow: ",
+      "pose": "pointing",
+      "accent": "orange"
+    }
+  ]
+}
