@@ -12,8 +12,9 @@
 - [x] Carrousel J1 (matchs du 11 juin) rendu et vérifié — 6 slides + caption
 - [x] Compte football-data.org créé (free tier : 12 compétitions, fixtures/résultats/classements, 10 appels/min)
 - [x] Git initialisé + push vers `github.com/Ecureuilenrage/cdm-ig` (12 juin)
-- [x] Casting personnages : 20 candidats SVG prêts dans `brand/character/casting/`
-- [x] Pipeline Stories déjà entamé : `templates/story.html` + `scripts/stories.mjs`, et les 3 Stories du 11 juin sont rendues (`content/2026-06-11/out/story-0*.png`)
+- [x] **Cast VALIDÉ et intégré : Otto (orange, tacticien) / Numa (bleu, chrono/stats) / Vera (jaune→rouge, discipline)** — `poses.js` réécrit, règle "accent = personnage" dans le moteur, contenu du 11 juin re-rendu OK
+- [x] Pipeline Stories opérationnel : `npm run stories -- --date=...` (`templates/story.html` + `scripts/stories.mjs`), les 3 Stories du 11 juin sont rendues (`content/2026-06-11/out/story-0*.png`)
+- [x] Routine quotidienne enrichie dans `CLAUDE.md` : carrousel + 3-4 stories + highlights par prénom
 
 ---
 
@@ -29,14 +30,13 @@
 - [ ] **[TOI] Poster les 3 Stories du jour** (déjà rendues : `content/2026-06-11/out/story-0*.png`) — teaser juste après le post, quiz/stat ~17h30, sondage 20h-22h
 - [ ] **[CLAUDE] Vérifier que la compétition 2026 est dans les 12 compétitions du free tier** (1 appel à `/v4/competitions` avec la clé — 5 min, conditionne S2)
 
-### 🟠 13 juin (S1 : cast — LE bloqueur en cascade)
+### 🟠 13 juin (S1 : cast — ✅ FAIT à 90 %, validé le 12 juin)
 
-- [ ] **[TOI] Choisir les 3 personnages + leurs prénoms** (planches : `brand/character/casting/board.html`, `teams.html`, `meet.html`)
-- [ ] **[CLAUDE] Mettre à jour** `poses.js`, `brand/identity.md`, `content/_schema.md` (mapping rétrocompatible — ne pas casser 2026-06-11), `CLAUDE.md`
-- [ ] **[CLAUDE] Fiches personnages** : nom, couleur signature, poses, usage éditorial
-- [ ] **[ENSEMBLE] Post épinglé "Meet Scribble Pitch"** — présentation du concept + du cast (à poster dans la semaine, pas bloquant pour le quotidien)
+- [x] Cast choisi et intégré : **Otto / Numa / Vera** (poses.js, engine.js, CLAUDE.md à jour ; rétrocompatible avec 2026-06-11)
+- [ ] **[CLAUDE] Vérifier que `brand/identity.md` et `content/_schema.md` reflètent le cast** (fiches : nom, couleur, poses, usage éditorial)
+- [ ] **[ENSEMBLE] Post épinglé "Meet Scribble Pitch"** — présentation du concept + du cast (dans la semaine, pas bloquant pour le quotidien)
 
-### 🟠 13-14 juin (S2 : script fetch football-data.org)
+### 🟠 13 juin (S2 : script fetch football-data.org — avancé d'un jour, S1/S3 étant faites)
 
 - [ ] **[CLAUDE] Script `scripts/fetch.mjs`** → pré-remplit un draft `content.json` du jour
   - ⚠️ **Limite du free tier** : fixtures, résultats, classements SEULEMENT. Pas de buteurs/minutes/cartons match par match (données payantes). Le script garantit les **scores et le calendrier** ; la **recherche web du matin reste nécessaire** pour le récit (buteurs, minutes, bascule — 2 sources).
@@ -44,14 +44,13 @@
   - À tester : l'endpoint `/scorers` (top buteurs agrégés) — utilisable pour des stat-cards
 - [ ] **[CLAUDE] Buffer de secours** : pré-rendre 1-2 posts evergreen "Did you know?" pour les matins qui sautent
 
-### 🟡 14-15 juin (S3 : Stories — finaliser, le gros est déjà fait)
+### 🟡 14-15 juin (S3 : Stories — ✅ pipeline FAIT, reste tes actions)
 
-- [x] Template Stories 1080×1920 (`templates/story.html`) + script (`scripts/stories.mjs`) — Stories du 11 juin déjà rendues
-- [ ] **[CLAUDE] Intégrer les Stories à la routine quotidienne** (rendues en même temps que le carrousel chaque matin)
-- [ ] **[TOI] Valider la routine Stories sur un jour réel** (voir section Récurrent)
-- [ ] **[TOI] Créer 3-4 highlights max + "Start here"** (covers possibles seulement après S1 — les noms ≤ 10 caractères)
+- [x] Template 1080×1920 + `npm run stories -- --date=...` opérationnel, routine intégrée à CLAUDE.md
+- [ ] **[TOI] Valider la routine Stories sur un jour réel** (stickers sondage/quiz posés à la main dans l'app)
+- [ ] **[TOI] Créer les highlights OTTO / NUMA / VERA / START** (covers aux prénoms, ≤ 10 caractères)
 
-### 🟡 15-17 juin (S4 : Wall Chart Gumroad — deadline dure : en vente le 18 juin)
+### 🟡 14-16 juin (S4 : Wall Chart Gumroad — deadline dure : en vente le 18 juin)
 
 - [ ] **[ENSEMBLE] Concevoir le produit** : PDF A2, bracket 48 équipes, grammaire rough.js, mécanique de mise à jour des scores au fil du tournoi (l'acheteur reçoit les mises à jour)
 - [ ] **[TOI] Compte Gumroad** + page produit (7-9 $, disclaimer, titre SANS "FIFA"/"World Cup")
