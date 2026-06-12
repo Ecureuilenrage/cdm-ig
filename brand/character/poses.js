@@ -224,12 +224,31 @@ function vera({ pose, expression, mood }) {
   return body + arms + legs;
 }
 
+// ---------------------------------------------------------------- GUEST
+// Slot "invité" : silhouette en pointillés, remplacée par le vrai rig le
+// jour où un guest du vivier casting (ex. Scout) est casté. Hors du cast
+// officiel : absent de DRAW/CHARACTERS, accessible via character:"guest".
+function guest() {
+  const soft = 'rgba(26,26,26,.45)';
+  return `<g stroke="${soft}" stroke-dasharray="1 11">
+    <circle cx="100" cy="80" r="40" fill="${PAPER}" />
+    <path d="M 100 120 C 99 142 101 168 100 196" />
+    <path d="M 100 136 C 88 144 78 156 72 170" />
+    <path d="M 100 136 C 112 144 122 156 128 170" />
+    <path d="M 100 196 C 96 216 89 234 84 252" />
+    <path d="M 100 196 C 104 216 111 234 116 252" />
+  </g>
+  <text x="100" y="97" text-anchor="middle" font-family="'Shantell Sans', cursive"
+        font-weight="800" font-size="46" fill="${soft}" stroke="none">?</text>`;
+}
+
 // ---------------------------------------------------------------- API
 const DRAW = { otto, numa, vera };
 
 // Markup interne sans <svg> (viewBox 0 0 200 280) — pour recadrages (icônes rondes).
 export function analystParts({ character = 'otto', pose = 'neutral', expression, mood } = {}) {
-  return (DRAW[character] || otto)({ pose, expression, mood });
+  const draw = character === 'guest' ? guest : DRAW[character] || otto;
+  return draw({ pose, expression, mood });
 }
 
 export function analyst({
@@ -240,7 +259,7 @@ export function analyst({
   size = 280,
   flip = false,
 } = {}) {
-  const inner = (DRAW[character] || otto)({ pose, expression, mood });
+  const inner = analystParts({ character, pose, expression, mood });
   const w = Math.round(size * (200 / 280));
   return `
 <svg width="${w}" height="${size}" viewBox="0 0 200 280" fill="none"

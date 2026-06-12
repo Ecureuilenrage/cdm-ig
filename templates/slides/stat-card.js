@@ -13,7 +13,7 @@ export function render(slide, ctx) {
         <div class="big txt" id="big" style="font-size: ${size}px;">${esc(v)}</div>
         <div class="unit txt c-${accent}">${esc(slide.unit)}</div>
       </div>
-      <div class="context txt">${md(slide.context)}</div>
+      <div class="context txt${slide.pose ? ' has-coach' : ''}">${md(slide.context)}</div>
       ${slide.pose ? `<div class="coach-spot" id="coach" style="position:absolute; left: 80px; bottom: 130px;">${ctx.coach({ pose: slide.pose, expression: slide.expression, size: 210 })}</div>` : ''}
     </div>`;
 

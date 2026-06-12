@@ -27,11 +27,13 @@ Chaque slide a un `accent` (`"red"` | `"orange"` | `"blue"`) — UNE couleur dom
 
 **Le personnage est déduit de l'accent** : `orange` → Otto (tacticien), `blue` → Numa (chrono), `red` → Vera (carton). Champs optionnels par slide :
 
-- `character` : `"otto"` | `"numa"` | `"vera"` — force un personnage malgré l'accent (rare).
+- `character` : `"otto"` | `"numa"` | `"vera"` — force un personnage malgré l'accent (rare) — ou `"guest"` : slot invité (silhouette en pointillés, vivier casting). Avec `"guest"`, l'accent n'est pas déductible : le préciser explicitement.
 - `mood` : `"yellow"` | `"red"` — Vera uniquement. Défaut : jaune ; passe automatiquement au rouge si `expression: "angry"` ou `pose: "dejected"`. Forcer `"red"` pour un carton rouge avec un visage non fâché (ex. Vera ravie d'un match à 3 rouges).
 - `pose` : `neutral` | `pointing` | `shocked` | `celebrating` | `dejected` — `expression` : `neutral` | `shocked` | `happy` | `angry` | `sad`.
 
-Compatibilité : le contenu écrit avant le cast (2026-06-11) rend tel quel — mêmes noms de poses/expressions, le personnage vient de l'accent. La CTA reste orange → Otto, c'est la signature.
+Compatibilité : le contenu écrit avant le cast (2026-06-11) rend tel quel — mêmes noms de poses/expressions, le personnage vient de l'accent.
+
+**Signature du jour** : la slide CTA et la **dernière story** sont signées par le même personnage, **choisi selon le fait marquant du jour** (gros carton → Vera, stat/record → Numa, bascule tactique → Otto). Sur la CTA, c'est l'`accent` qui le désigne (orange/blue/red) ; les semaines à invité, `character: "guest"`.
 
 ## Types de slides
 
@@ -77,6 +79,11 @@ Le hook doit tenir en 3 lignes max (≈ 34 caractères/ligne en 96px).
   "note": "Tomorrow: …  (teaser du lendemain)",
   "pose": "pointing", "accent": "orange" }
 ```
+L'`accent` désigne le personnage signature du jour (voir « Signature du jour »). La box `Follow @scribblepitch` et la ligne `newsletter → link in bio` sont automatiques (demande complète) — ne pas les dupliquer dans `text`/`note`.
+
+## Footer & micro-CTA (automatiques — rien à écrire dans le JSON)
+
+Le moteur pose sur chaque slide un footer 3 zones : `@scribblepitch` | **UNE micro-demande en rotation** par index de slide (`follow for the next one` → `save this for later` → `share it with a fan` → `newsletter → link in bio`, en boucle) | `N / M`. La slide CTA n'a pas de micro-ask : son corps porte la demande complète.
 
 ## stories (racine, optionnel mais attendu chaque jour)
 
@@ -94,6 +101,8 @@ Le hook doit tenir en 3 lignes max (≈ 34 caractères/ligne en 96px).
 ```
 
 Gabarits quotidiens : **teaser** (otto, big = le hook de la cover, juste après le post), **Numa's number** (mega + slider), **Vera's file** (big + note + poll). Hot take 2-3×/semaine.
+
+La **dernière story du jour** est signée par le personnage signature — le même que la slide CTA du carrousel (`character: "guest"` + `accent` explicite les semaines à invité).
 
 ## caption.txt
 

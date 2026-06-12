@@ -1,0 +1,145 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Meet Scribble Pitch — post épinglé (?slide=1..5)</title>
+  <link rel="stylesheet" href="/templates/fonts/fonts.css">
+  <link rel="stylesheet" href="/brand/tokens.css">
+  <style>
+    * { box-sizing: border-box; margin: 0; }
+    body { background: #888; }
+    .slide { position: relative; width: 1080px; height: 1350px; background: var(--paper); overflow: hidden; color: var(--ink); }
+    svg.under, svg.over { position: absolute; inset: 0; pointer-events: none; }
+    .content { position: absolute; inset: 0; z-index: 1; padding: var(--margin); }
+    svg.over { z-index: 2; }
+    .footer { position: absolute; z-index: 3; left: var(--margin); right: var(--margin); bottom: 44px;
+      display: flex; justify-content: space-between; font-family: var(--font-note); font-size: 38px; color: var(--ink-soft); }
+    .kicker { font-family: var(--font-note); font-size: 46px; font-weight: 700; text-transform: uppercase;
+      letter-spacing: .04em; transform: rotate(-1.2deg); margin-top: 16px; }
+    h1 { font-family: var(--font-title); font-weight: 800; font-size: 92px; line-height: 1.08; margin-top: 40px; }
+    .body-text { font-family: var(--font-body); font-size: 44px; line-height: 1.5; margin-top: 44px; max-width: 540px; }
+    /* cover */
+    .team { position: absolute; left: var(--margin); right: var(--margin); bottom: 330px;
+      display: flex; justify-content: space-around; align-items: flex-end; }
+    .member { text-align: center; }
+    .member .nm { font-family: var(--font-title); font-weight: 700; font-size: 44px; margin-top: 14px; }
+    .member .role { font-family: var(--font-note); font-weight: 700; font-size: 36px; margin-top: 34px; }
+    .footer-note { position: absolute; left: 0; right: 0; bottom: 150px; text-align: center;
+      font-family: var(--font-note); font-weight: 700; font-size: 44px; transform: rotate(-1.2deg); }
+    /* slides personnage */
+    .char { position: absolute; right: 60px; bottom: 320px; }
+    .ritual { position: absolute; left: calc(var(--margin) + 20px); bottom: 430px;
+      font-family: var(--font-note); font-weight: 700; font-size: 44px; max-width: 560px; }
+    .quote { position: absolute; left: var(--margin); bottom: 200px; max-width: 620px;
+      font-family: var(--font-note); font-weight: 700; font-size: 48px; line-height: 1.25; transform: rotate(-2deg); }
+    /* cta */
+    .cta { text-align: center; }
+    .cta h1 { margin-top: 90px; }
+    .trio { display: flex; justify-content: center; align-items: flex-end; gap: 56px; margin-top: 80px; }
+    .follow { position: absolute; left: 50%; transform: translateX(-50%); bottom: 330px;
+      font-family: var(--font-title); font-weight: 700; font-size: 58px; padding: 26px 54px; white-space: nowrap; }
+    .newsletter { position: absolute; left: 50%; transform: translateX(-50%); bottom: 250px;
+      font-family: var(--font-note); font-weight: 700; font-size: 40px; white-space: nowrap; }
+    .c-red { color: var(--red); } .c-orange { color: var(--orange); }
+    .c-blue { color: var(--blue); } .c-ink { color: var(--ink); }
+  </style>
+</head>
+<body>
+  <div class="slide" id="slide">
+    <svg class="under" width="1080" height="1350" viewBox="0 0 1080 1350"></svg>
+    <div class="content" id="content"></div>
+    <svg class="over" width="1080" height="1350" viewBox="0 0 1080 1350"></svg>
+    <div class="footer"><span>@scribblepitch</span><span id="page"></span></div>
+  </div>
+  <script type="module">
+    import { createKit, hashSeed, esc, md } from '/templates/lib/slide-kit.js';
+    import { analyst } from '/brand/character/poses.js';
+
+    const CAST = [
+      { key: 'otto', name: 'OTTO', accent: 'orange', pose: 'pointing', role: 'draws it',
+        title: 'Otto. *The tactician.*',
+        body: 'How did the match flip? Otto draws it on the board — the runs, the gaps, the exact moment it broke.',
+        ritual: "Otto's Board — one prediction, every matchday.",
+        quote: '“It was the full-back. It’s always the full-back.”' },
+      { key: 'numa', name: 'NUMA', accent: 'blue', pose: 'neutral', role: 'counts it',
+        title: 'Numa. *The numbers.*',
+        body: 'Records, crowds, streaks. If it can be counted, Numa has already counted it. Twice.',
+        ritual: "Numa's Number — ONE number a day.",
+        quote: '“Fact-checked. Under protest.”' },
+      { key: 'vera', name: 'VERA', accent: 'red', pose: 'neutral', role: 'files it',
+        title: 'Vera. *The discipline.*',
+        body: 'Cards, VAR, collapses. Stern on the surface — and secretly delighted when it all goes wrong.',
+        ritual: "Vera's File — discipline, graded daily.",
+        quote: '“Grade: F. …Don’t ask why I’m smiling.”' },
+    ];
+
+    const params = new URLSearchParams(location.search);
+    const idx = parseInt(params.get('slide') || '1', 10);
+    const COUNT = 5;
+
+    await Promise.all([
+      document.fonts.load('800 92px "Shantell Sans"'),
+      document.fonts.load('700 58px "Shantell Sans"'),
+      document.fonts.load('700 44px "Shantell Sans"'),
+      document.fonts.load('400 44px "Patrick Hand"'),
+      document.fonts.load('700 46px "Caveat"'),
+    ]);
+    await document.fonts.ready;
+
+    const content = document.getElementById('content');
+    const slideEl = document.getElementById('slide');
+    document.getElementById('page').textContent = `${idx} / ${COUNT}`;
+    const kit = createKit({
+      svgUnder: slideEl.querySelector('svg.under'),
+      svgOver: slideEl.querySelector('svg.over'),
+      slideEl,
+      seed: hashSeed(`meet#${idx}`),
+    });
+
+    if (idx === 1) {
+      // Cover — le panel. Orange domine ; les 3 couleurs seulement sur les noms.
+      content.innerHTML = `
+        <div class="kicker c-orange">Scribble Pitch · the panel</div>
+        <h1>One match. *Three verdicts.*</h1>
+        <div class="team">
+          ${CAST.map((c) => `
+            <div class="member">
+              ${analyst({ character: c.key, pose: c.pose, size: 300 })}
+              <div class="nm" id="nm-${c.key}">${c.name}</div>
+              <div class="role c-${c.accent}">${c.role}</div>
+            </div>`).join('')}
+        </div>
+        <div class="footer-note c-orange">One illustrated story, every matchday.</div>`;
+      content.querySelector('h1').innerHTML = md('One match. *Three verdicts.*');
+      kit.underlineAll(content, 'orange');
+      for (const c of CAST) kit.circle(`#nm-${c.key}`, { color: c.accent, padX: 34, padY: 18 });
+    } else if (idx >= 2 && idx <= 4) {
+      const c = CAST[idx - 2];
+      content.innerHTML = `
+        <div class="kicker c-${c.accent}">The panel · ${idx - 1} of 3</div>
+        <h1>${md(c.title)}</h1>
+        <p class="body-text">${esc(c.body)}</p>
+        <div class="char">${analyst({ character: c.key, pose: c.pose, size: 500 })}</div>
+        <div class="ritual" id="ritual">${esc(c.ritual)}</div>
+        <div class="quote c-${c.accent}">${esc(c.quote)}</div>`;
+      kit.underlineAll(content, c.accent);
+      kit.box('#ritual', { pad: 24, color: c.accent, strokeWidth: 5 });
+    } else {
+      // CTA — demande complète (follow + newsletter), comme la slide cta quotidienne.
+      content.innerHTML = `
+        <div class="cta">
+          <h1>${md('One illustrated story. *Every matchday.*')}</h1>
+          <div class="trio">
+            ${CAST.map((c) => analyst({ character: c.key, pose: c.key === 'otto' ? 'pointing' : 'celebrating', size: 280 })).join('')}
+          </div>
+          <div class="follow" id="follow">Follow @scribblepitch</div>
+          <div class="newsletter c-orange">newsletter → link in bio</div>
+        </div>`;
+      kit.underlineAll(content, 'orange');
+      kit.box('#follow', { pad: 22, color: 'orange', strokeWidth: 5 });
+    }
+
+    window.__shotReady = true;
+  </script>
+</body>
+</html>

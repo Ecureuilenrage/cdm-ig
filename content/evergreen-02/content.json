@@ -1,0 +1,41 @@
+{
+  "matchDate": "evergreen",
+  "title": "Did you know? — the Battle of Nuremberg",
+  "slides": [
+    {
+      "type": "stat-card",
+      "kicker": "Did you know? · Nuremberg, 2006",
+      "value": "20",
+      "unit": "cards in one match",
+      "context": "Portugal vs Netherlands, round of 16. Sixteen yellows, *four reds* — the angriest game ever played at this level.",
+      "pose": "shocked",
+      "accent": "red"
+    },
+    {
+      "type": "stat-card",
+      "kicker": "The referee's night",
+      "value": "4",
+      "unit": "red cards — still the record",
+      "context": "Referee Valentin Ivanov sent four players off. No match on this stage has *come close* since.",
+      "pose": "celebrating",
+      "mood": "red",
+      "accent": "red"
+    },
+    {
+      "type": "stat-card",
+      "kicker": "And the football?",
+      "value": "1–0",
+      "unit": "Maniche, 23rd minute",
+      "context": "Somewhere inside the chaos, Portugal won it with *one clean strike* before half-time.",
+      "accent": "red"
+    },
+    {
+      "type": "cta",
+      "text": "One illustrated story. *Every matchday.*",
+      "note": "Vera grades discipline daily. Imagine her 2006 file.",
+      "pose": "celebrating",
+      "mood": "red",
+      "accent": "red"
+    }
+  ]
+}

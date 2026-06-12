@@ -31,6 +31,17 @@ try {
   ]);
   await document.fonts.ready;
 
+  // Micro-CTA (spec 12/06) : UNE micro-demande par slide, en rotation sur le
+  // carrousel — sauf la slide CTA finale, dont le corps porte la demande
+  // complète (follow + newsletter) : son footer reste handle + pagination.
+  const MICRO_ASKS = [
+    'follow for the next one',
+    'save this for later',
+    'share it with a fan',
+    'newsletter → link in bio',
+  ];
+  const microAsk = slide.type === 'cta' ? '' : MICRO_ASKS[(idx - 1) % MICRO_ASKS.length];
+
   const stage = document.getElementById('stage');
   stage.innerHTML = `
     <div class="slide" id="slide">
@@ -39,6 +50,7 @@ try {
       <svg class="over" width="${W}" height="${H}" viewBox="0 0 ${W} ${H}"></svg>
       <div class="footer">
         <span>${HANDLE}</span>
+        ${microAsk ? `<span class="micro-ask">${esc(microAsk)}</span>` : ''}
         <span>${idx} / ${doc.slides.length}</span>
       </div>
     </div>`;

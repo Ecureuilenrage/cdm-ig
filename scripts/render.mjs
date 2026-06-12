@@ -17,9 +17,10 @@ const args = Object.fromEntries(
   })
 );
 
+// --date : un jour YYYY-MM-DD ou un nom de dossier evergreen (ex. evergreen-01)
 const date = args.date;
-if (!date || !/^\d{4}-\d{2}-\d{2}$/.test(date)) {
-  console.error('Usage: node scripts/render.mjs --date=YYYY-MM-DD [--slide=N]');
+if (!date || !/^[a-z0-9][a-z0-9-]*$/i.test(date)) {
+  console.error('Usage: node scripts/render.mjs --date=YYYY-MM-DD|nom-dossier [--slide=N]');
   process.exit(1);
 }
 

@@ -1,0 +1,39 @@
+{
+  "matchDate": "evergreen",
+  "title": "Did you know? — Fontaine's 13",
+  "slides": [
+    {
+      "type": "stat-card",
+      "kicker": "Did you know? · Sweden, 1958",
+      "value": "13",
+      "unit": "goals in one tournament",
+      "context": "Just Fontaine, France, 1958. Thirteen goals in *six games* — and the record still stands.",
+      "pose": "shocked",
+      "accent": "blue"
+    },
+    {
+      "type": "stat-card",
+      "kicker": "The closest anyone got",
+      "value": "10",
+      "unit": "Gerd Müller, 1970",
+      "context": "Sixty-eight years of strikers since — and *nobody* has come within three goals of Fontaine's run.",
+      "accent": "blue"
+    },
+    {
+      "type": "stat-card",
+      "kicker": "One more thing",
+      "value": "0",
+      "unit": "boots of his own",
+      "context": "Fontaine's boot broke before the tournament. He scored all thirteen in a *borrowed pair*.",
+      "pose": "celebrating",
+      "accent": "blue"
+    },
+    {
+      "type": "cta",
+      "text": "One illustrated story. *Every matchday.*",
+      "note": "Numa counts. You enjoy.",
+      "pose": "pointing",
+      "accent": "blue"
+    }
+  ]
+}

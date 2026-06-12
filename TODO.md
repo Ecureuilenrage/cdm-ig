@@ -26,39 +26,42 @@
 - [x] Clé API football-data dans `.env` (gitignoré, header `X-Auth-Token`) — **compétition `WC` (FIFA World Cup) confirmée dans le free tier** ✅
 - [x] **[TOI] Ouvrir Beehiiv** : créer la publication + activer la page d'inscription hébergée → **c'est le link in bio jour 1** (dernier compte manquant)
 - [x] **Assets Beehiiv générés** (12/06 soir) : `brand/assets/out/logo-1024.png` (carré, tête d'Otto — logo de publication + favicon + mobile app icon) et `brand/assets/out/thumbnail-1200x630.png` (default thumbnail / og-image). Sources `brand/assets/logo.html` + `thumb.html`, re-rendables via `npm run shoot`. Logo provisoire : le logotype final reste un item post-J1.
-- [ ] **[TOI] Uploader les 2 assets dans Beehiiv** (Settings → logo, favicon/app icon, default thumbnail) — et utiliser le même `logo-1024.png` en avatar IG pour la cohérence
-- [ ] ~~Poster le 12 entre 15h-17h~~ **manqué (constaté à 21h)** → rattrapage le 13, voir ci-dessous. Pas grave : le compte vient d'être créé, personne n'attendait.
+- [x] **[TOI] Uploader les 2 assets dans Beehiiv** (Settings → logo, favicon/app icon, default thumbnail) — et utiliser le même `logo-1024.png` en avatar IG pour la cohérence
+- [x] ~~Poster le 12 entre 15h-17h~~ manqué → **rattrapé le 12 au soir : post "Meet Scribble Pitch" publié** (mini-carrousel 5 slides, `brand/meet/out/`). Le compte démarre sur la présentation du cast ; les carrousels de matchs partent le 13.
+- [ ] **[TOI] Ce soir, une seule action restante : reshare du post Meet en story** (reshare natif IG, pas de visuel à rendre) — puis **épingler le post Meet** en haut du profil si pas déjà fait. Les stories rendues du J1 teasent "today's post" → elles partent le 13 avec le carrousel, pas ce soir.
 
-### 🔴 13 juin — rattrapage J1 + jour 2 (la vraie journée de lancement)
+### 🔴 13 juin — double post : carrousel J1 (matchs du 11) + jour 2 (matchs du 12)
 
-- [ ] **[CLAUDE] Matin : retouches templates** (S1bis ci-dessous) — à faire AVANT le rendu du jour
-- [ ] **[CLAUDE] Matin : carrousel + stories des matchs du 12** (routine normale)
-- [ ] **[TOI] ~11h-12h : poster le carrousel J1 (matchs du 11)** en post de lancement — option : l'accompagner de la slide cast `brand/character/casting/out/meet-C.png` ("One match. Three verdicts.")
+- [x] **[CLAUDE] Matin : retouches templates** (S1bis ci-dessous) — ✅ faites le 12 au soir, rien à refaire
+- [ ] **[CLAUDE] Matin : carrousel + stories des matchs du 12** (routine normale, commencer par `npm run fetch -- --date=2026-06-12`)
+- [ ] **[TOI] ~11h-12h : poster le carrousel J1 (matchs du 11)** — **prêt tel quel** : re-rendu le 12 au soir avec les nouveaux footers micro-CTA, slide CTA re-teasée "Day 2 — Canada and the USA's openers — drops this afternoon." Story teaser J1 (`story-01.png`) juste après le post.
 - [ ] **[TOI] 15h-17h : poster le carrousel du 12** (le frais) + routine stories (teaser juste après, quiz ~17h30, sondage 20h-22h)
-- [ ] **[TOI] Créer les highlights OTTO / NUMA / VERA / START** et y épingler la meilleure story
+- [ ] **[TOI] Créer les highlights OTTO / NUMA / VERA / START** et y épingler la meilleure story (le reshare du post Meet a sa place dans START)
 - [ ] **[TOI] Beehiiv** si pas fait la veille → lien en bio
 
-### 🟠 13 juin matin (S1bis : retouches templates demandées le 12/06) — [CLAUDE]
+### 🟠 13 juin matin (S1bis : retouches templates demandées le 12/06) — ✅ FAIT le 12/06 au soir
 
-- [ ] **Micro-CTA sur chaque slide** (spec validée 12/06) : en plus du tagline "one illustrated story every matchday", chaque slide porte UNE micro-demande dans le footer, **en rotation sur le carrousel** pour couvrir tous les asks sans surcharger : follow → like/save → share/repost → "newsletter, link in bio". La slide CTA finale garde la demande complète (follow + newsletter). Une seule demande par slide, zone footer uniquement.
-- [ ] **Rotation du personnage signature** sur la slide CTA et la dernière story : UN personnage par jour (pas le trio, pas Otto fixe) + **slot "invité"** (placeholder) pour les guests du vivier casting (ex. Scout)
-  - ⚠️ Conflit doc : `identity.md` dit "Otto signe la CTA chaque jour" → trancher d'abord (reco : rotation pilotée par le contenu du jour, Otto reste l'avatar — voir Décision 7 du BACKLOG)
-- [ ] Mettre à jour `identity.md` + `_schema.md` une fois la règle tranchée
+- [x] **Micro-CTA sur chaque slide** : footer 3 zones (`@scribblepitch` | micro-ask centrée | `N/M`), rotation par index de slide : "follow for the next one" → "save this for later" → "share it with a fan" → "newsletter → link in bio". La slide CTA garde la demande complète (box Follow + ligne "newsletter → link in bio" automatiques) et n'a pas de micro-ask au footer. Carrousel 2026-06-11 re-rendu et vérifié.
+- [x] **Rotation du personnage signature** — **Décision 7 ACTÉE (12/06) : rotation pilotée par le contenu** (gros carton → Vera, stat/record → Numa, bascule tactique → Otto ; Otto reste l'avatar). Sur la CTA, l'`accent` désigne le signataire ; la dernière story porte le même personnage. **Slot invité** : `character: "guest"` → silhouette en pointillés (poses.js), accent explicite requis ; le vrai rig viendra du vivier casting le moment venu.
+- [x] `identity.md` + `_schema.md` + `CLAUDE.md` mis à jour avec la règle
 
 ### 🟠 13 juin (S1 : cast — ✅ FAIT à 90 %, validé le 12 juin)
 
 - [x] Cast choisi et intégré : **Otto / Numa / Vera** (poses.js, engine.js, CLAUDE.md à jour ; rétrocompatible avec 2026-06-11)
-- [ ] **[CLAUDE] Vérifier que `brand/identity.md` et `content/_schema.md` reflètent le cast** (fiches : nom, couleur, poses, usage éditorial)
-- [ ] **[ENSEMBLE] Post épinglé "Meet Scribble Pitch"** — présentation du concept + du cast (dans la semaine, pas bloquant pour le quotidien)
+- [x] **[CLAUDE] Vérifier que `brand/identity.md` et `content/_schema.md` reflètent le cast** ✅ (12/06 : fiches nom/couleur/spécialité/voix dans identity.md, poses/expressions/mood + mapping accent→personnage dans _schema.md ; règle de signature et slot guest ajoutés des deux côtés)
+- [x] **[ENSEMBLE] Post épinglé "Meet Scribble Pitch"** — partie [CLAUDE] ✅ FAITE (12/06 soir) : mini-carrousel 5 slides rendu dans `brand/meet/out/meet-01..05.png` (cover trio "One match. Three verdicts." → fiche Otto → Numa → Vera, avec rituel encadré + réplique → CTA complète) + `brand/meet/caption.txt` (caption + alt-texts). Source re-rendable : `brand/meet/meet.html?slide=N` via `npm run shoot`. **Posté le 12/06 au soir ✅ — reste : l'épingler en haut du profil + reshare en story.**
 
-### 🟠 13 juin (S2 : script fetch football-data.org — avancé d'un jour, S1/S3 étant faites)
+### 🟠 13 juin (S2 : script fetch football-data.org — script ✅ FAIT le 12/06 au soir)
 
-- [ ] **[CLAUDE] Script `scripts/fetch.mjs`** → pré-remplit un draft `content.json` du jour
-  - ⚠️ **Limite du free tier** : fixtures, résultats, classements SEULEMENT. Pas de buteurs/minutes/cartons match par match (données payantes). Le script garantit les **scores et le calendrier** ; la **recherche web du matin reste nécessaire** pour le récit (buteurs, minutes, bascule — 2 sources).
-  - Clé : `.env` → `FOOTBALL_DATA_KEY` ✅ en place ; header HTTP `X-Auth-Token` ; compétition code `WC`
-  - **S'auto-throttler en lisant les headers de réponse** (`X-Requests-Available-Minute`…) — recommandation explicite de football-data, ne pas compter "10/min" à l'aveugle ; cache des réponses dans `data/raw/` (déjà gitignoré)
-  - À tester : l'endpoint `/scorers` (top buteurs agrégés) — utilisable pour des stat-cards
-- [ ] **[CLAUDE] Buffer de secours** : pré-rendre 1-2 posts evergreen "Did you know?" pour les matins qui sautent
+- [x] **[CLAUDE] Script `scripts/fetch.mjs`** (`npm run fetch -- [--date=YYYY-MM-DD] [--scorers]`) ✅ testé sur les matchs réels du 11/06 :
+  - Briefing console (résultats du jour + fixtures du lendemain) + draft `content/<date>/content.json` pré-rempli (cover avec le match le plus prolifique, stat-cards des autres scores, teaser "Tomorrow:", squelette stories) — **n'écrase jamais** un content.json existant (écrit `content.draft.json` à côté)
+  - Auto-throttling par lecture des headers (`X-Requests-Available-Minute`, `X-RequestCounter-Reset`, retry sur 429) + cache 10 min dans `data/raw/`
+  - **Jour éditorial** : un coup d'envoi est rattaché au jour J si `utcDate - 8h` tombe le J (les matchs du soir US/MX débordent sur J+1 en UTC — vérifié : Korea–Czechia 02:00 UTC le 12 → rattaché au 11)
+  - `/scorers` testé ✅ : **fonctionne en free tier** (buts + passes agrégés tournoi) — exploitable pour des stat-cards
+- [x] **[CLAUDE] Buffer de secours** ✅ (12/06 soir) : 2 posts evergreen "Did you know?" rendus et prêts à poster (faits vérifiés multi-sources, captions + alt-texts inclus) :
+  - `content/evergreen-01/` — **Fontaine 1958** : 13 buts en 6 matchs, record intouché (Müller 10 en 1970), chaussures empruntées — signé Numa (bleu)
+  - `content/evergreen-02/` — **Battle of Nuremberg 2006** : 20 cartons (16 J + 4 R, record), Ivanov, Portugal 1–0 Maniche 23e — signé Vera (rouge, carton rouge)
+  - `npm run render -- --date=evergreen-0N` (la validation `--date` accepte désormais les noms de dossier) ; pas de "World Cup" sur les visuels (règle légale respectée)
 
 ### 🟡 14-15 juin (S3 : Stories — ✅ pipeline FAIT, reste tes actions)
 
@@ -96,13 +99,13 @@
 
 ### Chaque matin de match (~1-2h) — [CLAUDE] avec ta relecture
 
-1. (Dès S2 : lancer le script fetch → scores garantis)
+1. `npm run fetch -- --date=<date>` → briefing + draft content.json (scores garantis)
 2. Recherche web des recaps de la veille — **chaque fait vérifié sur 2 sources**, surtout les minutes de buts
-3. Choisir l'angle : **UN match vedette** (cover + 2 turning-points) + le reste en stat-cards
-4. `content/_template.json` → `content/<date>/content.json` + `caption.txt` (caption + alt-texts)
+3. Choisir l'angle : **UN match vedette** (cover + 2 turning-points) + le reste en stat-cards, et le **personnage signature du jour** (carton → Vera, record → Numa, tactique → Otto) pour la CTA + dernière story
+4. Compléter le draft + `caption.txt` (caption + alt-texts)
 5. `npm run render -- --date=<date>` — corriger les overflows en RACCOURCISSANT le texte
-6. Contrôle visuel des PNG : hook lisible, 1 accent/slide, footer, coach sans collision
-7. (Dès S3 : rendre les Stories du jour en même temps)
+6. Contrôle visuel des PNG : hook lisible, 1 accent/slide, footer (handle · micro-ask · N/M), personnage sans collision
+7. Rendre les Stories du jour en même temps (`npm run stories`)
 
 ### Chaque après-midi/soir (~20 min) — [TOI]
 

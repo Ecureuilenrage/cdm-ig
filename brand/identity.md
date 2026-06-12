@@ -19,7 +19,7 @@
 | **NUMA** | le chronomètre | bleu | les nombres : records, affluences, séries | factuel, fact-checke tout le monde ("under protest") |
 | **VERA** | le carton sur pattes | rouge | la discipline : cartons, VAR, effondrements | sévère en façade, adore secrètement le chaos |
 
-- Otto signe la **CTA chaque jour** (la signature ne bouge jamais) et l'avatar du compte.
+- **Signature du jour** (slide CTA + dernière story) : **rotation pilotée par le contenu** — le personnage du fait marquant du jour signe (gros carton → Vera, stat/record → Numa, bascule tactique → Otto). Otto reste **l'avatar et le visage officiel** du compte. Les semaines à invité, un **slot guest** (`character: "guest"`, silhouette en pointillés) remplace le personnage du jour — vivier : `brand/character/casting/` (ex. Scout). [Décision 7, actée le 12/06]
 - Le carton de Vera est **jaune** au repos et **vire au rouge** quand le match dérape (expression `angry`, pose `dejected`, ou `mood` explicite). Le jaune #EAB308 est une couleur de personnage, **jamais un accent de slide**.
 - Rituels : *Otto's Board* (la prédiction), *Numa's Number* (UN chiffre par jour), *Vera's File* (la note de discipline en lettre). L'absence d'un personnage se joue en gag ("Day off for Vera.").
 - Source de vérité visuelle : `brand/character/poses.js` (`analyst({character, pose, expression, mood})`), planche : `brand/character/preview.html`.
@@ -34,6 +34,7 @@
 - **Une slide = UNE couleur d'accent.** Jamais les trois à parts égales.
 - Typo : Shantell Sans (titres), Patrick Hand (corps), Caveat (annotations manuscrites).
 - Beaucoup d'espace blanc. Si une slide semble pleine, couper du texte, pas réduire la police.
+- **Footer & micro-CTA** (spec 12/06) : chaque slide porte `@scribblepitch` | **UNE micro-demande en rotation** (follow for the next one → save this for later → share it with a fan → newsletter → link in bio) | pagination `N / M`. **Une seule demande par slide, zone footer uniquement.** La slide CTA finale porte la demande complète dans son corps (box Follow + ligne newsletter) — son footer n'a pas de micro-ask.
 
 ## Règles légales (NON NÉGOCIABLES)
 

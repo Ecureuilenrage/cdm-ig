@@ -98,8 +98,9 @@
 
 ### Idées ajoutées le 12/06 au soir
 - [ ] **Micro-CTA sur chaque slide** — footer enrichi, validé 12/06 : UNE micro-demande par slide en rotation sur le carrousel (follow → like/save → share/repost → "newsletter, link in bio"), en plus du tagline "one illustrated story every matchday" ; la slide CTA finale garde la demande complète ; rester discret, l'espace blanc prime (règle de la charte)
-- [ ] **Rotation du personnage signature** — sur la slide CTA et la dernière story : UN personnage par jour (rotation Otto/Numa/Vera) au lieu du trio ou d'Otto fixe ; prévoir un **slot invité** (placeholder) pour accueillir un personnage du vivier casting (ex. Scout en semaine 3)
-  - ⚠️ En conflit avec la règle actuelle d'`identity.md` ("Otto signe la CTA chaque jour") → voir Décision 7
+- [x] **Rotation du personnage signature** — sur la slide CTA et la dernière story : UN personnage par jour (rotation Otto/Numa/Vera) au lieu du trio ou d'Otto fixe ; prévoir un **slot invité** (placeholder) pour accueillir un personnage du vivier casting (ex. Scout en semaine 3)
+  - ✅ Décision 7 actée le 12/06 (rotation pilotée par le contenu) — implémenté, docs à jour
+- [ ] **Story quotidienne "Did You Know"** (idée 12/06 soir) : une story par jour mêlant 1-2 stats du tournoi en cours (alimentées par `npm run fetch --scorers` : buteurs agrégés, classements) ET des stats historiques du mondial (vivier evergreen — ex. Fontaine 1958, Battle of Nuremberg 2006, déjà produits en posts dans `content/evergreen-0*`) ; sticker quiz ou slider pour l'engagement ; signée par le personnage que la stat concerne → alimente les highlights NUMA/VERA. À caler dans la routine du soir (~17h30, créneau stat/quiz).
 
 ---
 

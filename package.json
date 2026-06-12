@@ -6,7 +6,8 @@
   "scripts": {
     "render": "node scripts/render.mjs",
     "stories": "node scripts/stories.mjs",
-    "shoot": "node scripts/shoot.mjs"
+    "shoot": "node scripts/shoot.mjs",
+    "fetch": "node scripts/fetch.mjs"
   },
   "type": "commonjs",
   "dependencies": {
