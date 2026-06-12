@@ -23,6 +23,14 @@ Lire avant de produire du contenu : `brand/identity.md` (cast, voix, palette, r�
 - `npm run shoot -- --path=/page.html --out=fichier.png [--width --height --clip --selector]` — capture une page quelconque (planches, mocks)
 - `brand/character/preview.html` (via tout serveur statique) — planche des poses du cast
 
+## Données — football-data.org
+
+- Clé API dans `.env` à la racine (`FOOTBALL_DATA_KEY`), jamais commitée (gitignoré). Header HTTP : `X-Auth-Token`.
+- Compétition : code `WC` (FIFA World Cup), incluse dans le free tier.
+- Free tier = fixtures, résultats, classements UNIQUEMENT — pas de buteurs/minutes/cartons par match ; 10 appels/min.
+- Tout client doit **lire les headers de réponse pour s'auto-throttler** (`X-Requests-Available-Minute`, compteur de reset) — recommandation officielle de l'API, ne pas compter à l'aveugle.
+- Conséquence : l'API garantit scores/calendrier/classements ; la recherche web du matin (étape 1) reste obligatoire pour le récit.
+
 ## Pièges connus
 
 - Windows PowerShell 5.1 : pas de `&&` ; utiliser `;`.

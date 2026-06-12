@@ -7,7 +7,8 @@
 
 ## ⚡ PLAN DE SESSIONS — fenêtre "Journée 1" (12 → ~17 juin)
 
-> Objectif : tout ce qui suit est tranché ou livré avant la fin du 1er match de chaque groupe (dernier "match 1" ≈ 17 juin, à vérifier sur le calendrier officiel).
+> Objectif : tout ce qui suit est tranché ou livré avant la fin du 1er match de chaque groupe (dernier "match 1" : **17 juin, confirmé**).
+> **MAJ 12/06 soir** : S0 quasi bouclée (compte IG ✅, git ✅ → `github.com/Ecureuilenrage/cdm-ig`, clé football-data ✅ en `.env` — compétition `WC` dispo en free tier ; reste **Beehiiv**) ; S1 cast ✅ (Otto/Numa/Vera intégrés) ; S3 stories ✅ (`npm run stories`). Post du 12 manqué → rattrapage le 13 en double post. Détail d'exécution : `TODO.md`.
 > Contrainte transverse : la **routine quotidienne** (carrousel du jour, ~1-2h chaque matin) tourne en parallèle de TOUTES ces sessions. Chaque session est dimensionnée en plus de cette charge.
 
 ### S0 — AUJOURD'HUI 12 juin : lancement du compte (bloquant absolu, ~2-3h, surtout côté utilisateur)
@@ -76,6 +77,7 @@
 4. **Logo** → reco : **généré dans la grammaire rough.js** (cohérent, gratuit, déterministe, déclinable). Vectorisation propre seulement quand le merch devient concret. Ne bloque pas le lancement : avatar provisoire = tête du coach.
 5. **"Most Expensive XI" ×12** (section 1b) → la fenêtre se referme : ces posts ont leur valeur avant/pendant la J1. Reco : **compresser en 2-3 posts à fort angle** ("Group of Death", "One-team group", "le XI le plus cher du tournoi") posés dans les creux du calendrier, plutôt que 12 posts qui arriveraient après la bataille.
 6. **Reels / Remotion** → reco : **geler jusqu'à la phase à élimination directe**, et n'investir que si les carrousels montrent une traction mesurée (saves, follows). Gros coût d'ingénierie, zéro preuve de demande aujourd'hui.
+7. **Rotation de la signature (CTA + dernière story)** (ajout 12/06) → reco : **rotation pilotée par le contenu, pas un simple tour de rôle** — le personnage du jour est celui du fait marquant (gros carton → Vera, stat record → Numa, bascule tactique → Otto) ; Otto reste l'avatar et le visage officiel du compte ; le slot invité remplace le personnage du jour les semaines à invité. À acter avant la retouche template (S1bis, 13/06) car ça réécrit la règle "Otto signe la CTA" d'`identity.md`.
 
 ---
 
@@ -93,6 +95,11 @@
   - Option B : 1 post/match → volume élevé en phase de groupes (3+ matchs/jour)
   - Option C hybride : 1 carrousel vedette/jour + 1 Story par match (format léger)
 - [ ] Définir le rythme pour les phases à élimination directe (16e, 8e, QF, SF, finale, 3e place)
+
+### Idées ajoutées le 12/06 au soir
+- [ ] **Micro-CTA sur chaque slide** — footer enrichi : "follow + link in bio" en plus du tagline "one illustrated story every matchday" ; rester discret, l'espace blanc prime (règle de la charte)
+- [ ] **Rotation du personnage signature** — sur la slide CTA et la dernière story : UN personnage par jour (rotation Otto/Numa/Vera) au lieu du trio ou d'Otto fixe ; prévoir un **slot invité** (placeholder) pour accueillir un personnage du vivier casting (ex. Scout en semaine 3)
+  - ⚠️ En conflit avec la règle actuelle d'`identity.md` ("Otto signe la CTA chaque jour") → voir Décision 7
 
 ---
 

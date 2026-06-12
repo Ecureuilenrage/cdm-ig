@@ -20,15 +20,28 @@
 
 ## 1. À FAIRE — de A à Z (ordre d'exécution)
 
-### 🔴 Aujourd'hui — 12 juin (S0 : lancement)
+### 🔴 12 juin (S0 : lancement) — bilan du soir
 
-- [ ] **[TOI] Créer le compte IG `@scribblepitch`** (fallbacks : whistleandink, sketchytactics)
-- [ ] **[TOI] Avatar provisoire** = tête du coach (exporter depuis `brand/character/preview.html` ou demander un crop à Claude)
-- [ ] **[TOI] Bio** : une ligne concept + "Not affiliated with FIFA or any federation"
-- [ ] **[TOI] Ouvrir Beehiiv** : créer la publication + activer la page d'inscription hébergée → **c'est le link in bio jour 1**
-- [ ] **[TOI] 🚨 POSTER le carrousel J1 entre 15h et 17h FR** (PNG dans `content/2026-06-11/out/`, caption dans `caption.txt`). Il est DANS les temps : matchs du 11 postés le 12 = le rythme prévu.
-- [ ] **[TOI] Poster les 3 Stories du jour** (déjà rendues : `content/2026-06-11/out/story-0*.png`) — teaser juste après le post, quiz/stat ~17h30, sondage 20h-22h
-- [ ] **[CLAUDE] Vérifier que la compétition 2026 est dans les 12 compétitions du free tier** (1 appel à `/v4/competitions` avec la clé — 5 min, conditionne S2)
+- [x] **Compte IG créé, arrobase obtenu** ✅ (12/06)
+- [x] Clé API football-data dans `.env` (gitignoré, header `X-Auth-Token`) — **compétition `WC` (FIFA World Cup) confirmée dans le free tier** ✅
+- [ ] **[TOI] Ouvrir Beehiiv** : créer la publication + activer la page d'inscription hébergée → **c'est le link in bio jour 1** (dernier compte manquant)
+- [ ] ~~Poster le 12 entre 15h-17h~~ **manqué (constaté à 21h)** → rattrapage le 13, voir ci-dessous. Pas grave : le compte vient d'être créé, personne n'attendait.
+
+### 🔴 13 juin — rattrapage J1 + jour 2 (la vraie journée de lancement)
+
+- [ ] **[CLAUDE] Matin : retouches templates** (S1bis ci-dessous) — à faire AVANT le rendu du jour
+- [ ] **[CLAUDE] Matin : carrousel + stories des matchs du 12** (routine normale)
+- [ ] **[TOI] ~11h-12h : poster le carrousel J1 (matchs du 11)** en post de lancement — option : l'accompagner de la slide cast `brand/character/casting/out/meet-C.png` ("One match. Three verdicts.")
+- [ ] **[TOI] 15h-17h : poster le carrousel du 12** (le frais) + routine stories (teaser juste après, quiz ~17h30, sondage 20h-22h)
+- [ ] **[TOI] Créer les highlights OTTO / NUMA / VERA / START** et y épingler la meilleure story
+- [ ] **[TOI] Beehiiv** si pas fait la veille → lien en bio
+
+### 🟠 13 juin matin (S1bis : retouches templates demandées le 12/06) — [CLAUDE]
+
+- [ ] **Micro-CTA sur chaque slide** : enrichir le footer avec "follow + link in bio" en plus de "one illustrated story every matchday" — discret, dans la zone footer ; la CTA pleine reste sur la dernière slide
+- [ ] **Rotation du personnage signature** sur la slide CTA et la dernière story : UN personnage par jour (pas le trio, pas Otto fixe) + **slot "invité"** (placeholder) pour les guests du vivier casting (ex. Scout)
+  - ⚠️ Conflit doc : `identity.md` dit "Otto signe la CTA chaque jour" → trancher d'abord (reco : rotation pilotée par le contenu du jour, Otto reste l'avatar — voir Décision 7 du BACKLOG)
+- [ ] Mettre à jour `identity.md` + `_schema.md` une fois la règle tranchée
 
 ### 🟠 13 juin (S1 : cast — ✅ FAIT à 90 %, validé le 12 juin)
 
@@ -40,7 +53,8 @@
 
 - [ ] **[CLAUDE] Script `scripts/fetch.mjs`** → pré-remplit un draft `content.json` du jour
   - ⚠️ **Limite du free tier** : fixtures, résultats, classements SEULEMENT. Pas de buteurs/minutes/cartons match par match (données payantes). Le script garantit les **scores et le calendrier** ; la **recherche web du matin reste nécessaire** pour le récit (buteurs, minutes, bascule — 2 sources).
-  - Throttle ≤ 10 appels/min ; cache des réponses dans `data/raw/` (déjà gitignoré)
+  - Clé : `.env` → `FOOTBALL_DATA_KEY` ✅ en place ; header HTTP `X-Auth-Token` ; compétition code `WC`
+  - **S'auto-throttler en lisant les headers de réponse** (`X-Requests-Available-Minute`…) — recommandation explicite de football-data, ne pas compter "10/min" à l'aveugle ; cache des réponses dans `data/raw/` (déjà gitignoré)
   - À tester : l'endpoint `/scorers` (top buteurs agrégés) — utilisable pour des stat-cards
 - [ ] **[CLAUDE] Buffer de secours** : pré-rendre 1-2 posts evergreen "Did you know?" pour les matins qui sautent
 
