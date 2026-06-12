@@ -13,6 +13,7 @@
 - [x] Compte football-data.org créé (free tier : 12 compétitions, fixtures/résultats/classements, 10 appels/min)
 - [x] Git initialisé + push vers `github.com/Ecureuilenrage/cdm-ig` (12 juin)
 - [x] Casting personnages : 20 candidats SVG prêts dans `brand/character/casting/`
+- [x] Pipeline Stories déjà entamé : `templates/story.html` + `scripts/stories.mjs`, et les 3 Stories du 11 juin sont rendues (`content/2026-06-11/out/story-0*.png`)
 
 ---
 
@@ -25,6 +26,7 @@
 - [ ] **[TOI] Bio** : une ligne concept + "Not affiliated with FIFA or any federation"
 - [ ] **[TOI] Ouvrir Beehiiv** : créer la publication + activer la page d'inscription hébergée → **c'est le link in bio jour 1**
 - [ ] **[TOI] 🚨 POSTER le carrousel J1 entre 15h et 17h FR** (PNG dans `content/2026-06-11/out/`, caption dans `caption.txt`). Il est DANS les temps : matchs du 11 postés le 12 = le rythme prévu.
+- [ ] **[TOI] Poster les 3 Stories du jour** (déjà rendues : `content/2026-06-11/out/story-0*.png`) — teaser juste après le post, quiz/stat ~17h30, sondage 20h-22h
 - [ ] **[CLAUDE] Vérifier que la compétition 2026 est dans les 12 compétitions du free tier** (1 appel à `/v4/competitions` avec la clé — 5 min, conditionne S2)
 
 ### 🟠 13 juin (S1 : cast — LE bloqueur en cascade)
@@ -42,12 +44,12 @@
   - À tester : l'endpoint `/scorers` (top buteurs agrégés) — utilisable pour des stat-cards
 - [ ] **[CLAUDE] Buffer de secours** : pré-rendre 1-2 posts evergreen "Did you know?" pour les matins qui sautent
 
-### 🟡 14-15 juin (S3 : Stories v1)
+### 🟡 14-15 juin (S3 : Stories — finaliser, le gros est déjà fait)
 
-- [ ] **[CLAUDE] Template Stories 1080×1920** (même stack rough.js + Playwright), 3 déclinaisons : teaser, stat/quiz, visuel de sondage — safe zones 250px haut/bas
-- [ ] **[CLAUDE] Étendre `render.mjs`** (`--format=story`)
-- [ ] **[TOI] Tester la routine Stories sur un jour réel** (voir section Récurrent)
-- [ ] **[TOI] Créer 3-4 highlights max + "Start here"** (covers possibles seulement après S1)
+- [x] Template Stories 1080×1920 (`templates/story.html`) + script (`scripts/stories.mjs`) — Stories du 11 juin déjà rendues
+- [ ] **[CLAUDE] Intégrer les Stories à la routine quotidienne** (rendues en même temps que le carrousel chaque matin)
+- [ ] **[TOI] Valider la routine Stories sur un jour réel** (voir section Récurrent)
+- [ ] **[TOI] Créer 3-4 highlights max + "Start here"** (covers possibles seulement après S1 — les noms ≤ 10 caractères)
 
 ### 🟡 15-17 juin (S4 : Wall Chart Gumroad — deadline dure : en vente le 18 juin)
 
