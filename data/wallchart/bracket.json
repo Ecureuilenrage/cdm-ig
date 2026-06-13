@@ -1,0 +1,122 @@
+{
+  "_note": "Données d'EXEMPLE pour développer le rendu. Remplacer les 48 équipes par le tirage réel (via /standings football-data ou saisie). Les 16 affiches du Round of 32 (labels) sont, elles, structurellement fixes pour le format 2026.",
+  "title": "2026 Tournament Wall Chart",
+  "subtitle": "48 teams · 12 groups · fill it in as it happens",
+  "groups": [
+    { "id": "A", "teams": [
+      { "name": "Mexico", "flag": ["#006847", "#ffffff", "#ce1126"], "played": null, "w": null, "d": null, "l": null, "pts": null },
+      { "name": "Croatia", "flag": ["#ff0000", "#ffffff", "#171796"], "played": null, "w": null, "d": null, "l": null, "pts": null },
+      { "name": "Cameroon", "flag": ["#007a5e", "#ce1126", "#fcd116"], "played": null, "w": null, "d": null, "l": null, "pts": null },
+      { "name": "Saudi Arabia", "flag": ["#006c35", "#ffffff"], "played": null, "w": null, "d": null, "l": null, "pts": null }
+    ] },
+    { "id": "B", "teams": [
+      { "name": "Canada", "flag": ["#ff0000", "#ffffff", "#ff0000"], "played": null, "w": null, "d": null, "l": null, "pts": null },
+      { "name": "Belgium", "flag": ["#000000", "#fae042", "#ed2939"], "played": null, "w": null, "d": null, "l": null, "pts": null },
+      { "name": "Ecuador", "flag": ["#ffd100", "#0072ce", "#ef3340"], "played": null, "w": null, "d": null, "l": null, "pts": null },
+      { "name": "Qatar", "flag": ["#8a1538", "#ffffff"], "played": null, "w": null, "d": null, "l": null, "pts": null }
+    ] },
+    { "id": "C", "teams": [
+      { "name": "Spain", "flag": ["#aa151b", "#f1bf00", "#aa151b"], "played": null, "w": null, "d": null, "l": null, "pts": null },
+      { "name": "Uruguay", "flag": ["#0038a8", "#ffffff", "#fcd116"], "played": null, "w": null, "d": null, "l": null, "pts": null },
+      { "name": "Ghana", "flag": ["#ce1126", "#fcd116", "#006b3f"], "played": null, "w": null, "d": null, "l": null, "pts": null },
+      { "name": "New Zealand", "flag": ["#00247d", "#ffffff", "#cc142b"], "played": null, "w": null, "d": null, "l": null, "pts": null }
+    ] },
+    { "id": "D", "teams": [
+      { "name": "USA", "flag": ["#3c3b6e", "#ffffff", "#b22234"], "played": null, "w": null, "d": null, "l": null, "pts": null },
+      { "name": "Netherlands", "flag": ["#ae1c28", "#ffffff", "#21468b"], "played": null, "w": null, "d": null, "l": null, "pts": null },
+      { "name": "Egypt", "flag": ["#ce1126", "#ffffff", "#000000"], "played": null, "w": null, "d": null, "l": null, "pts": null },
+      { "name": "Bolivia", "flag": ["#d52b1e", "#f9e300", "#007934"], "played": null, "w": null, "d": null, "l": null, "pts": null }
+    ] },
+    { "id": "E", "teams": [
+      { "name": "Argentina", "flag": ["#74acdf", "#ffffff", "#74acdf"], "played": null, "w": null, "d": null, "l": null, "pts": null },
+      { "name": "Japan", "flag": ["#ffffff", "#bc002d"], "played": null, "w": null, "d": null, "l": null, "pts": null },
+      { "name": "Nigeria", "flag": ["#008751", "#ffffff", "#008751"], "played": null, "w": null, "d": null, "l": null, "pts": null },
+      { "name": "Wales", "flag": ["#00ab39", "#ffffff", "#c8102e"], "played": null, "w": null, "d": null, "l": null, "pts": null }
+    ] },
+    { "id": "F", "teams": [
+      { "name": "France", "flag": ["#0055a4", "#ffffff", "#ef4135"], "played": null, "w": null, "d": null, "l": null, "pts": null },
+      { "name": "Senegal", "flag": ["#00853f", "#fdef42", "#e31b23"], "played": null, "w": null, "d": null, "l": null, "pts": null },
+      { "name": "Iran", "flag": ["#239f40", "#ffffff", "#da0000"], "played": null, "w": null, "d": null, "l": null, "pts": null },
+      { "name": "Panama", "flag": ["#005293", "#ffffff", "#d21034"], "played": null, "w": null, "d": null, "l": null, "pts": null }
+    ] },
+    { "id": "G", "teams": [
+      { "name": "Brazil", "flag": ["#009c3b", "#ffdf00", "#002776"], "played": null, "w": null, "d": null, "l": null, "pts": null },
+      { "name": "Morocco", "flag": ["#c1272d", "#006233"], "played": null, "w": null, "d": null, "l": null, "pts": null },
+      { "name": "South Korea", "flag": ["#ffffff", "#cd2e3a", "#0047a0"], "played": null, "w": null, "d": null, "l": null, "pts": null },
+      { "name": "Norway", "flag": ["#ba0c2f", "#ffffff", "#00205b"], "played": null, "w": null, "d": null, "l": null, "pts": null }
+    ] },
+    { "id": "H", "teams": [
+      { "name": "England", "flag": ["#ffffff", "#ce1124"], "played": null, "w": null, "d": null, "l": null, "pts": null },
+      { "name": "Switzerland", "flag": ["#d52b1e", "#ffffff"], "played": null, "w": null, "d": null, "l": null, "pts": null },
+      { "name": "Ivory Coast", "flag": ["#f77f00", "#ffffff", "#009e60"], "played": null, "w": null, "d": null, "l": null, "pts": null },
+      { "name": "Jordan", "flag": ["#000000", "#ffffff", "#007a3d"], "played": null, "w": null, "d": null, "l": null, "pts": null }
+    ] },
+    { "id": "I", "teams": [
+      { "name": "Portugal", "flag": ["#006600", "#ff0000"], "played": null, "w": null, "d": null, "l": null, "pts": null },
+      { "name": "Colombia", "flag": ["#fcd116", "#003893", "#ce1126"], "played": null, "w": null, "d": null, "l": null, "pts": null },
+      { "name": "Australia", "flag": ["#00247d", "#ffffff", "#cc142b"], "played": null, "w": null, "d": null, "l": null, "pts": null },
+      { "name": "Haiti", "flag": ["#00209f", "#d21034"], "played": null, "w": null, "d": null, "l": null, "pts": null }
+    ] },
+    { "id": "J", "teams": [
+      { "name": "Germany", "flag": ["#000000", "#dd0000", "#ffce00"], "played": null, "w": null, "d": null, "l": null, "pts": null },
+      { "name": "Denmark", "flag": ["#c60c30", "#ffffff"], "played": null, "w": null, "d": null, "l": null, "pts": null },
+      { "name": "Tunisia", "flag": ["#e70013", "#ffffff"], "played": null, "w": null, "d": null, "l": null, "pts": null },
+      { "name": "Costa Rica", "flag": ["#002b7f", "#ffffff", "#ce1126"], "played": null, "w": null, "d": null, "l": null, "pts": null }
+    ] },
+    { "id": "K", "teams": [
+      { "name": "Italy", "flag": ["#009246", "#ffffff", "#ce2b37"], "played": null, "w": null, "d": null, "l": null, "pts": null },
+      { "name": "Serbia", "flag": ["#c6363c", "#0c4076", "#ffffff"], "played": null, "w": null, "d": null, "l": null, "pts": null },
+      { "name": "Algeria", "flag": ["#006233", "#ffffff", "#d21034"], "played": null, "w": null, "d": null, "l": null, "pts": null },
+      { "name": "Uzbekistan", "flag": ["#1eb53a", "#ffffff", "#0099b5"], "played": null, "w": null, "d": null, "l": null, "pts": null }
+    ] },
+    { "id": "L", "teams": [
+      { "name": "Poland", "flag": ["#ffffff", "#dc143c"], "played": null, "w": null, "d": null, "l": null, "pts": null },
+      { "name": "Austria", "flag": ["#ed2939", "#ffffff", "#ed2939"], "played": null, "w": null, "d": null, "l": null, "pts": null },
+      { "name": "Cape Verde", "flag": ["#003893", "#ffffff", "#cf2027"], "played": null, "w": null, "d": null, "l": null, "pts": null },
+      { "name": "Honduras", "flag": ["#0073cf", "#ffffff", "#0073cf"], "played": null, "w": null, "d": null, "l": null, "pts": null }
+    ] }
+  ],
+  "thirds": { "qualify": 8, "note": "Best 8 of the 12 third-placed teams advance." },
+  "ko": {
+    "r32": [
+      { "id": 73, "top": "RU A", "bottom": "RU B", "topScore": null, "bottomScore": null, "winner": null },
+      { "id": 74, "top": "W E", "bottom": "3rd A/B/C/D/F", "topScore": null, "bottomScore": null, "winner": null },
+      { "id": 75, "top": "W F", "bottom": "RU C", "topScore": null, "bottomScore": null, "winner": null },
+      { "id": 76, "top": "W C", "bottom": "RU F", "topScore": null, "bottomScore": null, "winner": null },
+      { "id": 77, "top": "W I", "bottom": "3rd C/D/F/G/H", "topScore": null, "bottomScore": null, "winner": null },
+      { "id": 78, "top": "RU E", "bottom": "RU I", "topScore": null, "bottomScore": null, "winner": null },
+      { "id": 79, "top": "W A", "bottom": "3rd C/E/F/H/I", "topScore": null, "bottomScore": null, "winner": null },
+      { "id": 80, "top": "W L", "bottom": "3rd E/H/I/J/K", "topScore": null, "bottomScore": null, "winner": null },
+      { "id": 81, "top": "W D", "bottom": "3rd B/E/F/I/J", "topScore": null, "bottomScore": null, "winner": null },
+      { "id": 82, "top": "W G", "bottom": "3rd A/E/H/I/J", "topScore": null, "bottomScore": null, "winner": null },
+      { "id": 83, "top": "RU K", "bottom": "RU L", "topScore": null, "bottomScore": null, "winner": null },
+      { "id": 84, "top": "W H", "bottom": "RU J", "topScore": null, "bottomScore": null, "winner": null },
+      { "id": 85, "top": "W B", "bottom": "3rd E/F/G/I/J", "topScore": null, "bottomScore": null, "winner": null },
+      { "id": 86, "top": "W J", "bottom": "RU H", "topScore": null, "bottomScore": null, "winner": null },
+      { "id": 87, "top": "W K", "bottom": "3rd D/E/I/J/L", "topScore": null, "bottomScore": null, "winner": null },
+      { "id": 88, "top": "W D", "bottom": "RU G", "topScore": null, "bottomScore": null, "winner": null }
+    ],
+    "r16": [
+      { "id": 89, "top": null, "bottom": null, "winner": null },
+      { "id": 90, "top": null, "bottom": null, "winner": null },
+      { "id": 91, "top": null, "bottom": null, "winner": null },
+      { "id": 92, "top": null, "bottom": null, "winner": null },
+      { "id": 93, "top": null, "bottom": null, "winner": null },
+      { "id": 94, "top": null, "bottom": null, "winner": null },
+      { "id": 95, "top": null, "bottom": null, "winner": null },
+      { "id": 96, "top": null, "bottom": null, "winner": null }
+    ],
+    "qf": [
+      { "id": 97, "top": null, "bottom": null, "winner": null },
+      { "id": 98, "top": null, "bottom": null, "winner": null },
+      { "id": 99, "top": null, "bottom": null, "winner": null },
+      { "id": 100, "top": null, "bottom": null, "winner": null }
+    ],
+    "sf": [
+      { "id": 101, "top": null, "bottom": null, "winner": null },
+      { "id": 102, "top": null, "bottom": null, "winner": null }
+    ],
+    "final": { "id": 104, "top": null, "bottom": null, "winner": null },
+    "third": { "id": 103, "top": null, "bottom": null, "winner": null }
+  }
+}

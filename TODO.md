@@ -6,6 +6,62 @@
 
 ---
 
+## 🆕 Séquençage révisé 13-18 juin (session brainstorming 13/06 — voir BACKLOG v4)
+
+> Principe (Quinn) : la **routine quotidienne est le tambour** ; les chantiers prennent les créneaux entre les postages ; le **Wall Chart** (revenu, deadline 18/06) prime sur tout le reste ; chaque chantier timeboxé ; **jamais débugger dans la fenêtre de routine**.
+
+### Chantier A — events API-Football (PoC fail-soft) — LE multiplicateur de temps
+- [x] **[TOI]** Compte **api-sports.io** créé → clé `API_FOOTBALL_KEY` dans `.env` (plan Free, 100 req/j, 10/min) ✅ (13/06)
+- [x] **[CLAUDE]** Étape 0 GO/NO-GO ✅ (13/06, sonde `scripts/apifootball-check.mjs`) → **NO-GO sur le free tier** : la data 2026 existe (league id 1, `coverage.fixtures` events/lineups/stats = true) mais le free la bloque (« Free plans do not have access to this season, try from 2022 to 2024 »). Events WC 2026 = **plan payant requis** (Pro ≈ 19 €/mois, sans reconduction auto). Conforme à D8.
+- **[DÉCISION 13/06] Chantier A GELÉ — on reste en MANUEL** (football-data pour les scores + recherche web pour les events ; rapide et fiable au matin n°1). On chronomètre 2-3 matins et on re-décide de payer si le manuel devient un goulot. Les 2 items ci-dessous attendent ce GO.
+- [ ] **[CLAUDE]** *(gelé)* Client `scripts/lib/apifootball.mjs` + injection events dans le draft, **FAIL-SOFT**, table d'alias de noms de pays — option pour prendre de l'avance sans payer : pré-construire/valider sur la CDM **2022** (accessible en free)
+- [ ] **[ENSEMBLE]** *(gelé)* Chrono de la routine sur 3 matins → verdict : payer+industrialiser A ou rester manuel
+
+### Chantier A′ — DÉGELÉ via ESPN (events gratuits, prouvés le 13/06 soir) → agrégateur + LLM
+
+> Recherche de faisabilité menée le 13/06 (agent + vérif manuelle). **Verdict : GO.** La voie payante n'est pas nécessaire : les events WC 2026 (buteurs **+ minute**, passeurs, buts c.s.c., cartons J/R horodatés, upgrades VAR, remplacements, compos) sont dans le **JSON ESPN gratuit, sans clé** : `site.api.espn.com/apis/site/v2/sports/soccer/fifa.world/summary?event={id}` (champ `keyEvents`, 55 entrées sur USA-Paraguay ; cross-vérifié contre le contenu réel du 12). RSS (BBC) = appoint narratif seulement, pas le socle (résumés tronqués). Détail : voir BACKLOG D8′.
+>
+> **Architecture cible (fail-soft) :** football-data = ancre scores garantis (déjà câblé) · ESPN = events horodatés · Wikipedia = 2ᵉ source de cross-check (automatise la règle « 2 sources ») · Claude = rédaction du draft dans la voix Otto/Numa/Vera. Anti-hallucination : le LLM ne rédige QUE depuis le tableau d'events ; scores cross-checkés ESPN↔football-data ; si une source tombe → on retombe sur le brief manuel actuel, jamais de blocage. **Légal :** on extrait des FAITS (non protégeables), jamais la prose des articles.
+>
+> **But :** ramener la routine du matin à ~2 commandes (`brief` qui pré-remplit tout + `render`/`stories`), l'utilisateur ne faisant plus que relire/valider.
+
+- [x] **[CLAUDE] Phase 1 — ESPN events → enrichir le draft (SANS clé, SANS coût, SANS dépendance).** ✅ (13/06 — `scripts/lib/espn.mjs` + `fetch` enrichi : briefing timeline + `facts.json` + draft pré-rempli, prouvé sur USA-Paraguay) `scripts/lib/espn.mjs` : scoreboard `fifa.world?dates=` → eventId ; `summary?event=` → keyEvents. Mapping fixtures football-data ↔ ESPN par (date, équipes) + table d'alias de noms. Pré-remplir `content.draft.json` : turning-points (buteur+minute), stat-cards, **Vera's file auto si cartons**, **Numa's number auto**. Fail-soft. → gros morceau du remplissage manuel levé d'un coup.
+- [x] **[CLAUDE] Phase 2 — couche LLM (Claude) — code LIVRÉ (`scripts/lib/llm.mjs` + `fetch --draft`, fail-soft), *s'active avec la clé `ANTHROPIC_API_KEY`*.** `@anthropic-ai/sdk` (Node) ; à partir du tableau d'events, rédige un draft de récit + caption dans la voix de marque, via **structured output** (`output_config.format`, schéma calqué sur `content.json`). Modèles (décision 13/06) : **Opus 4.8** (`claude-opus-4-8`) pour TOUTE la rédaction (prose voix de marque), **Sonnet 4.6** (`claude-sonnet-4-6`) pour l'extraction pure (appoint narratif RSS/web — pas les faits, qui viennent d'ESPN). Défauts câblés dans `llm.mjs`, surchargeables par variable d'env. Coût ~3-5 €/mois au volume d'1 match/jour, même tout en Opus (cf. BACKLOG D8′). Toujours relu avant publication.
+- [ ] **[CLAUDE] Phase 3 — Wikipedia REST en 2ᵉ source** : cross-check des minutes de buts (concordance ESPN↔Wiki → confiance haute ; divergence → drapeau « à vérifier »).
+- [ ] **[ENSEMBLE] Chrono sur 3 matins** après Phase 1 → décider si Phase 2 vaut le coup ou si l'enrichissement mécanique suffit.
+
+### Wall Chart (D9 — EN VENTE le 18/06)
+
+**Fait le 13/06 :**
+- [x] **[CLAUDE]** Échafaudage : `data/wallchart/bracket.json` (structure 12 groupes + KO r32→finale + thirds), `templates/wallchart.html` + `templates/wallchart.css` + `templates/lib/wallchart.js`, `scripts/wallchart.mjs`, script npm `wallchart`
+- [x] **[CLAUDE]** Page « groupes » rendue (PNG + PDF A2, modes `blank`/`filled`) : titre + soulignement, 12 groupes encadrés (rough.js) + drapeaux simplifiés + colonnes vides `P W D L Pts`, Otto + Numa, tracker des 8 meilleurs 3es, disclaimer + handle
+
+**Reste à faire :**
+- [ ] **[CLAUDE]** Page 2 — **bracket KO** (Round of 32 → R16 → QF → SF → finale + 3e place), layout de l'arbre + liaisons, Vera en gardienne de la discipline
+- [ ] **[CLAUDE]** PDF **multi-pages** (groupes + bracket) + export **A4** (impression maison) + PNG 300 dpi dans le ZIP
+- [ ] **[CLAUDE]** Mode `filled` : style « rempli au marqueur » (valeurs en accent, coches) + test de bout en bout
+- [ ] **[ENSEMBLE]** Brancher les **vraies 48 équipes** (remplacer les données d'exemple de `bracket.json`) via `/standings` football-data ou saisie ; script optionnel `scripts/wallchart-data.mjs`
+- [ ] **[CLAUDE]** Mockups page produit Gumroad (cover, vierge vs rempli côte à côte, zoom thirds, in-situ)
+- [ ] **[TOI]** Compte Gumroad + page produit **9 $**, titre SANS FIFA/World Cup, disclaimer
+- [ ] **[TOI]** Tester le push Gumroad (remplacer le fichier + notifier) avec un achat test
+
+### Site Astro (D10 — peut glisser ; gate le 14/06 à 15h si Wall Chart en bonne voie)
+- [ ] **[TOI]** Acheter `scribblepitch.com` (fallback .co/.studio)
+- [ ] **[CLAUDE]** Scaffold Astro one-pager : hero = formulaire, galerie auto (`content/*/out/slide-01.png`), footer disclaimer
+- [ ] **[DÉCISION]** formulaire embed Beehiiv brut vs custom → endpoint serverless → API Beehiiv
+- [ ] **[TOI]** Bascule link in bio avec UTM ; analytics (Vercel Analytics ou Plausible)
+
+### Contenu — cadence 3 posts/jour (D13)
+- [x] **[ENSEMBLE]** Spécifier le **post preview quotidien** (gabarit adaptable : 1 gros match en 3 slides + 1 slide/autre match) + définir le **3e slot** ✅ — preview livrée (lead + Numa's Rewind + Otto's Board + cartes) ; 3e slot = buffer evergreen (`npm run buffer`)
+- [x] **[CLAUDE]** Gabarit "preview" (slide/post) dans `content/_schema.md` ✅ — type `preview` + `preview.json` + `npm run preview` / `npm run build`
+
+### Identité (D12)
+- [ ] **[CLAUDE]** Tagline : finaliser (en cours) → MAJ `identity.md`, bio IG, hero site, slide CTA
+- [ ] **[CLAUDE]** `identity.md` : tics verbaux, dynamique du trio, Otto prediction tracker, guests Ola/Scout, gabarit newsletter "the whiteboard room"
+- [ ] **[CLAUDE]** Logo : glyphe « tableau + flèche-qui-tourne » (rough.js) + wordmark ; avatar reste la tête d'Otto
+
+---
+
 ## ✅ Déjà fait (pour situer)
 
 - [x] Pipeline de rendu opérationnel (`npm run render`), déterministe
@@ -33,10 +89,10 @@
 ### 🔴 13 juin — double post : carrousel J1 (matchs du 11) + jour 2 (matchs du 12)
 
 - [x] **[CLAUDE] Matin : retouches templates** (S1bis ci-dessous) — ✅ faites le 12 au soir, rien à refaire
-- [ ] **[CLAUDE] Matin : carrousel + stories des matchs du 12** (routine normale, commencer par `npm run fetch -- --date=2026-06-12`)
-- [ ] **[TOI] ~11h-12h : poster le carrousel J1 (matchs du 11)** — **prêt tel quel** : re-rendu le 12 au soir avec les nouveaux footers micro-CTA, slide CTA re-teasée "Day 2 — Canada and the USA's openers — drops this afternoon." Story teaser J1 (`story-01.png`) juste après le post.
+- [x] **[CLAUDE] Matin : carrousel + stories des matchs du 12** ✅ (13/06) — vedette **USA 4-1 Paraguay** (doublé Balogun, 1er doublé US depuis 1930) + stat-card Canada 1-1 Bosnie ; signature **Numa** ; **4 stories** : 01 teaser Otto, 02 Vera poll, 03 Numa 1930 (ovale retravaillé + correction `.mega`), 04 Otto's Board prono **Brésil-Maroc** (Maroc 2-1 Brésil 2023, vérifié). Template sticker = texte seul (sans cadre) pour recouvrir avec le vrai sticker.
+- [x] **[TOI] ~11h-12h : poster le carrousel J1 (matchs du 11)** ✅ posté le 13 (+ story-01 teaser du 11) — **prêt tel quel** : re-rendu le 12 au soir avec les nouveaux footers micro-CTA, slide CTA re-teasée "Day 2 — Canada and the USA's openers — drops this afternoon." Story teaser J1 (`story-01.png`) juste après le post.
 - [ ] **[TOI] 15h-17h : poster le carrousel du 12** (le frais) + routine stories (teaser juste après, quiz ~17h30, sondage 20h-22h)
-- [ ] **[TOI] Créer les highlights OTTO / NUMA / VERA / START** et y épingler la meilleure story (le reshare du post Meet a sa place dans START)
+- [ ] **[TOI] Créer les highlights OTTO / NUMA / VERA / START** et y épingler la meilleure story (le reshare du post Meet a sa place dans START) — **covers prêtes** dans `brand/highlights/out/` (otto/numa/vera/start). Rappel : un highlight a besoin d'≥1 story dedans ; curer (le meilleur par perso), pas tout ranger.
 - [ ] **[TOI] Beehiiv** si pas fait la veille → lien en bio
 
 ### 🟠 13 juin matin (S1bis : retouches templates demandées le 12/06) — ✅ FAIT le 12/06 au soir

@@ -8,30 +8,32 @@ Lire avant de produire du contenu : `brand/identity.md` (cast, voix, palette, r�
 
 ## Session quotidienne (le matin, pour les matchs de la veille)
 
-1. `npm run fetch -- --date=<date>` : briefing des scores (garantis par l'API) + draft `content/<date>/content.json` pré-rempli (n'écrase jamais un content.json existant — écrit content.draft.json à côté). Ajouter `--scorers` pour le top buteurs agrégé.
-2. Chercher les résultats/recaps de la veille sur le web (buteurs + minutes, cartons, affluence, moment de bascule — le free tier ne les donne pas). Vérifier chaque fait sur 2 sources — les minutes de buts notamment.
+1. `npm run fetch -- --date=<date> --draft --preview` : briefing complet (scores football-data + **timeline ESPN** : buteurs+minute, cartons, subs) + `facts.json` (faits structurés) + draft `content/<date>/content.json` pré-rempli (turning-points, stat-cards, **Vera's file auto si cartons**) + `content.draft.llm.json` rédigé par Claude (si `ANTHROPIC_API_KEY`) + `preview.json` du post avant-match (J+1). N'écrase jamais un fichier existant (écrit `*.draft.json` à côté). `--scorers` ajoute le top buteurs agrégé. Tout est **fail-soft**.
+2. **Vérifier les faits auto-collectés** (ESPN reste non officiel) et trancher l'angle — recherche web sur 2 sources, surtout les minutes de buts et tout claim marqué `[VERIFY]` par le LLM. La recherche ne PART plus de zéro : elle confirme `facts.json`.
 3. Choisir l'angle : **UN match vedette raconté en profondeur** (cover + 2 turning-points) + le reste en stat-cards. Ne jamais raconter tous les matchs. Choisir aussi le **personnage signature du jour** selon le fait marquant (gros carton → Vera, stat/record → Numa, bascule tactique → Otto) : il signe la slide CTA (via son `accent`) ET la dernière story.
 4. Compléter le draft de fetch (à défaut : copier `content/_template.json`) — slides (limites de longueur dans `_schema.md`) + `caption.txt` (caption + alt-texts). Penser aux rituels : un chiffre "Numa's number", la note de discipline "Vera's file" quand il y a des cartons.
 5. Écrire le tableau `stories` du même content.json : teaser (otto, reprend le hook), Numa's number (mega), Vera's file (poll) — hot take en plus 2-3×/semaine. La dernière story porte le personnage signature. Les placeholders `sticker` indiquent ce que l'utilisateur posera dans l'app.
-6. `npm run render -- --date=<date>` puis `npm run stories -- --date=<date>` — corriger les warnings en RACCOURCISSANT le texte.
+6. `npm run build -- --date=<date>` (= carrousel + stories, et la preview si présente) — corriger les warnings en RACCOURCISSANT le texte. Le post preview du soir se rend aussi seul avec `npm run preview -- --date=<J+1>`.
 7. Contrôle visuel des PNG dans `content/<date>/out/` (lire les images) : hook lisible, 1 accent par slide, footer présent (handle · micro-ask en rotation · pagination ; pas de micro-ask sur la CTA), **bon personnage sur la bonne couleur** (orange=Otto, bleu=Numa, rouge=Vera, carton rouge seulement si ça chauffe), personnage pas en collision avec le texte ; stories : texte dans la zone utile, place pour le sticker.
-8. L'utilisateur poste manuellement : carrousel 15h-17h FR (matin US/Canada/Mexique), puis story teaser **juste après**, stat/quiz ~17h30, sondage de pronostic 20h-22h FR. Meilleure story du jour → highlight du personnage (OTTO / NUMA / VERA).
+8. L'utilisateur poste manuellement : carrousel 15h-17h FR (matin US/Canada/Mexique), puis story teaser **juste après**, stat/quiz ~17h30, sondage de pronostic 20h-22h FR. Meilleure story du jour → highlight du personnage (OTTO / NUMA / VERA). **Cadence 3 posts/jour (D13)** : recap (matin) · post preview avant-match (soir, `preview.json`) · 3e slot flexible (quiz/contextuel/evergreen via `npm run buffer`).
 
 ## Commandes
 
-- `npm run fetch -- [--date=YYYY-MM-DD] [--scorers]` — briefing du matin + draft content.json (date par défaut : hier)
-- `npm run render -- --date=YYYY-MM-DD [--slide=N]` — rend les slides du carrousel
+- `npm run fetch -- [--date=YYYY-MM-DD] [--scorers] [--draft] [--preview]` — briefing (football-data + events ESPN) + `facts.json` + draft `content.json` (défaut : hier). `--draft` : rédaction Claude (clé requise). `--preview` : scaffold du post avant-match (écrit `content/<J+1>/preview.json`).
+- `npm run render -- --date=YYYY-MM-DD [--slide=N] [--file=preview.json]` — rend les slides (content.json, ou un autre doc du dossier via `--file`)
+- `npm run preview -- --date=YYYY-MM-DD` — rend le post avant-match (`preview.json`) → `out/preview-0N.png`
 - `npm run stories -- --date=YYYY-MM-DD [--story=N]` — rend les stories 1080×1920
+- `npm run build -- --date=YYYY-MM-DD` — carrousel + stories (+ preview) en une commande
+- `npm run buffer [-- --next | --mark=evergreen-0N | --unmark=evergreen-0N]` — réserve evergreen du 3e slot (inventaire / prochain à poster / marquage)
 - `npm run shoot -- --path=/page.html --out=fichier.png [--width --height --clip --selector]` — capture une page quelconque (planches, mocks)
 - `brand/character/preview.html` (via tout serveur statique) — planche des poses du cast
 
-## Données — football-data.org
+## Données — football-data.org (scores) + ESPN (events) + Claude (rédaction)
 
-- Clé API dans `.env` à la racine (`FOOTBALL_DATA_KEY`), jamais commitée (gitignoré). Header HTTP : `X-Auth-Token`.
-- Compétition : code `WC` (FIFA World Cup), incluse dans le free tier.
-- Free tier = fixtures, résultats, classements UNIQUEMENT — pas de buteurs/minutes/cartons par match ; 10 appels/min.
-- Tout client doit **lire les headers de réponse pour s'auto-throttler** (`X-Requests-Available-Minute`, compteur de reset) — recommandation officielle de l'API, ne pas compter à l'aveugle.
-- Conséquence : l'API garantit scores/calendrier/classements ; la recherche web du matin (étape 1) reste obligatoire pour le récit.
+- **football-data.org** = ancre des scores. Clé `.env` (`FOOTBALL_DATA_KEY`), jamais commitée, header `X-Auth-Token`. Compétition `WC`. Free tier = fixtures/résultats/classements UNIQUEMENT (pas de buteurs/minutes/cartons), 10 appels/min ; client auto-throttlé par les headers de quota.
+- **ESPN** (JSON non officiel, gratuit, sans clé) = events horodatés que football-data n'a pas. `scripts/lib/espn.mjs` : `summary?event=` → `keyEvents` (buteurs+minute, c.s.c., cartons J/R, VAR, subs), cache `data/raw/`, **fail-soft** (toute erreur → null). On extrait des FAITS, jamais la prose des articles. Non officiel → toujours vérifié sur 2 sources (Wikipedia prévu en Phase 3).
+- **Claude** (`--draft`, optionnel) = rédaction du draft dans la voix de marque depuis `facts.json` UNIQUEMENT. Clé `.env` (`ANTHROPIC_API_KEY`). `scripts/lib/llm.mjs` ; modèles surchargeables par `SCRIBBLE_LLM_MODEL` (défaut `claude-opus-4-8`). Fail-soft sans clé.
+- Conséquence : la collecte des faits est automatisée (`facts.json`) ; la recherche web du matin devient une **vérification** (2 sources), plus une saisie à blanc.
 
 ## Pièges connus
 

@@ -161,6 +161,34 @@ body { background: #888; }
   width: 650px;
 }
 
+/* ---- preview (post avant-match) ---- */
+.preview { position: absolute; inset: 0; padding: var(--margin); }
+.preview .kicker { margin-top: 16px; transform: rotate(-1.2deg); }
+.preview .matchup {
+  position: absolute; left: 90px; right: 90px;
+  display: grid; grid-template-columns: 1fr auto 1fr; align-items: center; gap: 30px;
+  padding: 40px 30px;
+}
+.preview .matchup .tname {
+  font-family: var(--font-title); font-weight: 800; font-size: 64px; line-height: 1.05;
+  text-transform: uppercase; letter-spacing: 0.02em;
+}
+.preview .matchup .home { text-align: right; }
+.preview .matchup .away { text-align: left; }
+.preview .matchup .vs { font-family: var(--font-note); font-weight: 700; font-size: 54px; }
+.preview .kickoff {
+  position: absolute; left: 0; right: 0; text-align: center;
+  font-family: var(--font-note); font-weight: 700; font-size: 40px; color: var(--ink-soft);
+}
+.preview .pre-focus {
+  position: absolute; left: var(--margin); right: var(--margin); max-width: 820px;
+  font-family: var(--font-body); font-size: 50px; line-height: 1.4; font-weight: 600;
+}
+.preview .pre-focus .lbl {
+  display: block; font-family: var(--font-note); font-weight: 700;
+  text-transform: uppercase; letter-spacing: 0.05em; font-size: 36px; margin-bottom: 14px;
+}
+
 /* ---- cta ---- */
 .cta { position: absolute; inset: 0; padding: var(--margin); text-align: center; }
 .cta .headline { margin-top: 90px; }

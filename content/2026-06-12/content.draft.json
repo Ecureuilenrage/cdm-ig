@@ -1,0 +1,102 @@
+{
+  "matchDate": "2026-06-12",
+  "title": "TODO — angle du match vedette",
+  "slides": [
+    {
+      "type": "cover",
+      "kicker": "Matchday 1 · June 12, 2026",
+      "hook": "TODO — tension en 8-12 mots, *accent* sur le mot clé",
+      "score": {
+        "home": "USA",
+        "away": "Paraguay",
+        "homeGoals": 4,
+        "awayGoals": 1
+      },
+      "note": "",
+      "pose": "shocked",
+      "accent": "orange"
+    },
+    {
+      "type": "turning-point",
+      "minute": 7,
+      "kicker": "The setup",
+      "headline": "TODO — 6-8 mots",
+      "body": "DRAFT (vérifier sur 2 sources, reformuler) — Damián Bobadilla 7'; Folarin Balogun 31' (Christian Pulisic); Folarin Balogun 45'+5' (Malik Tillman).",
+      "annotations": [
+        {
+          "text": "7' Damián Bobadilla (o.g.)",
+          "color": "blue"
+        },
+        {
+          "text": "31' Folarin Balogun",
+          "color": "blue"
+        }
+      ],
+      "accent": "blue"
+    },
+    {
+      "type": "turning-point",
+      "minute": 73,
+      "kicker": "The turn",
+      "headline": "TODO — 6-8 mots",
+      "body": "DRAFT (vérifier sur 2 sources, reformuler) — Maurício 73' (Julio Enciso); Giovanni Reyna 90'+8' (Alex Freeman).",
+      "annotations": [
+        {
+          "text": "73' Maurício",
+          "color": "blue"
+        },
+        {
+          "text": "90'+8' Giovanni Reyna",
+          "color": "blue"
+        }
+      ],
+      "pose": "celebrating",
+      "accent": "orange"
+    },
+    {
+      "type": "stat-card",
+      "kicker": "Canada vs Bosnia-H.",
+      "value": "1–1",
+      "unit": "full time",
+      "context": "DRAFT — Jovo Lukic 21', Cyle Larin 78'.",
+      "accent": "blue"
+    },
+    {
+      "type": "cta",
+      "text": "One illustrated story. *Every matchday.*",
+      "note": "Tomorrow: Qatar vs Switzerland, Brazil vs Morocco & 2 more.",
+      "pose": "pointing",
+      "accent": "orange"
+    }
+  ],
+  "stories": [
+    {
+      "character": "otto",
+      "kicker": "Today's story · matchday 1",
+      "big": "TODO — reprendre le hook de la cover",
+      "note": "",
+      "pose": "pointing",
+      "sticker": "[ link sticker: today's post ]",
+      "cta": "Full story → today's post"
+    },
+    {
+      "character": "numa",
+      "kicker": "Numa's number · matchday 1",
+      "mega": "TODO",
+      "unit": "TODO — légende du chiffre",
+      "pose": "celebrating",
+      "sticker": "[ emoji slider ]",
+      "cta": "All the numbers → today's post"
+    },
+    {
+      "character": "vera",
+      "kicker": "Vera's file · matchday 1",
+      "big": "6 yellow, *1 red*.",
+      "note": "Tim Ream — 52'. Filed.",
+      "pose": "pointing",
+      "expression": "angry",
+      "sticker": "[ poll ]",
+      "cta": "The whole file → today's post"
+    }
+  ]
+}

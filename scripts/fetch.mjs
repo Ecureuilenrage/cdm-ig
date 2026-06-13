@@ -11,6 +11,8 @@ import { readFile, writeFile, mkdir } from 'node:fs/promises';
 import { existsSync } from 'node:fs';
 import { join } from 'node:path';
 import { fileURLToPath } from 'node:url';
+import { fetchScoreboard, eventsForMatch } from './lib/espn.mjs';
+import { crosscheckMinutes } from './lib/wikipedia.mjs';
 
 const ROOT = fileURLToPath(new URL('..', import.meta.url));
 const API = 'https://api.football-data.org/v4';
@@ -127,6 +129,27 @@ const scoreLabel = (m) =>
   : m.status === 'POSTPONED' ? 'REPORTÉ'
   : 'à venir';
 
+// ---- events détaillés via ESPN (gratuit, sans clé) : buteurs+minute, cartons, subs.
+// FAIL-SOFT : indisponible → on continue avec les seuls scores garantis par football-data.
+const scoreboard = await fetchScoreboard(matchDate);
+const finishedToday = played.filter((m) => m.status === 'FINISHED');
+const eventsByMatch = new Map();
+for (const m of finishedToday) {
+  try {
+    const r = await eventsForMatch(m, scoreboard);
+    if (r) eventsByMatch.set(m.id, r);
+  } catch {}
+}
+if (!scoreboard.length) {
+  console.log('· ESPN indisponible — briefing scores seuls (recherche web requise pour le récit).');
+} else {
+  console.log(`· ESPN : events récupérés pour ${eventsByMatch.size}/${finishedToday.length} match(s) terminé(s).`);
+}
+
+const goalLine = (e) =>
+  `${e.minute} ${e.scorer}${e.kind === 'own-goal' ? ' (o.g.)' : e.kind === 'penalty' ? ' (pen)' : ''}` +
+  `${e.assist ? ` — assist ${e.assist}` : ''} [${e.team}]`;
+
 // ---- briefing console
 const matchday = played.find((m) => m.matchday)?.matchday;
 console.log(`\n=== Briefing — matchs du ${matchDate}${matchday ? ` (matchday ${matchday})` : ''} ===`);
@@ -134,6 +157,16 @@ if (!played.length) console.log('  (aucun match ce jour-là)');
 for (const m of played) {
   const ko = new Date(m.utcDate).toISOString().slice(11, 16);
   console.log(`  ${name(m.homeTeam)} ${scoreLabel(m)} ${name(m.awayTeam)}  · ${ko} UTC${m.venue ? ` · ${m.venue}` : ''}`);
+  const ev = eventsByMatch.get(m.id);
+  if (ev) {
+    for (const g of ev.digest.goals) console.log(`      ⚽ ${goalLine(g)}`);
+    if (ev.digest.cards.length) {
+      console.log(
+        `      🟨${ev.digest.yellowCount} 🟥${ev.digest.redCount} · ` +
+        ev.digest.cards.map((c) => `${c.minute} ${c.scorer}(${c.kind === 'red' ? 'R' : 'Y'})`).join(', ')
+      );
+    }
+  }
 }
 const unfinished = played.filter((m) => m.status !== 'FINISHED');
 if (unfinished.length) {
@@ -168,6 +201,108 @@ const teaser = nextDay.length
   : 'Tomorrow: TODO';
 
 const mdLabel = matchday ?? 'N';
+const featEv = featured ? eventsByMatch.get(featured.id) : null;
+
+// 2ᵉ SOURCE (Phase 3) : cross-check des minutes de buts du match vedette via Wikipedia.
+// Best-effort, fail-soft : indispo / non localisé → pas de divergence, juste « vérifier à la main ».
+let crosscheck = null;
+if (featEv && featEv.digest.goals.length && featured) {
+  try {
+    crosscheck = await crosscheckMinutes(featured.homeTeam, featured.awayTeam, featEv.digest.goals);
+  } catch {}
+  if (crosscheck?.found && crosscheck.agree === true) {
+    console.log(`\n✓ Cross-check Wikipedia : ${crosscheck.matched.length} minute(s) de but concordante(s) — confiance haute.`);
+  } else if (crosscheck?.found && crosscheck.agree === false) {
+    console.log(`\n⚠ Cross-check Wikipedia : minutes divergentes — ESPN seul ${JSON.stringify(crosscheck.onlyEspn)}, Wiki seul ${JSON.stringify(crosscheck.onlyWiki)} → VÉRIFIER avant publication.`);
+  } else if (crosscheck?.found) {
+    console.log('\n· Cross-check Wikipedia : match localisé mais minutes non extraites — vérifier à la main.');
+  } else if (crosscheck) {
+    console.log('\n· Wikipedia : match non localisé dans l’article de groupe — pas de 2ᵉ source auto (vérifier à la main).');
+  } else {
+    console.log('\n· Wikipedia indisponible — pas de 2ᵉ source auto (fail-soft).');
+  }
+  if (crosscheck?.note) console.log(`  ↳ Contexte Wiki (à VÉRIFIER) : ${crosscheck.note}`);
+}
+
+// cross-check du score : football-data (garanti) vs ESPN. Divergence → drapeau, jamais de blocage.
+if (featEv && featured) {
+  const fd = [featured.score.fullTime.home, featured.score.fullTime.away].sort().join('-');
+  const es = [featEv.event.home.score, featEv.event.away.score].sort().join('-');
+  if (fd !== es) {
+    console.log(`\n⚠ Score divergent ESPN(${es}) ≠ football-data(${fd}) sur le match vedette — vérifier avant publication.`);
+  }
+}
+
+// annotation factuelle d'un event ESPN (minute + acteur) — formats courts pour les slides
+const annOf = (e) => ({
+  text: `${e.minute} ${e.scorer}${e.kind === 'own-goal' ? ' (o.g.)' : e.kind === 'penalty' ? ' (pen)' : ''}`,
+  color: e.kind === 'red' || e.kind === 'yellow' ? 'red' : 'blue',
+});
+const draftBody = (arr) =>
+  'DRAFT (vérifier sur 2 sources, reformuler) — ' +
+  arr.map((e) => `${e.scorer} ${e.minute}${e.assist ? ` (${e.assist})` : ''}`).join('; ') + '.';
+
+// turning-points : si ESPN dispo, pré-remplir les ANNOTATIONS avec les vrais buts
+// (les minutes = précisément ce qui doit être vérifié sur 2 sources) ; sinon TODO.
+let tp1, tp2;
+if (featEv && featEv.digest.goals.length) {
+  const g = featEv.digest.goals;
+  const mid = Math.ceil(g.length / 2);
+  const setup = g.slice(0, mid);
+  const turn = g.slice(mid).length ? g.slice(mid) : setup;
+  tp1 = {
+    type: 'turning-point', minute: Math.floor(setup[0]?.minuteSort || 0),
+    kicker: 'The setup', headline: 'TODO — 6-8 mots',
+    body: draftBody(setup), annotations: setup.slice(0, 2).map(annOf),
+    accent: 'blue',
+  };
+  tp2 = {
+    type: 'turning-point', minute: Math.floor(turn[0]?.minuteSort || 0),
+    kicker: 'The turn', headline: 'TODO — 6-8 mots',
+    body: draftBody(turn), annotations: turn.slice(-2).map(annOf),
+    pose: 'celebrating', accent: 'orange',
+  };
+} else {
+  tp1 = { type: 'turning-point', minute: 0, kicker: 'The setup', headline: 'TODO', body: 'TODO — recherche web, chaque fait vérifié sur 2 sources', annotations: [], accent: 'red' };
+  tp2 = { type: 'turning-point', minute: 0, kicker: 'The turnaround', headline: 'TODO', body: 'TODO — recherche web, chaque fait vérifié sur 2 sources', annotations: [], pose: 'celebrating', accent: 'orange' };
+}
+
+// stat-cards : contexte pré-rempli avec les buteurs si ESPN dispo
+const statCard = (m) => {
+  const ev = eventsByMatch.get(m.id);
+  const ctx = ev && ev.digest.goals.length
+    ? 'DRAFT — ' + ev.digest.goals.map((e) => `${e.scorer} ${e.minute}`).join(', ') + '.'
+    : "TODO — l'angle de ce match en 1-2 phrases (≈ 160 caractères)";
+  return {
+    type: 'stat-card',
+    kicker: `${name(m.homeTeam)} vs ${name(m.awayTeam)}`,
+    value: `${m.score.fullTime.home}–${m.score.fullTime.away}`,
+    unit: 'full time',
+    context: ctx,
+    accent: 'blue',
+  };
+};
+
+// Vera's file : auto depuis les cartons réels (rattrape l'erreur classique « aucun carton »)
+let veraStory;
+if (featEv && featEv.digest.cards.length) {
+  const d = featEv.digest;
+  const red = d.reds[0];
+  veraStory = {
+    character: 'vera', kicker: `Vera's file · matchday ${mdLabel}`,
+    big: `${d.yellowCount} yellow${d.redCount ? `, *${d.redCount} red*` : ''}.`,
+    note: red ? `${red.scorer} — ${red.minute}. Filed.` : 'DRAFT — pick the flashpoint, then file it.',
+    pose: 'pointing', expression: d.redCount ? 'angry' : 'neutral',
+    sticker: '[ poll ]', cta: "The whole file → today's post",
+  };
+} else {
+  veraStory = {
+    character: 'vera', kicker: `Vera's file · matchday ${mdLabel}`,
+    big: 'TODO — la note de discipline en lettre', note: '',
+    pose: 'pointing', sticker: '[ poll ]', cta: "The whole file → today's post",
+  };
+}
+
 const draft = {
   matchDate,
   title: 'TODO — angle du match vedette',
@@ -186,33 +321,9 @@ const draft = {
       pose: 'shocked',
       accent: 'orange',
     },
-    {
-      type: 'turning-point',
-      minute: 0,
-      kicker: 'The setup',
-      headline: 'TODO',
-      body: 'TODO — recherche web, chaque fait vérifié sur 2 sources',
-      annotations: [],
-      accent: 'red',
-    },
-    {
-      type: 'turning-point',
-      minute: 0,
-      kicker: 'The turnaround',
-      headline: 'TODO',
-      body: 'TODO — recherche web, chaque fait vérifié sur 2 sources',
-      annotations: [],
-      pose: 'celebrating',
-      accent: 'orange',
-    },
-    ...others.slice(0, MAX_STAT_CARDS).map((m) => ({
-      type: 'stat-card',
-      kicker: `${name(m.homeTeam)} vs ${name(m.awayTeam)}`,
-      value: `${m.score.fullTime.home}–${m.score.fullTime.away}`,
-      unit: 'full time',
-      context: 'TODO — l\'angle de ce match en 1-2 phrases (≈ 160 caractères)',
-      accent: 'blue',
-    })),
+    tp1,
+    tp2,
+    ...others.slice(0, MAX_STAT_CARDS).map(statCard),
     {
       type: 'cta',
       text: 'One illustrated story. *Every matchday.*',
@@ -240,26 +351,106 @@ const draft = {
       sticker: '[ emoji slider ]',
       cta: "All the numbers → today's post",
     },
-    {
-      character: 'vera',
-      kicker: `Vera's file · matchday ${mdLabel}`,
-      big: 'TODO — la note de discipline en lettre',
-      note: '',
-      pose: 'pointing',
-      sticker: '[ poll ]',
-      cta: "The whole file → today's post",
-    },
+    veraStory,
   ],
 };
 
 const dir = join(ROOT, 'content', matchDate);
 await mkdir(dir, { recursive: true });
+
+// facts.json : faits structurés bruts (ancre = ce que l'humain relit et ce que la
+// Phase 2 LLM consomme pour rédiger). Toujours réécrit — c'est de la donnée dérivée.
+const facts = {
+  matchDate,
+  generatedFrom: 'football-data (scores garantis) + ESPN (events, fail-soft)',
+  matches: finished.map((m) => {
+    const ev = eventsByMatch.get(m.id);
+    const entry = {
+      home: name(m.homeTeam),
+      away: name(m.awayTeam),
+      score: { home: m.score.fullTime.home, away: m.score.fullTime.away },
+      featured: m === featured,
+      events: ev
+        ? {
+            goals: ev.digest.goals.map((e) => ({ minute: e.minute, kind: e.kind, team: e.team, scorer: e.scorer, assist: e.assist })),
+            cards: ev.digest.cards.map((e) => ({ minute: e.minute, color: e.kind, team: e.team, player: e.scorer })),
+            yellowCount: ev.digest.yellowCount,
+            redCount: ev.digest.redCount,
+            subs: ev.digest.subs.length,
+          }
+        : null,
+    };
+    if (m === featured && crosscheck) {
+      entry.crosscheck = crosscheck.found
+        ? { source: 'wikipedia', title: crosscheck.title, minutesAgree: crosscheck.agree, onlyEspn: crosscheck.onlyEspn, onlyWiki: crosscheck.onlyWiki }
+        : { source: 'wikipedia', found: false };
+      if (crosscheck.note) entry.wikiNote = crosscheck.note; // contexte/record — À VÉRIFIER avant publication
+    }
+    return entry;
+  }),
+};
+await writeFile(join(dir, 'facts.json'), JSON.stringify(facts, null, 2) + '\n');
+console.log(`✓ Faits structurés : content/${matchDate}/facts.json (${eventsByMatch.size} match(s) avec events ESPN)`);
+
 const fileName = existsSync(join(dir, 'content.json')) ? 'content.draft.json' : 'content.json';
 await writeFile(join(dir, fileName), JSON.stringify(draft, null, 2) + '\n');
 if (fileName === 'content.draft.json') {
   console.log(`\n⚠ content/${matchDate}/content.json existe déjà — draft écrit dans content/${matchDate}/content.draft.json (rien d'écrasé).`);
 } else {
   console.log(`\n✓ Draft écrit : content/${matchDate}/content.json`);
+}
+
+// ---- --draft : couche LLM (Phase 2) — Claude rédige un draft éditorial depuis les faits.
+// Fail-soft : sans clé / SDK / erreur → on garde le draft déterministe ci-dessus.
+if (args.draft) {
+  const { enrichDraft } = await import('./lib/llm.mjs');
+  const res = await enrichDraft(facts, draft);
+  if (res) {
+    await writeFile(join(dir, 'content.draft.llm.json'), JSON.stringify(res.draft, null, 2) + '\n');
+    await writeFile(join(dir, 'caption.draft.txt'), res.caption);
+    console.log(`✓ Draft LLM : content/${matchDate}/content.draft.llm.json + caption.draft.txt — À RELIRE (vérifier chaque [VERIFY]).`);
+  }
+}
+
+// ---- --preview : scaffold du POST avant-match du lendemain (cadence 3 posts/jour, D13)
+if (args.preview) {
+  const pvDate = addDays(matchDate, 1);
+  if (!nextDay.length) {
+    console.log(`\n(--preview) Aucun match le ${pvDate} — pas de preview générée.`);
+  } else {
+    const ko = (m) => `${new Date(m.utcDate).toISOString().slice(11, 16)} UTC`;
+    const marquee = nextDay[0]; // heuristique : 1er coup d'envoi ; l'humain re-choisit le match vedette
+    const mq = { home: name(marquee.homeTeam), away: name(marquee.awayTeam), kickoff: ko(marquee) };
+    const preview = {
+      matchDate: pvDate,
+      title: 'TODO — angle de la preview',
+      slides: [
+        // le match vedette en 3 slides (D13) : accroche, Numa's Rewind, Otto's Board
+        { type: 'preview', kicker: `Coming up · ${prettyDate(pvDate)}`,
+          hook: 'TODO — *hook* here (8-12 words)',
+          ...mq, pose: 'pointing', accent: 'orange' },
+        { type: 'preview', kicker: "Numa's Rewind", ...mq,
+          rewind: 'TODO — anecdote / h2h vérifiée sur le web (ex. « 8th World Cup meeting »)',
+          pose: 'celebrating', accent: 'blue' },
+        { type: 'preview', kicker: "Otto's Board", ...mq,
+          pick: "TODO — Otto's call (he's usually wrong)",
+          pose: 'pointing', accent: 'orange' },
+        // 1 carte par autre match du jour
+        ...nextDay.slice(1, 1 + MAX_STAT_CARDS).map((m) => ({
+          type: 'preview', kicker: 'Also on the card',
+          home: name(m.homeTeam), away: name(m.awayTeam), kickoff: ko(m),
+          pose: 'none', accent: 'blue',
+        })),
+        { type: 'cta', text: "Who's your pick? *Tap to vote.*", note: 'Recap drops tomorrow.', pose: 'pointing', accent: 'orange' },
+      ],
+    };
+    const pvDir = join(ROOT, 'content', pvDate);
+    await mkdir(pvDir, { recursive: true });
+    const pvFile = existsSync(join(pvDir, 'preview.json')) ? 'preview.draft.json' : 'preview.json';
+    await writeFile(join(pvDir, pvFile), JSON.stringify(preview, null, 2) + '\n');
+    console.log(`\n✓ Preview avant-match (${nextDay.length} match(s) le ${pvDate}) : content/${pvDate}/${pvFile}`);
+    console.log(`  Rendre : npm run preview -- --date=${pvDate}`);
+  }
 }
 
 console.log(`

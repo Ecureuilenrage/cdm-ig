@@ -1,0 +1,88 @@
+/* Wall Chart — A2 paysage (594×420 mm ≈ 2245×1587 px @96dpi).
+   Réutilise les tokens de marque (tokens.css) + fontes vendorées. */
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body { background: #888; }
+
+.chart {
+  position: relative;
+  width: 2245px;
+  height: 1587px;
+  background: var(--paper);
+  color: var(--ink);
+  overflow: hidden;
+}
+.chart svg.under,
+.chart svg.over { position: absolute; inset: 0; pointer-events: none; }
+.chart svg.under { z-index: 0; }
+.chart .wc      { position: absolute; inset: 0; z-index: 1; }
+.chart svg.over { z-index: 2; }
+
+/* ---- title band ---- */
+.wc-head { position: absolute; left: 64px; top: 46px; }
+.wc-title { font-family: var(--font-title); font-weight: 800; font-size: 80px; line-height: 1; }
+.wc-sub {
+  font-family: var(--font-note); font-weight: 700; font-size: 42px;
+  color: var(--ink-soft); margin-top: 8px; letter-spacing: 0.01em;
+}
+.wc-otto { position: absolute; right: 70px; top: 28px; }
+.wc-numa { position: absolute; right: 120px; bottom: 96px; }
+
+/* ---- groups grid ---- */
+.groups {
+  position: absolute; left: 64px; right: 64px; top: 236px;
+  display: grid; grid-template-columns: repeat(4, 1fr); gap: 40px 44px;
+}
+.group { position: relative; padding: 16px 22px 10px; }
+.g-head { display: flex; align-items: baseline; gap: 14px; margin-bottom: 6px; }
+.g-letter { font-family: var(--font-title); font-weight: 800; font-size: 50px; line-height: 1; }
+.g-title {
+  font-family: var(--font-note); font-weight: 700; font-size: 31px;
+  text-transform: uppercase; letter-spacing: 0.05em; color: var(--ink-soft);
+}
+.g-row {
+  display: grid; grid-template-columns: 1fr 46px 46px 46px 46px 64px;
+  align-items: center; height: 60px;
+  font-family: var(--font-body); font-size: 31px;
+  border-bottom: 1px solid rgba(26, 26, 26, 0.16);
+}
+.g-row.colhead {
+  height: 42px; border-bottom: none;
+  font-family: var(--font-note); font-weight: 700; font-size: 25px;
+  color: var(--ink-soft); text-transform: uppercase; letter-spacing: 0.03em;
+}
+.g-row > span:not(.c-team) { text-align: center; }
+.c-team { display: flex; align-items: center; gap: 14px; min-width: 0; }
+.c-team .nm { white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.flag {
+  display: inline-flex; width: 44px; height: 30px; flex: 0 0 auto;
+  border: 1.5px solid var(--ink); border-radius: 3px; overflow: hidden;
+}
+.flag b { flex: 1; }
+
+/* ---- best thirds strip ---- */
+.thirds {
+  position: absolute; left: 64px; right: 64px; bottom: 116px;
+  display: flex; align-items: center; gap: 22px;
+  font-family: var(--font-body); font-size: 34px;
+}
+.thirds .lbl {
+  font-family: var(--font-note); font-weight: 700; font-size: 34px;
+  color: var(--blue); white-space: nowrap;
+}
+.thirds .cells { display: flex; gap: 12px; }
+.thirds .cell {
+  width: 86px; height: 60px;
+  display: flex; align-items: center; justify-content: center;
+  font-family: var(--font-title); font-weight: 700; font-size: 34px;
+  color: var(--ink-soft);
+}
+
+/* ---- disclaimer ---- */
+.wc-disclaimer {
+  position: absolute; left: 64px; bottom: 44px;
+  font-family: var(--font-note); font-size: 29px; color: var(--ink-soft);
+}
+.wc-handle {
+  position: absolute; right: 70px; bottom: 44px;
+  font-family: var(--font-note); font-weight: 700; font-size: 30px; color: var(--ink-soft);
+}

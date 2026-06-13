@@ -17,7 +17,10 @@ try {
   // au pipeline ; défaut = le cast officiel (poses.js).
   const charModule = await import(params.get('char') || '/brand/character/poses.js');
 
-  const doc = await (await fetch(`/content/${date}/content.json`)).json();
+  // ?file= permet de rendre un autre document du même dossier (ex. preview.json) ;
+  // défaut = content.json (le recap du jour).
+  const file = params.get('file') || 'content.json';
+  const doc = await (await fetch(`/content/${date}/${file}`)).json();
   const slide = doc.slides[idx - 1];
   if (!slide) throw new Error(`slide ${idx} absente (${doc.slides.length} slides)`);
 

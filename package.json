@@ -5,12 +5,17 @@
   "private": true,
   "scripts": {
     "render": "node scripts/render.mjs",
+    "preview": "node scripts/render.mjs --file=preview.json",
+    "build": "node scripts/build.mjs",
     "stories": "node scripts/stories.mjs",
     "shoot": "node scripts/shoot.mjs",
-    "fetch": "node scripts/fetch.mjs"
+    "fetch": "node scripts/fetch.mjs",
+    "buffer": "node scripts/buffer.mjs",
+    "wallchart": "node scripts/wallchart.mjs"
   },
   "type": "commonjs",
   "dependencies": {
+    "@anthropic-ai/sdk": "^0.104.1",
     "@fontsource/caveat": "^5.2.8",
     "@fontsource/patrick-hand": "^5.2.8",
     "@fontsource/shantell-sans": "^5.2.7",

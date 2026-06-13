@@ -81,6 +81,27 @@ Le hook doit tenir en 3 lignes max (≈ 34 caractères/ligne en 96px).
 ```
 L'`accent` désigne le personnage signature du jour (voir « Signature du jour »). La box `Follow @scribblepitch` et la ligne `newsletter → link in bio` sont automatiques (demande complète) — ne pas les dupliquer dans `text`/`note`.
 
+### preview (post avant-match — cadence 3 posts/jour, D13)
+
+Vit dans `content/<date>/preview.json` (même schéma racine `{ matchDate, title, slides }`), rendu par `npm run preview -- --date=YYYY-MM-DD` → `out/preview-0N.png`. Trois usages d'une même slide `preview` selon les champs fournis :
+
+```json
+{ "type": "preview",
+  "kicker": "Coming up · Month D, YYYY",
+  "hook": "Accroche 8-12 mots, *accent* (slide de TÊTE uniquement)",   // optionnel
+  "home": "Brazil", "away": "Morocco",
+  "kickoff": "22:00 UTC",                                              // optionnel
+  "rewind": "Anecdote / head-to-head (slide Numa, accent blue)",       // optionnel
+  "pick": "Pronostic d'Otto (slide Otto, accent orange)",              // optionnel
+  "pose": "pointing", "accent": "orange" }
+```
+
+- **LEAD** : `hook` présent → accroche 96px + matchup au centre + coach. C'est la 1re slide.
+- **FOCUS** : `rewind` (rituel *Numa's Rewind*) OU `pick` (*Otto's Board*) → matchup compact en haut + le texte en focus. Le label est posé automatiquement.
+- **CARTE** : juste `home`/`away`/`kickoff` (mettre `pose: "none"` pour masquer le coach) → un match secondaire du jour.
+
+Gabarit type (généré par `npm run fetch -- --date=J --preview`, écrit `content/<J+1>/preview.json`) : le match vedette en 3 slides (lead → Numa's Rewind → Otto's Board) + 1 carte par autre match + cta. `rewind`/`pick`/`hook` restent des TODO à compléter (anecdotes vérifiées sur le web).
+
 ## Footer & micro-CTA (automatiques — rien à écrire dans le JSON)
 
 Le moteur pose sur chaque slide un footer 3 zones : `@scribblepitch` | **UNE micro-demande en rotation** par index de slide (`follow for the next one` → `save this for later` → `share it with a fan` → `newsletter → link in bio`, en boucle) | `N / M`. La slide CTA n'a pas de micro-ask : son corps porte la demande complète.

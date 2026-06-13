@@ -20,15 +20,16 @@
       font-family: var(--font-title); font-weight: 800; font-size: 88px; line-height: 1.1; }
     .note-mid { position: absolute; top: 850px; left: 120px; max-width: 640px;
       font-family: var(--font-note); font-weight: 700; font-size: 46px; transform: rotate(-1.5deg); }
-    .mega { position: absolute; top: 430px; left: 0; right: 0; text-align: center;
+    .mega { position: absolute; top: 430px; left: 50%; transform: translateX(-50%); white-space: nowrap;
       font-family: var(--font-title); font-weight: 800; font-size: 300px; line-height: 1; }
     .mega-unit { position: absolute; top: 760px; left: 0; right: 0; text-align: center;
       font-family: var(--font-note); font-weight: 700; font-size: 64px; }
     .char { position: absolute; left: 90px; bottom: 420px; }
+    /* placeholder du sticker : juste le texte (pas de cadre) — l'utilisateur le
+       recouvre avec le vrai sticker (lien / sondage / slider) dans l'app. */
     .sticker { position: absolute; right: 90px; width: 520px; height: 200px; bottom: 560px;
-      border: 4px dashed rgba(26,26,26,.4); border-radius: 24px;
       display: flex; align-items: center; justify-content: center; text-align: center;
-      font-family: var(--font-note); font-size: 38px; color: rgba(26,26,26,.55); padding: 20px; }
+      font-family: var(--font-note); font-size: 36px; color: rgba(26,26,26,.38); padding: 20px; }
     .cta-line { position: absolute; bottom: 300px; left: 0; right: 0; text-align: center;
       font-family: var(--font-note); font-weight: 700; font-size: 44px; }
     .handle { position: absolute; bottom: 1680px; right: 80px; }
@@ -74,7 +75,7 @@
         <div class="kicker c-${accent} txt" id="kicker">${esc(story.kicker || '')}</div>
         ${story.big ? `<h1 class="big txt">${md(story.big)}</h1>` : ''}
         ${story.note ? `<div class="note-mid c-${accent} txt">${esc(story.note)}</div>` : ''}
-        ${story.mega ? `<div class="mega txt" id="mega">${esc(story.mega)}</div>
+        ${story.mega ? `<div class="mega txt" id="mega"${story.megaSize ? ` style="font-size:${story.megaSize}px"` : ''}>${esc(story.mega)}</div>
                         <div class="mega-unit c-${accent} txt">${md(story.unit || '')}</div>` : ''}
         <div class="char">${analyst({ character, pose: story.pose || 'neutral', expression: story.expression, mood: story.mood, size: 470 })}</div>
         ${story.sticker ? `<div class="sticker">${esc(story.sticker)}</div>` : ''}

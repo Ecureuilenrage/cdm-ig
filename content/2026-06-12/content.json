@@ -1,0 +1,100 @@
+{
+  "matchDate": "2026-06-12",
+  "title": "The hosts' statement",
+  "slides": [
+    {
+      "type": "cover",
+      "kicker": "Matchday 1 · June 12, 2026",
+      "hook": "Balogun's *brace* lit up the hosts' opener.",
+      "score": { "home": "USA", "away": "Paraguay", "homeGoals": 4, "awayGoals": 1 },
+      "note": "USA's first brace on this stage since 1930.",
+      "pose": "celebrating",
+      "expression": "happy",
+      "accent": "orange"
+    },
+    {
+      "type": "turning-point",
+      "minute": 31,
+      "kicker": "The early grip",
+      "headline": "Two up inside half an hour",
+      "body": "An own goal set the tone — Bobadilla turned McKennie's cutback into his own net on 7. Balogun made it two on 31, sweeping in Pulisic's pass. Paraguay were *chasing before they'd settled.*",
+      "annotations": [
+        { "text": "7' Bobadilla — own goal", "color": "red" },
+        { "text": "31' Balogun — 2-0", "color": "blue" }
+      ],
+      "pose": "pointing",
+      "expression": "neutral",
+      "accent": "blue"
+    },
+    {
+      "type": "turning-point",
+      "minute": 45,
+      "kicker": "The rout",
+      "headline": "Balogun's stunner ends the contest",
+      "body": "On the stroke of halftime, Balogun lifted a finish into the top corner — his second, the hosts' third. Mauricio pulled one back on 73, but Reyna had the *last word* deep in stoppage time.",
+      "annotations": [
+        { "text": "45+5' Balogun — his 2nd", "color": "orange" },
+        { "text": "90+8' Reyna — 4-1", "color": "orange" }
+      ],
+      "pose": "celebrating",
+      "expression": "happy",
+      "accent": "orange"
+    },
+    {
+      "type": "stat-card",
+      "kicker": "Meanwhile in Toronto",
+      "value": "1",
+      "unit": "first-ever point for Canada",
+      "context": "Lukic put Bosnia ahead on 21. Sub Larin levelled on 78 — *Canada's first point* at the tournament, and the first host to draw its opener since 2010.",
+      "accent": "blue"
+    },
+    {
+      "type": "cta",
+      "text": "One illustrated story. *Every matchday.*",
+      "note": "Tomorrow: Brazil vs Morocco — plus 3 more openers.",
+      "pose": "pointing",
+      "accent": "blue"
+    }
+  ],
+  "stories": [
+    {
+      "character": "otto",
+      "kicker": "Today's story · matchday 1",
+      "big": "Balogun's *brace* lit up the hosts' opener.",
+      "note": "Full breakdown on the board.",
+      "pose": "pointing",
+      "sticker": "[ link sticker: today's post ]",
+      "cta": "Full story → today's post"
+    },
+    {
+      "character": "vera",
+      "kicker": "Vera's file · matchday 1",
+      "big": "USA 4-1. Not a card in sight. Grade: *A.*",
+      "note": "Nothing to file. Vera hated it.",
+      "pose": "neutral",
+      "expression": "neutral",
+      "sticker": "[ poll: “USA the real deal? Yes / Early days” ]",
+      "cta": "The whole file → today's post"
+    },
+    {
+      "character": "numa",
+      "kicker": "Numa's number · matchday 1",
+      "mega": "1930",
+      "megaSize": 200,
+      "unit": "the USA's last brace at this level",
+      "note": "Until tonight. Balogun got two before the half.",
+      "pose": "celebrating",
+      "sticker": "[ emoji slider: “How big a statement?” ]",
+      "cta": "All the numbers → today's post"
+    },
+    {
+      "character": "otto",
+      "kicker": "Otto's board · tonight",
+      "big": "Brazil vs Morocco. Last time? *Morocco won.*",
+      "note": "Otto's call: Brazil. (He's usually wrong.)",
+      "pose": "pointing",
+      "sticker": "[ poll: “Tonight: Brazil / Morocco” ]",
+      "cta": "Tap the poll → your call"
+    }
+  ]
+}

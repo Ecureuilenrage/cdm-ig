@@ -51,7 +51,11 @@ const server = createServer(async (req, res) => {
 
 await new Promise((resolve) => server.listen(PORT, '127.0.0.1', resolve));
 
-const doc = JSON.parse(await readFile(join(ROOT, 'content', date, 'content.json'), 'utf8'));
+// --file : document à rendre dans le dossier du jour (défaut content.json).
+// preview.json -> sortie out/preview-0N.png ; content.json -> out/slide-0N.png.
+const docFile = typeof args.file === 'string' ? args.file : 'content.json';
+const prefix = docFile === 'content.json' ? 'slide' : docFile.replace(/\.json$/, '');
+const doc = JSON.parse(await readFile(join(ROOT, 'content', date, docFile), 'utf8'));
 const outDir = join(ROOT, 'content', date, 'out');
 await mkdir(outDir, { recursive: true });
 
@@ -62,7 +66,7 @@ const page = await browser.newPage({ viewport: { width: 1080, height: 1350 } });
 
 let warnings = [];
 for (const i of only) {
-  const url = `http://127.0.0.1:${PORT}/templates/render.html?date=${date}&slide=${i}`;
+  const url = `http://127.0.0.1:${PORT}/templates/render.html?date=${date}&slide=${i}&file=${encodeURIComponent(docFile)}`;
   await page.goto(url);
   await page.waitForFunction('window.__renderDone === true', null, { timeout: 15000 });
 
@@ -76,9 +80,9 @@ for (const i of only) {
   const w = await page.evaluate('window.__overflowWarnings');
   warnings = warnings.concat(w || []);
 
-  const file = join(outDir, `slide-${String(i).padStart(2, '0')}.png`);
+  const file = join(outDir, `${prefix}-${String(i).padStart(2, '0')}.png`);
   await page.screenshot({ path: file, clip: { x: 0, y: 0, width: 1080, height: 1350 } });
-  console.log(`✓ slide ${i}/${doc.slides.length} -> ${file}`);
+  console.log(`✓ ${prefix} ${i}/${doc.slides.length} -> ${file}`);
 }
 
 await browser.close();

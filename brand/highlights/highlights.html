@@ -1,0 +1,72 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Scribble Pitch — highlight covers</title>
+  <link rel="stylesheet" href="/templates/fonts/fonts.css">
+  <link rel="stylesheet" href="/brand/tokens.css">
+  <style>
+    * { box-sizing: border-box; margin: 0; }
+    body { background: #888; }
+    /* 1080×1080 — Instagram recadre en CERCLE inscrit (rayon 540 depuis le centre).
+       Tout l'élément vit bien à l'intérieur de ce cercle. */
+    .cover { position: relative; width: 1080px; height: 1080px; background: var(--paper); overflow: hidden; color: var(--ink); }
+    svg.under, svg.over { position: absolute; inset: 0; pointer-events: none; }
+    .content { position: absolute; inset: 0; z-index: 1; }
+    svg.over { z-index: 2; }
+    #ring { position: absolute; left: 50%; top: 50%; transform: translate(-50%, -50%); width: 640px; height: 640px; }
+    .fig { position: absolute; left: 50%; top: 52%; transform: translate(-50%, -50%); }
+    #board { position: absolute; left: 50%; top: 50%; transform: translate(-50%, -50%); width: 380px; height: 250px; }
+  </style>
+</head>
+<body>
+  <div class="cover" id="cover">
+    <svg class="under" width="1080" height="1080" viewBox="0 0 1080 1080"></svg>
+    <div class="content" id="content"></div>
+    <svg class="over" width="1080" height="1080" viewBox="0 0 1080 1080"></svg>
+  </div>
+  <script type="module">
+    import { createKit, hashSeed } from '/templates/lib/slide-kit.js';
+    import { analyst } from '/brand/character/poses.js';
+
+    // L'anneau code la couleur du perso ; START = anneau encre + glyphe "tableau + flèche".
+    const RING = { otto: 'orange', numa: 'blue', vera: 'red', start: 'ink' };
+
+    try {
+      const cover = new URLSearchParams(location.search).get('cover') || 'otto';
+      const ring = RING[cover] || 'orange';
+
+      await document.fonts.ready;
+
+      const content = document.getElementById('content');
+      const coverEl = document.getElementById('cover');
+
+      let inner = `<div id="ring"></div>`;
+      if (cover === 'start') {
+        inner += `<div id="board"></div>`;
+      } else {
+        const pose = cover === 'otto' ? 'pointing' : 'neutral';
+        inner += `<div class="fig">${analyst({ character: cover, pose, size: 470 })}</div>`;
+      }
+      content.innerHTML = inner;
+
+      const kit = createKit({
+        svgUnder: coverEl.querySelector('svg.under'),
+        svgOver: coverEl.querySelector('svg.over'),
+        slideEl: coverEl,
+        seed: hashSeed(`highlight#${cover}`),
+      });
+
+      kit.circle('#ring', { color: ring, padX: 20, padY: 20, strokeWidth: 8 });
+
+      if (cover === 'start') {
+        kit.box('#board', { color: 'ink', pad: 6, strokeWidth: 7 });
+        kit.arrow(420, 648, 690, 448, { color: 'orange', bend: 0.18, strokeWidth: 8 });
+      }
+    } catch (err) {
+      window.__renderError = String(err && err.stack ? err.stack : err);
+    }
+    window.__shotReady = true;
+  </script>
+</body>
+</html>

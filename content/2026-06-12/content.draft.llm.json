@@ -1,0 +1,103 @@
+{
+  "matchDate": "2026-06-12",
+  "title": "Matchday 1 — USA Open Loud, Canada Settle",
+  "slides": [
+    {
+      "type": "cover",
+      "kicker": "Matchday 1 · June 12, 2026",
+      "hook": "Four goals, one *red*, and a finish after the whistle.",
+      "score": {
+        "home": "USA",
+        "away": "Paraguay",
+        "homeGoals": 4,
+        "awayGoals": 1
+      },
+      "note": "Two matches. One *statement*, one stalemate.",
+      "pose": "shocked",
+      "accent": "orange"
+    },
+    {
+      "type": "turning-point",
+      "minute": 7,
+      "kicker": "The setup",
+      "headline": "An own goal cracks it *open* early",
+      "body": "Bobadilla turns it into his own net at 7'. Then Balogun takes over. Pulisic sets up the second at 31'; Tillman the third in stoppage time. Halftime read 3-0, *settled*.",
+      "annotations": [
+        {
+          "text": "7' Damián Bobadilla (o.g.)",
+          "color": "blue"
+        },
+        {
+          "text": "31' Folarin Balogun",
+          "color": "blue"
+        }
+      ],
+      "accent": "blue"
+    },
+    {
+      "type": "turning-point",
+      "minute": 73,
+      "kicker": "The turn",
+      "headline": "A red card barely *dents* the lead",
+      "body": "Tim Ream sees red at 52'. Paraguay smell a comeback — Maurício answers Enciso at 73'. It fades fast. Reyna, fed by Freeman, makes it four at 90'+8'. *Filed*.",
+      "annotations": [
+        {
+          "text": "73' Maurício",
+          "color": "blue"
+        },
+        {
+          "text": "90'+8' Giovanni Reyna",
+          "color": "blue"
+        }
+      ],
+      "pose": "celebrating",
+      "accent": "orange"
+    },
+    {
+      "type": "stat-card",
+      "kicker": "Canada vs Bosnia-H.",
+      "value": "1–1",
+      "unit": "full time",
+      "context": "Bosnia's Lukic struck first at 21' off Kolasinac. Larin equalized at 78', Promise David assisting. Five yellows, a clean *split* of points.",
+      "accent": "blue"
+    },
+    {
+      "type": "cta",
+      "text": "One illustrated story. *Every matchday.*",
+      "note": "Tomorrow: Qatar vs Switzerland, Brazil vs Morocco & 2 more.",
+      "pose": "pointing",
+      "accent": "orange"
+    }
+  ],
+  "stories": [
+    {
+      "character": "otto",
+      "kicker": "Today's story · matchday 1",
+      "big": "Three up at the break, ten men after 52'. The board *held*.",
+      "note": "",
+      "pose": "pointing",
+      "sticker": "[ link sticker: today's post ]",
+      "cta": "Full story → today's post"
+    },
+    {
+      "character": "numa",
+      "kicker": "Numa's number · matchday 1",
+      "mega": "4",
+      "unit": "USA goals",
+      "pose": "celebrating",
+      "sticker": "[ emoji slider ]",
+      "cta": "All the numbers → today's post",
+      "note": "One own, two from Balogun, one from Reyna after the whistle. ...under protest."
+    },
+    {
+      "character": "vera",
+      "kicker": "Vera's file · matchday 1",
+      "big": "6 yellow, *1 red*.",
+      "note": "Tim Ream — 52'. Filed.",
+      "pose": "pointing",
+      "expression": "angry",
+      "sticker": "[ poll ]",
+      "cta": "The whole file → today's post"
+    }
+  ]
+}

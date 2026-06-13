@@ -8,6 +8,7 @@
 - Ton : l'analyste passionné qui dessine au tableau — précis sur les faits, expressif sur l'émotion.
 - Jamais de jargon xG/opta-speak sur les slides : les chiffres qu'on montre sont compréhensibles par tous (minutes, buts, cartons, affluence).
 - Le hook de cover répond à "pourquoi je m'arrête de scroller ?" — une tension, pas un résumé.
+- **Tagline** : « One illustrated story. Every matchday. » — ligne d'offre/rituel, garde sa place sur la slide CTA et le thumbnail. **Ligne longue de positionnement** (bio IG, hero du site, À propos) : *« Hand-drawn stories from every matchday — the moment the game flipped, told on a whiteboard by Otto, Numa & Vera. »* [confirmé 13/06]
 
 ## Le cast — 3 analystes, 1 couleur chacun
 
@@ -22,6 +23,10 @@
 - **Signature du jour** (slide CTA + dernière story) : **rotation pilotée par le contenu** — le personnage du fait marquant du jour signe (gros carton → Vera, stat/record → Numa, bascule tactique → Otto). Otto reste **l'avatar et le visage officiel** du compte. Les semaines à invité, un **slot guest** (`character: "guest"`, silhouette en pointillés) remplace le personnage du jour — vivier : `brand/character/casting/` (ex. Scout). [Décision 7, actée le 12/06]
 - Le carton de Vera est **jaune** au repos et **vire au rouge** quand le match dérape (expression `angry`, pose `dejected`, ou `mood` explicite). Le jaune #EAB308 est une couleur de personnage, **jamais un accent de slide**.
 - Rituels : *Otto's Board* (la prédiction), *Numa's Number* (UN chiffre par jour), *Vera's File* (la note de discipline en lettre). L'absence d'un personnage se joue en gag ("Day off for Vera.").
+- **Tics verbaux** (un par tête, à répéter jusqu'à l'usure) : Otto « Trust the board. » (surtout quand le tableau a tort) · Numa « …under protest. » · Vera « Filed. » [13/06]
+- **Dynamique du trio** : Numa fact-checke Otto en note de bas de page ; Vera ouvre un dossier sur quiconque exagère (Otto inclus) ; Otto efface le tableau quand on le contredit. **Une pique inter-personnages max par carrousel.** [13/06]
+- **Otto's Board = compteur public** : chaque prédiction est tenue (« X right, Y wrong, never in doubt »). Otto a toujours tort avec panache — c'est sa faille et son charme ; alimenté par le format Before/After. [Décision 12, 13/06]
+- **Guests du vivier** (`brand/character/casting/`) : Ola (le supporter — la ferveur, jours d'upset/qualification), Scout (les pépites — phase à élimination directe). Le slot pointillé (`character: "guest"`) se teaser en story la veille (« someone new is joining the board »). [13/06]
 - Source de vérité visuelle : `brand/character/poses.js` (`analyst({character, pose, expression, mood})`), planche : `brand/character/preview.html`.
 
 ## Visuel

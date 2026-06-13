@@ -1,0 +1,171 @@
+{
+  "matchDate": "2026-06-12",
+  "generatedFrom": "football-data (scores garantis) + ESPN (events, fail-soft)",
+  "matches": [
+    {
+      "home": "USA",
+      "away": "Paraguay",
+      "score": {
+        "home": 4,
+        "away": 1
+      },
+      "featured": true,
+      "events": {
+        "goals": [
+          {
+            "minute": "7'",
+            "kind": "own-goal",
+            "team": "United States",
+            "scorer": "Damián Bobadilla",
+            "assist": null
+          },
+          {
+            "minute": "31'",
+            "kind": "goal",
+            "team": "United States",
+            "scorer": "Folarin Balogun",
+            "assist": "Christian Pulisic"
+          },
+          {
+            "minute": "45'+5'",
+            "kind": "goal",
+            "team": "United States",
+            "scorer": "Folarin Balogun",
+            "assist": "Malik Tillman"
+          },
+          {
+            "minute": "73'",
+            "kind": "goal",
+            "team": "Paraguay",
+            "scorer": "Maurício",
+            "assist": "Julio Enciso"
+          },
+          {
+            "minute": "90'+8'",
+            "kind": "goal",
+            "team": "United States",
+            "scorer": "Giovanni Reyna",
+            "assist": "Alex Freeman"
+          }
+        ],
+        "cards": [
+          {
+            "minute": "10'",
+            "color": "yellow",
+            "team": "Paraguay",
+            "player": "Juan Jose Cáceres"
+          },
+          {
+            "minute": "52'",
+            "color": "red",
+            "team": "United States",
+            "player": "Tim Ream"
+          },
+          {
+            "minute": "53'",
+            "color": "yellow",
+            "team": "Paraguay",
+            "player": "Miguel Almirón"
+          },
+          {
+            "minute": "59'",
+            "color": "yellow",
+            "team": "United States",
+            "player": "Tyler Adams"
+          },
+          {
+            "minute": "79'",
+            "color": "yellow",
+            "team": "Paraguay",
+            "player": "Diego Gómez"
+          },
+          {
+            "minute": "88'",
+            "color": "yellow",
+            "team": "Paraguay",
+            "player": "Alex Arce"
+          },
+          {
+            "minute": "90'+3'",
+            "color": "yellow",
+            "team": "Paraguay",
+            "player": "Júnior Alonso"
+          }
+        ],
+        "yellowCount": 6,
+        "redCount": 1,
+        "subs": 9
+      },
+      "crosscheck": {
+        "source": "wikipedia",
+        "title": "2026 FIFA World Cup Group D",
+        "minutesAgree": true,
+        "onlyEspn": [],
+        "onlyWiki": []
+      },
+      "wikiNote": "The teams have met nine times previously, including once in the World Cup, a 3–0 victory in the group stage for the United States in 1930, and most recently in 2025, a 2–1 win for the United States in a friendly."
+    },
+    {
+      "home": "Canada",
+      "away": "Bosnia-H.",
+      "score": {
+        "home": 1,
+        "away": 1
+      },
+      "featured": false,
+      "events": {
+        "goals": [
+          {
+            "minute": "21'",
+            "kind": "goal",
+            "team": "Bosnia-Herzegovina",
+            "scorer": "Jovo Lukic",
+            "assist": "Sead Kolasinac"
+          },
+          {
+            "minute": "78'",
+            "kind": "goal",
+            "team": "Canada",
+            "scorer": "Cyle Larin",
+            "assist": "Promise David"
+          }
+        ],
+        "cards": [
+          {
+            "minute": "11'",
+            "color": "yellow",
+            "team": "Canada",
+            "player": "Alistair Johnston"
+          },
+          {
+            "minute": "45'",
+            "color": "yellow",
+            "team": "Bosnia-Herzegovina",
+            "player": "Ermedin Demirovic"
+          },
+          {
+            "minute": "45'+1'",
+            "color": "yellow",
+            "team": "Bosnia-Herzegovina",
+            "player": "Jovo Lukic"
+          },
+          {
+            "minute": "53'",
+            "color": "yellow",
+            "team": "Canada",
+            "player": "Luc de Fougerolles"
+          },
+          {
+            "minute": "90'+3'",
+            "color": "yellow",
+            "team": "Bosnia-Herzegovina",
+            "player": "Nikola Katic"
+          }
+        ],
+        "yellowCount": 5,
+        "redCount": 0,
+        "subs": 10
+      }
+    }
+  ]
+}
