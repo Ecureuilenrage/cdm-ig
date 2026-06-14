@@ -1,0 +1,40 @@
+{
+  "matchDate": "evergreen",
+  "title": "Did You Know? Morocco at the Finals",
+  "character": "numa",
+  "slides": [
+    {
+      "type": "stat-card",
+      "kicker": "First to do it",
+      "value": "1986",
+      "unit": "first African knockout berth",
+      "context": "Morocco topped their group to reach the *last* sixteen — the first African side to advance at this level. [VERIFY]",
+      "pose": "shocked",
+      "accent": "blue"
+    },
+    {
+      "type": "stat-card",
+      "kicker": "Historic high",
+      "value": "4th",
+      "unit": "best African finish ever",
+      "context": "In 2022 they reached the semi-finals, the *furthest* any African or Arab team has gone on the biggest stage. [VERIFY]",
+      "accent": "blue"
+    },
+    {
+      "type": "stat-card",
+      "kicker": "Little-known",
+      "value": "57",
+      "unit": "years between first appearances",
+      "context": "Their *debut* came in 1970, then a long wait before they became regulars at the finals. [VERIFY]",
+      "pose": "celebrating",
+      "accent": "blue"
+    },
+    {
+      "type": "cta",
+      "text": "One illustrated story. *Every matchday.*",
+      "note": "Numbers logged, under protest.",
+      "pose": "pointing",
+      "accent": "blue"
+    }
+  ]
+}

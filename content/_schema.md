@@ -102,6 +102,27 @@ Vit dans `content/<date>/preview.json` (même schéma racine `{ matchDate, title
 
 Gabarit type (généré par `npm run fetch -- --date=J --preview`, écrit `content/<J+1>/preview.json`) : le match vedette en 3 slides (lead → Numa's Rewind → Otto's Board) + 1 carte par autre match + cta. `rewind`/`pick`/`hook` restent des TODO à compléter (anecdotes vérifiées sur le web).
 
+### quiz (3e post — jours de match)
+
+```json
+{ "type": "quiz",
+  "kicker": "Quiz · matchday N",
+  "question": "Phrase de question, *accent* sur un mot",
+  "options": ["A label", "B label", "C label"],   // 0-4 ; clés A/B/C/D auto
+  "prompt": "Swipe for the answer →",              // optionnel
+  "pose": "pointing", "accent": "blue" }
+```
+La réponse se révèle sur une slide `stat-card` suivante. L'accent désigne le personnage (défaut Numa).
+
+## 3e post — `third.json` (cadence 3 posts/jour, D13)
+
+Vit dans `content/<date>/third.json` (même schéma racine), rendu par `npm run render -- --file=third.json` → `out/third-0N.png` (aussi rendu par `npm run build`). Deux formes, choisies **automatiquement** par `npm run third` / `npm run day` :
+
+- **quiz** (jour de match, si `facts.json` présent) : `quiz` (question + options) → `stat-card` (réponse révélée) → `stat-card` (chiffre bonus) → `cta`. 100% tiré de `facts.json` (aucune trivia inventée) ; `--draft` affine la copie, la **réponse factuelle reste verrouillée**.
+- **état du tournoi** (jour creux, sans `facts.json`) : 2-3 `stat-card`s depuis les classements football-data (`/standings`) + top buteur + `cta`.
+
+**Evergreens** (`content/evergreen-0N/`, réserve du 3e slot) : `npm run evergreen -- --team="X"` rédige un « Did you know? » thématique Mondial où **chaque fait porte un `[VERIFY]`** ; fact-check (2 sources) + retrait des `[VERIFY]`, puis `npm run render` et `npm run buffer -- --verify=…` (barrière : pas de publication tant que non vérifié).
+
 ## Footer & micro-CTA (automatiques — rien à écrire dans le JSON)
 
 Le moteur pose sur chaque slide un footer 3 zones : `@scribblepitch` | **UNE micro-demande en rotation** par index de slide (`follow for the next one` → `save this for later` → `share it with a fan` → `newsletter → link in bio`, en boucle) | `N / M`. La slide CTA n'a pas de micro-ask : son corps porte la demande complète.

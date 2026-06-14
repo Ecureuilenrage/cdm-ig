@@ -38,4 +38,9 @@ if (existsSync(join(dir, 'preview.json'))) {
   run('render.mjs', ['--file=preview.json']);
 }
 
+if (existsSync(join(dir, 'third.json'))) {
+  console.log(`\n▶ 3e post — ${date}`);
+  run('render.mjs', ['--file=third.json']);
+}
+
 console.log('\n✓ build terminé.');

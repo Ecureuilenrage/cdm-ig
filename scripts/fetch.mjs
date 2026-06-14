@@ -7,17 +7,18 @@
 // cartons par match. Le script garantit scores + calendrier ; la recherche web du
 // matin (2 sources) reste obligatoire pour le récit.
 
-import { readFile, writeFile, mkdir } from 'node:fs/promises';
+import { writeFile, mkdir } from 'node:fs/promises';
 import { existsSync } from 'node:fs';
 import { join } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { fetchScoreboard, eventsForMatch } from './lib/espn.mjs';
 import { crosscheckMinutes } from './lib/wikipedia.mjs';
+import {
+  loadKey, addDays, editorialDay, prettyDate, dayMs, iso,
+  fetchMatchesRange, fetchScorers, teamName as name, totalGoals,
+} from './lib/footballdata.mjs';
 
 const ROOT = fileURLToPath(new URL('..', import.meta.url));
-const API = 'https://api.football-data.org/v4';
-const COMPETITION = 'WC';
-const CACHE_TTL_MIN = 10; // réutilise une réponse de moins de 10 min (quota : 10 appels/min)
 const MAX_STAT_CARDS = 4; // cover + 2 turning-points + stat-cards + cta ≤ 8 slides (schéma)
 
 const args = Object.fromEntries(
@@ -26,34 +27,6 @@ const args = Object.fromEntries(
     return m ? [m[1], m[2]] : [a.replace(/^--/, ''), true];
   })
 );
-
-// ---- clé API : variable d'environnement, sinon .env à la racine (parse minimal)
-async function loadKey() {
-  if (process.env.FOOTBALL_DATA_KEY) return process.env.FOOTBALL_DATA_KEY;
-  try {
-    const raw = await readFile(join(ROOT, '.env'), 'utf8');
-    for (const line of raw.split(/\r?\n/)) {
-      const m = line.match(/^\s*FOOTBALL_DATA_KEY\s*=\s*"?([^"#]+?)"?\s*$/);
-      if (m) return m[1].trim();
-    }
-  } catch {}
-  return null;
-}
-
-// ---- dates. Jour de match ÉDITORIAL : un match du soir aux US/Canada/Mexique
-// tombe le lendemain en UTC ; on rattache un coup d'envoi au jour J si
-// (utcDate - 8h) tombe le J (8h UTC = 4h ET / 1h PT, aucun match à cette heure).
-const dayMs = 24 * 60 * 60 * 1000;
-const iso = (d) => d.toISOString().slice(0, 10);
-const addDays = (isoDate, n) => iso(new Date(new Date(`${isoDate}T12:00:00Z`).getTime() + n * dayMs));
-const editorialDay = (utcDate) => iso(new Date(new Date(utcDate).getTime() - 8 * 60 * 60 * 1000));
-
-const MONTHS = ['January', 'February', 'March', 'April', 'May', 'June',
-  'July', 'August', 'September', 'October', 'November', 'December'];
-function prettyDate(isoDate) {
-  const d = new Date(`${isoDate}T12:00:00Z`);
-  return `${MONTHS[d.getUTCMonth()]} ${d.getUTCDate()}, ${d.getUTCFullYear()}`;
-}
 
 const matchDate = typeof args.date === 'string' ? args.date : iso(new Date(Date.now() - dayMs));
 if (!/^\d{4}-\d{2}-\d{2}$/.test(matchDate)) {
@@ -67,62 +40,13 @@ if (!KEY) {
   process.exit(1);
 }
 
-// ---- GET throttlé + archivé. On lit les headers de réponse pour s'auto-throttler
-// (X-Requests-Available-Minute / X-RequestCounter-Reset) — reco officielle de l'API.
-let remaining = null;
-let resetSec = null;
-const sleep = (s) => new Promise((r) => setTimeout(r, s * 1000));
-
-async function apiGet(path, cacheName, retried = false) {
-  const cacheFile = join(ROOT, 'data', 'raw', cacheName);
-  try {
-    const cached = JSON.parse(await readFile(cacheFile, 'utf8'));
-    if (cached.__fetchedAt && Date.now() - cached.__fetchedAt < CACHE_TTL_MIN * 60 * 1000) {
-      console.log(`· ${path} — cache (<${CACHE_TTL_MIN} min) : data/raw/${cacheName}`);
-      return cached;
-    }
-  } catch {}
-
-  if (remaining === 0) {
-    const wait = (resetSec ?? 60) + 1;
-    console.log(`· quota minute épuisé — pause ${wait}s (header de reset)…`);
-    await sleep(wait);
-  }
-
-  const res = await fetch(API + path, { headers: { 'X-Auth-Token': KEY } });
-  remaining = parseInt(res.headers.get('X-Requests-Available-Minute') ?? '', 10);
-  if (Number.isNaN(remaining)) remaining = null;
-  resetSec = parseInt(res.headers.get('X-RequestCounter-Reset') ?? '', 10) || null;
-
-  if (res.status === 429 && !retried) {
-    const wait = (resetSec ?? 60) + 1;
-    console.log(`· 429 reçu — pause ${wait}s puis nouvel essai…`);
-    await sleep(wait);
-    return apiGet(path, cacheName, true);
-  }
-  if (!res.ok) throw new Error(`${res.status} ${res.statusText} sur ${path} : ${await res.text()}`);
-
-  const data = await res.json();
-  data.__fetchedAt = Date.now();
-  await mkdir(join(ROOT, 'data', 'raw'), { recursive: true });
-  await writeFile(cacheFile, JSON.stringify(data, null, 2));
-  console.log(`· ${path} — ok (${remaining ?? '?'} appels restants cette minute) → data/raw/${cacheName}`);
-  return data;
-}
-
 // ---- matchs : une seule requête couvre J, J+1 (teaser) et le débord UTC
 const dateTo = addDays(matchDate, 2);
-const matchesRes = await apiGet(
-  `/competitions/${COMPETITION}/matches?dateFrom=${matchDate}&dateTo=${dateTo}`,
-  `matches-${matchDate}_${dateTo}.json`
-);
-const all = matchesRes.matches || [];
+const all = await fetchMatchesRange(matchDate, dateTo);
 const byDay = (d) => all.filter((m) => editorialDay(m.utcDate) === d);
 const played = byDay(matchDate);
 const nextDay = byDay(addDays(matchDate, 1));
 
-const name = (t) => t?.shortName || t?.name || t?.tla || '?';
-const totalGoals = (m) => (m.score?.fullTime?.home ?? 0) + (m.score?.fullTime?.away ?? 0);
 const scoreLabel = (m) =>
   m.status === 'FINISHED' ? `${m.score.fullTime.home}–${m.score.fullTime.away}`
   : m.status === 'IN_PLAY' || m.status === 'PAUSED' ? 'EN COURS'
@@ -181,9 +105,9 @@ for (const m of nextDay) {
 
 // ---- /scorers (top buteurs agrégés — utilisable pour des stat-cards)
 if (args.scorers) {
-  const sc = await apiGet(`/competitions/${COMPETITION}/scorers?limit=10`, 'scorers.json');
+  const scorers = await fetchScorers(10);
   console.log('\nTop buteurs (agrégé tournoi) :');
-  for (const s of (sc.scorers || []).slice(0, 10)) {
+  for (const s of scorers.slice(0, 10)) {
     console.log(`  ${s.player?.name} (${s.team?.shortName || s.team?.name}) — ${s.goals} but(s)${s.assists ? `, ${s.assists} passe(s)` : ''}`);
   }
 }
@@ -362,6 +286,7 @@ await mkdir(dir, { recursive: true });
 // Phase 2 LLM consomme pour rédiger). Toujours réécrit — c'est de la donnée dérivée.
 const facts = {
   matchDate,
+  matchday: matchday ?? null,
   generatedFrom: 'football-data (scores garantis) + ESPN (events, fail-soft)',
   matches: finished.map((m) => {
     const ev = eventsByMatch.get(m.id);

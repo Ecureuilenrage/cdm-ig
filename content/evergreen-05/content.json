@@ -1,0 +1,40 @@
+{
+  "matchDate": "evergreen",
+  "title": "Did you know? The tiniest nations to crash the finals",
+  "character": "numa",
+  "slides": [
+    {
+      "type": "stat-card",
+      "kicker": "Smallest ever, by head count",
+      "value": "156k",
+      "unit": "people on the island",
+      "context": "Curacao reached the finals with roughly 156,000 *citizens* — fewer than many mid-size towns. [VERIFY]",
+      "pose": "shocked",
+      "accent": "blue"
+    },
+    {
+      "type": "stat-card",
+      "kicker": "Iceland's first dance",
+      "value": "338k",
+      "unit": "national population, 2018",
+      "context": "In 2018 Iceland debuted at this level with about 338,000 people — once the *smallest* ever. [VERIFY]",
+      "accent": "blue"
+    },
+    {
+      "type": "stat-card",
+      "kicker": "Trinidad's lone bow",
+      "value": "2006",
+      "unit": "their only finals year",
+      "context": "Trinidad and Tobago made their *single* finals appearance in 2006, drawing their opener nil-nil. [VERIFY]",
+      "pose": "celebrating",
+      "accent": "blue"
+    },
+    {
+      "type": "cta",
+      "text": "One illustrated story. *Every matchday.*",
+      "note": "Numbers logged. ...under protest.",
+      "pose": "pointing",
+      "accent": "blue"
+    }
+  ]
+}

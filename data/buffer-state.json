@@ -1,1 +1,8 @@
-{}
+{
+  "evergreen-01": {
+    "verified": "2026-06-14"
+  },
+  "evergreen-02": {
+    "verified": "2026-06-14"
+  }
+}

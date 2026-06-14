@@ -5,11 +5,14 @@
 // Usage :
 //   npm run buffer                      — inventaire + prochain recommandé
 //   npm run buffer -- --next            — juste le prochain à poster (+ commande de rendu)
-//   npm run buffer -- --mark=evergreen-01   — marque comme posté (date du jour)
-//   npm run buffer -- --unmark=evergreen-01 — annule le marquage
+//   npm run buffer -- --mark=evergreen-01     — marque comme posté (date du jour)
+//   npm run buffer -- --unmark=evergreen-01   — annule le marquage
+//   npm run buffer -- --verify=evergreen-01   — marque VÉRIFIÉ (refuse s'il reste des [VERIFY])
+//   npm run buffer -- --unverify=evergreen-01 — annule la vérification
 //
-// Pour CRÉER un nouvel evergreen : dupliquer un dossier content/evergreen-0N existant,
-// éditer content.json + caption.txt, puis `npm run render -- --date=evergreen-0M`.
+// Barrière : un evergreen n'est « PRÊT » que s'il est rendu ET vérifié ET sans [VERIFY].
+// Pour CRÉER un evergreen : `npm run evergreen -- --team="X"` (draft IA), puis fact-check +
+// retrait des [VERIFY], `npm run render -- --date=evergreen-0M`, `npm run buffer -- --verify=…`.
 
 import { readFile, writeFile, mkdir, readdir } from 'node:fs/promises';
 import { existsSync } from 'node:fs';
@@ -53,11 +56,14 @@ async function listEvergreens() {
   for (const name of names) {
     const dir = join(CONTENT, name);
     let title = '(content.json manquant)';
+    let hasVerify = false;
     try {
-      title = JSON.parse(await readFile(join(dir, 'content.json'), 'utf8')).title || '(sans titre)';
+      const raw = await readFile(join(dir, 'content.json'), 'utf8');
+      title = JSON.parse(raw).title || '(sans titre)';
+      hasVerify = /\[VERIFY\]/.test(raw);
     } catch {}
     const rendered = existsSync(join(dir, 'out', 'slide-01.png'));
-    out.push({ name, title, rendered });
+    out.push({ name, title, rendered, hasVerify });
   }
   return out;
 }
@@ -77,6 +83,31 @@ if (typeof args.unmark === 'string') {
   console.log(`✓ ${args.unmark} : marquage retiré.`);
   process.exit(0);
 }
+if (typeof args.verify === 'string') {
+  let raw = '';
+  try {
+    raw = await readFile(join(CONTENT, args.verify, 'content.json'), 'utf8');
+  } catch {
+    console.error(`✗ ${args.verify} : content.json introuvable.`);
+    process.exit(1);
+  }
+  if (/\[VERIFY\]/.test(raw)) {
+    console.error(`✗ ${args.verify} : il reste des [VERIFY] dans content.json — fact-checker (2 sources) et les retirer avant de vérifier.`);
+    process.exit(1);
+  }
+  state[args.verify] = { ...(state[args.verify] || {}), verified: today() };
+  await saveState(state);
+  console.log(`✓ ${args.verify} vérifié le ${state[args.verify].verified} — « prêt » une fois rendu.`);
+  process.exit(0);
+}
+if (typeof args.unverify === 'string') {
+  if (state[args.unverify]) {
+    delete state[args.unverify].verified;
+    await saveState(state);
+  }
+  console.log(`✓ ${args.unverify} : vérification retirée.`);
+  process.exit(0);
+}
 
 // --- lecture
 const items = await listEvergreens();
@@ -86,7 +117,9 @@ if (!items.length) {
 }
 
 const isPosted = (it) => !!state[it.name]?.posted;
-const ready = items.filter((it) => it.rendered && !isPosted(it)); // prêts à poster
+const isVerified = (it) => !!state[it.name]?.verified;
+// « prêt à poster » = rendu ET vérifié ET non posté ET sans [VERIFY] résiduel.
+const ready = items.filter((it) => it.rendered && isVerified(it) && !isPosted(it) && !it.hasVerify);
 const next = ready[0] || null;
 
 if (args.next) {
@@ -105,9 +138,13 @@ if (args.next) {
 console.log('Buffer evergreen (3e slot de secours) :\n');
 for (const it of items) {
   const posted = state[it.name]?.posted;
-  const flag = posted ? `posté ${posted}` : it.rendered ? 'PRÊT' : 'non rendu';
-  const mark = posted ? '·' : it.rendered ? '✓' : '○';
-  console.log(`  ${mark} ${it.name.padEnd(13)} ${flag.padEnd(16)} « ${it.title} »`);
+  let mark, flag;
+  if (posted) { mark = '·'; flag = `posté ${posted}`; }
+  else if (it.hasVerify) { mark = '!'; flag = '[VERIFY] à lever'; }
+  else if (!it.rendered) { mark = '○'; flag = 'non rendu'; }
+  else if (!isVerified(it)) { mark = '○'; flag = 'à vérifier'; }
+  else { mark = '✓'; flag = 'PRÊT'; }
+  console.log(`  ${mark} ${it.name.padEnd(13)} ${flag.padEnd(18)} « ${it.title} »`);
 }
 
 console.log(`\nPrêts non postés : ${ready.length}`);
@@ -115,9 +152,10 @@ if (next) {
   console.log(`Prochain à poster : ${next.name} — « ${next.title} »`);
 }
 if (ready.length < LOW_WATERMARK) {
-  console.log(`\n⚠ Réserve basse (< ${LOW_WATERMARK}). Produire/rendre un nouvel evergreen :`);
-  console.log('  1. dupliquer un dossier content/evergreen-0N  2. éditer content.json + caption.txt');
-  console.log('  3. npm run render -- --date=evergreen-0M');
+  console.log(`\n⚠ Réserve basse (< ${LOW_WATERMARK}). Produire un nouvel evergreen :`);
+  console.log('  1. npm run evergreen -- --team="X"   (draft IA, thématique Mondial)');
+  console.log('  2. fact-check (2 sources) + retirer les [VERIFY]  3. npm run render -- --date=evergreen-0M');
+  console.log('  4. npm run buffer -- --verify=evergreen-0M');
 }
 const unrendered = items.filter((it) => !it.rendered && !isPosted(it));
 if (unrendered.length) {

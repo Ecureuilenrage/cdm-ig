@@ -180,3 +180,181 @@ export async function enrichDraft(facts, baseDraft) {
     return null;
   }
 }
+
+// ---- Appel structuré générique (réutilisé par les générateurs quiz/evergreen). Fail-soft → null.
+async function runStructured(system, prompt, schema) {
+  const key = await loadKey();
+  if (!key) {
+    console.log('· LLM : ANTHROPIC_API_KEY introuvable (.env) — base déterministe conservée (fail-soft).');
+    return null;
+  }
+  let Anthropic;
+  try {
+    ({ default: Anthropic } = await import('@anthropic-ai/sdk'));
+  } catch {
+    console.log('· LLM : @anthropic-ai/sdk non installé (`npm i @anthropic-ai/sdk`) — fail-soft.');
+    return null;
+  }
+  try {
+    const client = new Anthropic({ apiKey: key });
+    const stream = client.messages.stream({
+      model: DRAFT_MODEL,
+      max_tokens: 8000,
+      thinking: { type: 'adaptive' },
+      system,
+      output_config: { format: { type: 'json_schema', schema } },
+      messages: [{ role: 'user', content: prompt }],
+    });
+    const msg = await stream.finalMessage();
+    const textBlock = msg.content.find((b) => b.type === 'text');
+    if (!textBlock) return null;
+    return JSON.parse(textBlock.text);
+  } catch (e) {
+    console.log(`· LLM : échec (${e.message}) — base déterministe conservée (fail-soft).`);
+    return null;
+  }
+}
+
+// ---- enrichQuiz : affine la COPIE du quiz (le 3e post jour de match). La RÉPONSE factuelle
+// (options + valeur révélée) reste verrouillée — le modèle ne touche qu'au phrasé. → { doc, caption } | null.
+function buildQuizPrompt(facts, baseDoc) {
+  const quiz = baseDoc.slides.find((s) => s.type === 'quiz');
+  const stats = baseDoc.slides.filter((s) => s.type === 'stat-card');
+  const [reveal, bonus] = stats;
+  return `${VOICE}
+
+You are polishing a one-day QUIZ post (the 3rd daily slot, a 4-slide carousel). Work ONLY
+from FACTS. Hard rules:
+- Do NOT change the factual answer. The quiz OPTIONS and the reveal VALUE are fixed numbers
+  from the match feed — keep the premise identical (it asks the minute of the last goal). You
+  ONLY sharpen wording, never the numbers.
+- question: ONE punchy sentence, present tense, exactly one *accent* word. Keep the matchup
+  and the "last goal minute" premise.
+- Write each context as PLAIN PROSE in the house tone — do NOT prefix with a speaker name
+  (never "OTTO:", "NUMA:", "VERA:"). One short sentence each, ≤140 chars.
+- revealContext explains the reveal VALUE (the goal minute) and names the real scorer.
+- bonusContext must explain the BONUS number below (bonusValue/bonusUnit) — keep it about
+  THAT number, do not drift to another stat.
+- No invented record/history: only facts present in FACTS (a "wikiNote" counts as a fact).
+- TIME: posted the day AFTER the match — never "tonight/today/tomorrow". No "World Cup"/"FIFA".
+- caption: first line = the question (do NOT reveal the answer in it), then 2-3 "● " tease
+  lines, a "comment your score" CTA, then 6-8 hashtags (no #WorldCup/#FIFA).
+
+FACTS:
+${JSON.stringify(facts, null, 2)}
+
+Current quiz (KEEP options & reveal value; refine copy only):
+${JSON.stringify({
+    question: quiz?.question,
+    options: quiz?.options,
+    revealValue: reveal?.value,
+    revealUnit: reveal?.unit,
+    bonusValue: bonus?.value,
+    bonusUnit: bonus?.unit,
+  }, null, 2)}`;
+}
+
+export async function enrichQuiz(facts, baseDoc) {
+  const schema = {
+    type: 'object',
+    additionalProperties: false,
+    properties: {
+      question: { type: 'string' },
+      revealContext: { type: 'string' },
+      bonusContext: { type: 'string' },
+      caption: { type: 'string' },
+    },
+    required: ['question', 'revealContext', 'bonusContext', 'caption'],
+  };
+  const out = await runStructured(VOICE, buildQuizPrompt(facts, baseDoc), schema);
+  if (!out) return null;
+  const doc = JSON.parse(JSON.stringify(baseDoc));
+  const quiz = doc.slides.find((s) => s.type === 'quiz');
+  const stats = doc.slides.filter((s) => s.type === 'stat-card');
+  if (quiz && out.question) quiz.question = out.question;
+  if (stats[0] && out.revealContext) stats[0].context = out.revealContext;
+  if (stats[1] && out.bonusContext) stats[1].context = out.bonusContext;
+  console.log(`· LLM : quiz raffiné par ${DRAFT_MODEL} (relire avant publication).`);
+  return { doc, caption: `CAPTION\n\n${out.caption || ''}\n` };
+}
+
+// ---- generateEvergreen : draft un evergreen « Did you know? » thématique Mondial. Chaque fait
+// est suffixé " [VERIFY]" (à fact-checker + nettoyer AVANT publication). Légal : jamais « World
+// Cup »/« FIFA » sur le visuel. → { doc, caption } | null (fail-soft).
+const CHAR_ACCENT = { otto: 'orange', numa: 'blue', vera: 'red' };
+
+function buildEvergreenPrompt(topic) {
+  return `${VOICE}
+
+Write an EVERGREEN "Did you know?" post (timeless trivia, no fixture attached) about: ${topic}.
+Format: exactly THREE stat-cards (one number each) + a closing line. Hard rules:
+- Each card centers on ONE concrete, CHECKABLE number — a record, a tally, a year, an age, a
+  margin. Pick genuinely interesting, little-known facts; avoid the obvious.
+- These facts are NOT from a verified feed. Append " [VERIFY]" to the END of EVERY context
+  sentence that states a fact — a human fact-checks on the web before publishing.
+- NEVER write "World Cup" or "FIFA" in any slide text (legal). Use "the tournament", "the
+  finals", "at this level", "on the biggest stage". Team/player names as text are fine; no
+  caricatures implied.
+- Choose ONE narrator for the whole post: numbers/records → numa; tactics/comeback → otto;
+  cards/discipline/drama → vera.
+- value = the number as a short string (≤8 chars, e.g. "13", "1958", "17y"). unit = a 3-6 word
+  label. context = 1-2 short sentences, ≤160 chars, with exactly ONE *accent* word.
+- caption: first line = a hook, then 2-3 "● " lines, a follow CTA, then 6-8 hashtags
+  (no #WorldCup / #FIFA).`;
+}
+
+export async function generateEvergreen(topic) {
+  const schema = {
+    type: 'object',
+    additionalProperties: false,
+    properties: {
+      title: { type: 'string' },
+      character: { type: 'string', enum: ['otto', 'numa', 'vera'] },
+      cards: {
+        type: 'array',
+        items: {
+          type: 'object',
+          additionalProperties: false,
+          properties: {
+            kicker: { type: 'string' },
+            value: { type: 'string' },
+            unit: { type: 'string' },
+            context: { type: 'string' },
+          },
+          required: ['kicker', 'value', 'unit', 'context'],
+        },
+      },
+      ctaNote: { type: 'string' },
+      caption: { type: 'string' },
+    },
+    required: ['title', 'character', 'cards', 'ctaNote', 'caption'],
+  };
+  const out = await runStructured(VOICE, buildEvergreenPrompt(topic), schema);
+  if (!out) return null;
+
+  const character = ['otto', 'numa', 'vera'].includes(out.character) ? out.character : 'numa';
+  const accent = CHAR_ACCENT[character];
+  const poses = ['shocked', undefined, 'celebrating'];
+  const slides = (out.cards || []).slice(0, 3).map((c, i) => ({
+    type: 'stat-card',
+    kicker: c.kicker,
+    value: c.value,
+    unit: c.unit,
+    context: c.context,
+    ...(poses[i] ? { pose: poses[i] } : {}),
+    accent,
+  }));
+  slides.push({
+    type: 'cta',
+    text: 'One illustrated story. *Every matchday.*',
+    note: out.ctaNote || 'Numa counts. You enjoy.',
+    pose: 'pointing',
+    accent,
+  });
+
+  console.log(`· LLM : evergreen « ${out.title} » rédigé par ${DRAFT_MODEL} — contient des [VERIFY] à lever.`);
+  return {
+    doc: { matchDate: 'evergreen', title: out.title, character, slides },
+    caption: `CAPTION\n\n${out.caption || ''}\n`,
+  };
+}

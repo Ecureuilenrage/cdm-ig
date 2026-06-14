@@ -1,0 +1,40 @@
+{
+  "matchDate": "evergreen",
+  "title": "Did you know? The quickest strikes on the biggest stage",
+  "character": "numa",
+  "slides": [
+    {
+      "type": "stat-card",
+      "kicker": "Fastest ever, kickoff to net",
+      "value": "11s",
+      "unit": "seconds, finals record",
+      "context": "Hakan Şükür scored after eleven seconds for Turkey in 2002, the *quickest* strike at this level. [VERIFY]",
+      "pose": "shocked",
+      "accent": "blue"
+    },
+    {
+      "type": "stat-card",
+      "kicker": "The mark it broke",
+      "value": "16s",
+      "unit": "seconds, held 40 years",
+      "context": "Václav Mašek's sixteen-second goal in 1962 stood as the *standard* for four decades. [VERIFY]",
+      "accent": "blue"
+    },
+    {
+      "type": "stat-card",
+      "kicker": "Quickest by an Englishman",
+      "value": "27s",
+      "unit": "seconds, opening match",
+      "context": "Bryan Robson struck after twenty-seven seconds against France in 1982, his country's *fastest*. [VERIFY]",
+      "pose": "celebrating",
+      "accent": "blue"
+    },
+    {
+      "type": "cta",
+      "text": "One illustrated story. *Every matchday.*",
+      "note": "Three blinks. One ball already in the net. ...under protest.",
+      "pose": "pointing",
+      "accent": "blue"
+    }
+  ]
+}

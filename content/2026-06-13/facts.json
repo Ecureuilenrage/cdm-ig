@@ -1,5 +1,6 @@
 {
   "matchDate": "2026-06-13",
+  "matchday": 1,
   "generatedFrom": "football-data (scores garantis) + ESPN (events, fail-soft)",
   "matches": [
     {

@@ -219,3 +219,18 @@ body { background: #888; }
   width: 800px;
   font-weight: 700;
 }
+
+/* ---- quiz (3e post jour de match) ---- */
+.quiz { position: absolute; inset: 0; padding: var(--margin); }
+.quiz .kicker { margin-top: 16px; transform: rotate(-1.2deg); }
+.quiz .quiz-q { position: absolute; top: 220px; left: var(--margin); max-width: 920px; }
+.quiz .options { position: absolute; top: 640px; left: var(--margin); right: var(--margin); }
+.quiz .opt {
+  display: flex; align-items: baseline; gap: 28px; margin-top: 32px;
+  font-family: var(--font-body); font-size: 58px; line-height: 1.15;
+}
+.quiz .opt-key { font-family: var(--font-title); font-weight: 800; font-size: 62px; }
+.quiz .quiz-prompt {
+  position: absolute; left: var(--margin); bottom: 150px;
+  transform: rotate(-1.5deg); font-weight: 700;
+}

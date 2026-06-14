@@ -1,0 +1,44 @@
+{
+  "matchDate": "2026-06-13",
+  "title": "Matchday 1 — quiz",
+  "slides": [
+    {
+      "type": "quiz",
+      "kicker": "Quiz · matchday 1",
+      "question": "Qatar 1–1 Switzerland. Which minute hosted the *last* goal?",
+      "options": [
+        "9'",
+        "23'",
+        "90+4'"
+      ],
+      "prompt": "Swipe for the answer →",
+      "pose": "pointing",
+      "accent": "blue",
+      "character": "numa"
+    },
+    {
+      "type": "stat-card",
+      "kicker": "Answer: C",
+      "value": "90+4'",
+      "unit": "Miro Muheim (o.g.)",
+      "context": "It landed at 90+4' through Miro Muheim's own goal, earning Qatar a *historic* first World tournament point after three straight defeats.",
+      "pose": "shocked",
+      "accent": "blue"
+    },
+    {
+      "type": "stat-card",
+      "kicker": "One more for the board",
+      "value": "7",
+      "unit": "goals across 4 games",
+      "context": "Seven goals spread across the four openers — a tidy *average* of under two per match.",
+      "accent": "blue"
+    },
+    {
+      "type": "cta",
+      "text": "One illustrated story. *Every matchday.*",
+      "note": "How many did you get? Tell us below.",
+      "pose": "pointing",
+      "accent": "blue"
+    }
+  ]
+}

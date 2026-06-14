@@ -10,7 +10,10 @@
     "stories": "node scripts/stories.mjs",
     "shoot": "node scripts/shoot.mjs",
     "fetch": "node scripts/fetch.mjs",
+    "day": "node scripts/day.mjs",
+    "third": "node scripts/third.mjs",
     "buffer": "node scripts/buffer.mjs",
+    "evergreen": "node scripts/evergreen-gen.mjs",
     "wallchart": "node scripts/wallchart.mjs"
   },
   "type": "commonjs",
