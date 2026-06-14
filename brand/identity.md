@@ -1,3 +1,4 @@
+
 # Scribble Pitch — charte
 
 **Concept** : du storytelling de match illustré façon tableau blanc hand-drawn. On ne montre pas des dashboards de stats, on raconte LE moment où le match a basculé.
@@ -5,6 +6,7 @@
 ## Voix
 
 - Anglais. Phrases courtes. Présent narratif ("Krejci strikes", pas "Krejci struck a goal that…").
+- **Ancres temporelles** : le recap se poste **le lendemain** du match. Le présent narratif reste OK (c'est l'action), mais **jamais** « tonight / today / tomorrow / this evening » dans la copie du match — le lecteur le voit le lendemain, ces mots sont faux. Ancrer au passé : « yesterday », « on matchday N ». Seul le teaser de la slide CTA (et la story preview) regarde vers l'avant. Le build le vérifie (lint temporel) ; corriger les `✗`. [13/06]
 - Ton : l'analyste passionné qui dessine au tableau — précis sur les faits, expressif sur l'émotion.
 - Jamais de jargon xG/opta-speak sur les slides : les chiffres qu'on montre sont compréhensibles par tous (minutes, buts, cartons, affluence).
 - Le hook de cover répond à "pourquoi je m'arrête de scroller ?" — une tension, pas un résumé.

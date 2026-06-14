@@ -9,6 +9,7 @@ import { readFile, mkdir } from 'node:fs/promises';
 import { extname, join, normalize } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { chromium } from 'playwright';
+import { lintTime, reportTime } from './lib/lint-time.mjs';
 
 const ROOT = fileURLToPath(new URL('..', import.meta.url));
 const PORT = 4175;
@@ -99,3 +100,6 @@ if (warnings.length) {
 } else {
   console.log('\nStories dans la zone utile. Stickers à poser dans l’app au moment de publier.');
 }
+
+// Lint temporel des stories (le recap se lit le lendemain).
+reportTime(lintTime(doc, { stories: true }));

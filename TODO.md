@@ -27,8 +27,8 @@
 
 - [x] **[CLAUDE] Phase 1 — ESPN events → enrichir le draft (SANS clé, SANS coût, SANS dépendance).** ✅ (13/06 — `scripts/lib/espn.mjs` + `fetch` enrichi : briefing timeline + `facts.json` + draft pré-rempli, prouvé sur USA-Paraguay) `scripts/lib/espn.mjs` : scoreboard `fifa.world?dates=` → eventId ; `summary?event=` → keyEvents. Mapping fixtures football-data ↔ ESPN par (date, équipes) + table d'alias de noms. Pré-remplir `content.draft.json` : turning-points (buteur+minute), stat-cards, **Vera's file auto si cartons**, **Numa's number auto**. Fail-soft. → gros morceau du remplissage manuel levé d'un coup.
 - [x] **[CLAUDE] Phase 2 — couche LLM (Claude) — code LIVRÉ (`scripts/lib/llm.mjs` + `fetch --draft`, fail-soft), *s'active avec la clé `ANTHROPIC_API_KEY`*.** `@anthropic-ai/sdk` (Node) ; à partir du tableau d'events, rédige un draft de récit + caption dans la voix de marque, via **structured output** (`output_config.format`, schéma calqué sur `content.json`). Modèles (décision 13/06) : **Opus 4.8** (`claude-opus-4-8`) pour TOUTE la rédaction (prose voix de marque), **Sonnet 4.6** (`claude-sonnet-4-6`) pour l'extraction pure (appoint narratif RSS/web — pas les faits, qui viennent d'ESPN). Défauts câblés dans `llm.mjs`, surchargeables par variable d'env. Coût ~3-5 €/mois au volume d'1 match/jour, même tout en Opus (cf. BACKLOG D8′). Toujours relu avant publication.
-- [ ] **[CLAUDE] Phase 3 — Wikipedia REST en 2ᵉ source** : cross-check des minutes de buts (concordance ESPN↔Wiki → confiance haute ; divergence → drapeau « à vérifier »).
-- [ ] **[ENSEMBLE] Chrono sur 3 matins** après Phase 1 → décider si Phase 2 vaut le coup ou si l'enrichissement mécanique suffit.
+- [x] **[CLAUDE] Phase 3 — Wikipedia REST en 2ᵉ source** ✅ (branché) : `scripts/lib/wikipedia.mjs` (`crosscheckMinutes`) câblé dans `fetch.mjs` — concordance ESPN↔Wiki → confiance haute ; divergence → drapeau « à vérifier ». *Reste à valider sur un vrai matin.*
+- [x] **[ENSEMBLE] Décision rédaction Claude (Phase 2)** ✅ (13/06) — **on GARDE la rédaction Claude `--draft`** (pas seulement l'enrichissement mécanique). **Crédits ajoutés sur le compte API Anthropic** → l'API est opérationnelle. Le chrono des 3 matins sert désormais à affiner (modèle/coût), plus à trancher le principe.
 
 ### Wall Chart (D9 — EN VENTE le 18/06)
 
@@ -91,9 +91,9 @@
 - [x] **[CLAUDE] Matin : retouches templates** (S1bis ci-dessous) — ✅ faites le 12 au soir, rien à refaire
 - [x] **[CLAUDE] Matin : carrousel + stories des matchs du 12** ✅ (13/06) — vedette **USA 4-1 Paraguay** (doublé Balogun, 1er doublé US depuis 1930) + stat-card Canada 1-1 Bosnie ; signature **Numa** ; **4 stories** : 01 teaser Otto, 02 Vera poll, 03 Numa 1930 (ovale retravaillé + correction `.mega`), 04 Otto's Board prono **Brésil-Maroc** (Maroc 2-1 Brésil 2023, vérifié). Template sticker = texte seul (sans cadre) pour recouvrir avec le vrai sticker.
 - [x] **[TOI] ~11h-12h : poster le carrousel J1 (matchs du 11)** ✅ posté le 13 (+ story-01 teaser du 11) — **prêt tel quel** : re-rendu le 12 au soir avec les nouveaux footers micro-CTA, slide CTA re-teasée "Day 2 — Canada and the USA's openers — drops this afternoon." Story teaser J1 (`story-01.png`) juste après le post.
-- [ ] **[TOI] 15h-17h : poster le carrousel du 12** (le frais) + routine stories (teaser juste après, quiz ~17h30, sondage 20h-22h)
-- [ ] **[TOI] Créer les highlights OTTO / NUMA / VERA / START** et y épingler la meilleure story (le reshare du post Meet a sa place dans START) — **covers prêtes** dans `brand/highlights/out/` (otto/numa/vera/start). Rappel : un highlight a besoin d'≥1 story dedans ; curer (le meilleur par perso), pas tout ranger.
-- [ ] **[TOI] Beehiiv** si pas fait la veille → lien en bio
+- [x] **[TOI] 15h-17h : poster le carrousel du 12** (le frais) + routine stories ✅ (13/06) — carrousel posté à **15h30** ; stories **01/02/03 postées**, **04 (Otto's Board) à poster d'ici ~1h**.
+- [x] **[TOI] Créer les highlights OTTO / NUMA / VERA / START** ✅ (13/06) — les 4 highlights créés (covers `brand/highlights/out/`).
+- [x] **[TOI] Beehiiv** → lien en bio ✅ (13/06)
 
 ### 🟠 13 juin matin (S1bis : retouches templates demandées le 12/06) — ✅ FAIT le 12/06 au soir
 
@@ -122,8 +122,8 @@
 ### 🟡 14-15 juin (S3 : Stories — ✅ pipeline FAIT, reste tes actions)
 
 - [x] Template 1080×1920 + `npm run stories -- --date=...` opérationnel, routine intégrée à CLAUDE.md
-- [ ] **[TOI] Valider la routine Stories sur un jour réel** (stickers sondage/quiz posés à la main dans l'app)
-- [ ] **[TOI] Créer les highlights OTTO / NUMA / VERA / START** (covers aux prénoms, ≤ 10 caractères)
+- [x] **[TOI] Valider la routine Stories sur un jour réel** ✅ (13/06) — stories du 12 postées avec stickers, routine confirmée sur un vrai jour de match.
+- [x] **[TOI] Créer les highlights OTTO / NUMA / VERA / START** ✅ (13/06)
 
 ### 🟡 14-16 juin (S4 : Wall Chart Gumroad — deadline dure : en vente le 18 juin)
 

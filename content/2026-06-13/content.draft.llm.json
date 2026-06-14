@@ -1,0 +1,111 @@
+{
+  "matchDate": "2026-06-13",
+  "title": "Matchday 1 — Qatar hold Switzerland with a stoppage-time twist",
+  "slides": [
+    {
+      "type": "cover",
+      "kicker": "Matchday 1 · June 13, 2026",
+      "hook": "A stoppage-time own goal rescues Qatar's *first* point. [VERIFY]",
+      "score": {
+        "home": "Qatar",
+        "away": "Switzerland",
+        "homeGoals": 1,
+        "awayGoals": 1
+      },
+      "note": "Group B is wide open after the draw. The next round of fixtures decides who blinks. Trust the *board*.",
+      "pose": "shocked",
+      "accent": "orange"
+    },
+    {
+      "type": "turning-point",
+      "minute": 17,
+      "kicker": "The setup",
+      "headline": "Embolo's penalty puts Switzerland *ahead* early",
+      "body": "Sixteen minutes in, Qatar pick up a yellow. A minute later, Embolo steps up from the *spot*. He buries it. Switzerland lead 1-0 at the 17th.",
+      "annotations": [
+        {
+          "text": "17' Breel Embolo (pen)",
+          "color": "blue"
+        }
+      ],
+      "accent": "blue"
+    },
+    {
+      "type": "turning-point",
+      "minute": 90,
+      "kicker": "The turn",
+      "headline": "Muheim's own goal *levels* it late",
+      "body": "Deep into stoppage, the ball turns cruel. Miro Muheim turns it into his own net at 90'+4'. Qatar 1, Switzerland 1. A *point* from almost nothing.",
+      "annotations": [
+        {
+          "text": "90'+4' Miro Muheim (o.g.)",
+          "color": "blue"
+        }
+      ],
+      "pose": "celebrating",
+      "accent": "orange"
+    },
+    {
+      "type": "stat-card",
+      "kicker": "Brazil vs Morocco",
+      "value": "1–1",
+      "unit": "full time",
+      "context": "Saibari strikes for Morocco on 21', set up by Brahim Díaz. Vinícius answers eleven minutes later. Honours *even*, 1-1.",
+      "accent": "blue"
+    },
+    {
+      "type": "stat-card",
+      "kicker": "Australia vs Turkey",
+      "value": "2–0",
+      "unit": "full time",
+      "context": "Irankunda opens on 27', Metcalfe adds the second on 75'. Australia win 2-0, the *clean* sheet intact.",
+      "accent": "blue"
+    },
+    {
+      "type": "stat-card",
+      "kicker": "Haiti vs Scotland",
+      "value": "0–1",
+      "unit": "full time",
+      "context": "McGinn's 28th-minute strike settles it. Scotland take all three points. *Four* yellows in the match, none red.",
+      "accent": "blue"
+    },
+    {
+      "type": "cta",
+      "text": "One illustrated story. *Every matchday.*",
+      "note": "Tomorrow: Germany vs Curaçao, Netherlands vs Japan & 2 more.",
+      "pose": "pointing",
+      "accent": "orange"
+    }
+  ],
+  "stories": [
+    {
+      "character": "otto",
+      "kicker": "Today's story · matchday 1",
+      "big": "Two early yellows, a penalty conceded, and still a point. The board *holds*.",
+      "note": "",
+      "pose": "pointing",
+      "sticker": "[ link sticker: today's post ]",
+      "cta": "Full story → today's post"
+    },
+    {
+      "character": "numa",
+      "kicker": "Numa's number · matchday 1",
+      "mega": "90+4'",
+      "unit": "minute of the leveller",
+      "pose": "celebrating",
+      "sticker": "[ emoji slider ]",
+      "cta": "All the numbers → today's post",
+      "note": "Switzerland led from the 17th-minute penalty until Muheim's own goal. ...under protest."
+    },
+    {
+      "character": "vera",
+      "kicker": "Vera's file · matchday 1",
+      "big": "3 yellow.",
+      "note": "DRAFT — pick the flashpoint, then file it.",
+      "pose": "pointing",
+      "expression": "neutral",
+      "sticker": "[ poll ]",
+      "cta": "The whole file → today's post"
+    }
+  ]
+}

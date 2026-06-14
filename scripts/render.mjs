@@ -6,6 +6,7 @@ import { readFile, mkdir } from 'node:fs/promises';
 import { extname, join, normalize } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { chromium } from 'playwright';
+import { lintTime, reportTime } from './lib/lint-time.mjs';
 
 const ROOT = fileURLToPath(new URL('..', import.meta.url));
 const PORT = 4173;
@@ -94,3 +95,6 @@ if (warnings.length) {
 } else {
   console.log('\nAucun overflow. Prêt à poster.');
 }
+
+// Lint temporel — uniquement le recap (content.json) ; la preview est forward par nature.
+if (docFile === 'content.json') reportTime(lintTime(doc, { slides: true }));

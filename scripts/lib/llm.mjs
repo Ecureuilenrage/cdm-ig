@@ -80,6 +80,11 @@ structured facts below (scores, scorers, minutes, cards — all from the match f
 - Never invent a scorer, a minute, an assist, a card, or any historical/record claim. If a
   sentence would need a fact not in FACTS, don't write it. If you reference history, you MUST
   append " [VERIFY]" so a human checks it on the web.
+- TIME FRAMING: this recap is published the DAY AFTER the match. Never write "tonight",
+  "today", "tomorrow", "this evening/afternoon/morning" about the match — the reader sees it
+  the next day, so those words are wrong. Narrative present for the ACTION is fine ("Balogun
+  strikes"), but anchor time in the past or by matchday: "yesterday", "on matchday 1". The
+  only forward-looking teaser is the cover/cta note about the NEXT matches.
 - Lengths: coverHook 8-12 words; turning-point headline 6-8 words, body 3-5 short sentences
   (~280 chars max); statCardContext 1-2 sentences (~160 chars). Put exactly one *accent* word
   per hook/headline/body where it sharpens the idea.

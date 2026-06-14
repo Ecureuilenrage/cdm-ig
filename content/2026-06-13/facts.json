@@ -1,0 +1,195 @@
+{
+  "matchDate": "2026-06-13",
+  "generatedFrom": "football-data (scores garantis) + ESPN (events, fail-soft)",
+  "matches": [
+    {
+      "home": "Qatar",
+      "away": "Switzerland",
+      "score": {
+        "home": 1,
+        "away": 1
+      },
+      "featured": true,
+      "events": {
+        "goals": [
+          {
+            "minute": "17'",
+            "kind": "penalty",
+            "team": "Switzerland",
+            "scorer": "Breel Embolo",
+            "assist": null
+          },
+          {
+            "minute": "90'+4'",
+            "kind": "own-goal",
+            "team": "Qatar",
+            "scorer": "Miro Muheim",
+            "assist": null
+          }
+        ],
+        "cards": [
+          {
+            "minute": "16'",
+            "color": "yellow",
+            "team": "Qatar",
+            "player": "Mahmoud Abunada"
+          },
+          {
+            "minute": "23'",
+            "color": "yellow",
+            "team": "Qatar",
+            "player": "Jassem Gaber"
+          },
+          {
+            "minute": "42'",
+            "color": "yellow",
+            "team": "Switzerland",
+            "player": "Denis Zakaria"
+          }
+        ],
+        "yellowCount": 3,
+        "redCount": 0,
+        "subs": 10
+      },
+      "crosscheck": {
+        "source": "wikipedia",
+        "title": "2026 FIFA World Cup Group B",
+        "minutesAgree": true,
+        "onlyEspn": [],
+        "onlyWiki": []
+      },
+      "wikiNote": "This was the first time that Qatar scored a point in the World Cup, after losing three consecutive matches in 2022."
+    },
+    {
+      "home": "Brazil",
+      "away": "Morocco",
+      "score": {
+        "home": 1,
+        "away": 1
+      },
+      "featured": false,
+      "events": {
+        "goals": [
+          {
+            "minute": "21'",
+            "kind": "goal",
+            "team": "Morocco",
+            "scorer": "Ismael Saibari",
+            "assist": "Brahim Díaz"
+          },
+          {
+            "minute": "32'",
+            "kind": "goal",
+            "team": "Brazil",
+            "scorer": "Vinícius Júnior",
+            "assist": "Bruno Guimarães"
+          }
+        ],
+        "cards": [
+          {
+            "minute": "37'",
+            "color": "yellow",
+            "team": "Brazil",
+            "player": "Casemiro"
+          },
+          {
+            "minute": "43'",
+            "color": "yellow",
+            "team": "Brazil",
+            "player": "Roger Ibañez"
+          }
+        ],
+        "yellowCount": 2,
+        "redCount": 0,
+        "subs": 10
+      }
+    },
+    {
+      "home": "Australia",
+      "away": "Turkey",
+      "score": {
+        "home": 2,
+        "away": 0
+      },
+      "featured": false,
+      "events": {
+        "goals": [
+          {
+            "minute": "27'",
+            "kind": "goal",
+            "team": "Australia",
+            "scorer": "Nestory Irankunda",
+            "assist": "Paul Okon-Engstler"
+          },
+          {
+            "minute": "75'",
+            "kind": "goal",
+            "team": "Australia",
+            "scorer": "Connor Metcalfe",
+            "assist": null
+          }
+        ],
+        "cards": [
+          {
+            "minute": "86'",
+            "color": "yellow",
+            "team": "Türkiye",
+            "player": "Yunus Akgün"
+          }
+        ],
+        "yellowCount": 1,
+        "redCount": 0,
+        "subs": 10
+      }
+    },
+    {
+      "home": "Haiti",
+      "away": "Scotland",
+      "score": {
+        "home": 0,
+        "away": 1
+      },
+      "featured": false,
+      "events": {
+        "goals": [
+          {
+            "minute": "28'",
+            "kind": "goal",
+            "team": "Scotland",
+            "scorer": "John McGinn",
+            "assist": null
+          }
+        ],
+        "cards": [
+          {
+            "minute": "39'",
+            "color": "yellow",
+            "team": "Haiti",
+            "player": "Jean-Ricner Bellegarde"
+          },
+          {
+            "minute": "46'",
+            "color": "yellow",
+            "team": "Scotland",
+            "player": "Aaron Hickey"
+          },
+          {
+            "minute": "90'+1'",
+            "color": "yellow",
+            "team": "Scotland",
+            "player": "Findlay Curtis"
+          },
+          {
+            "minute": "90'+5'",
+            "color": "yellow",
+            "team": "Scotland",
+            "player": "Kenny McLean"
+          }
+        ],
+        "yellowCount": 4,
+        "redCount": 0,
+        "subs": 8
+      }
+    }
+  ]
+}

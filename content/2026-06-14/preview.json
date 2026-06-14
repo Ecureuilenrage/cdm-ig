@@ -1,0 +1,71 @@
+{
+  "matchDate": "2026-06-14",
+  "title": "Matchday 1 — night two: the smallest nation walks out",
+  "slides": [
+    {
+      "type": "preview",
+      "kicker": "Coming up · June 14, 2026",
+      "hook": "Smallest nation *ever* walks out.",
+      "home": "Germany",
+      "away": "Curaçao",
+      "kickoff": "17:00 UTC",
+      "pose": "pointing",
+      "accent": "orange"
+    },
+    {
+      "type": "preview",
+      "kicker": "Numa's Rewind",
+      "home": "Germany",
+      "away": "Curaçao",
+      "kickoff": "17:00 UTC",
+      "rewind": "About 156,000 people — the smallest nation ever to reach this stage, taking the record from Iceland (2018, ~350k). And they got here unbeaten.",
+      "pose": "celebrating",
+      "accent": "blue"
+    },
+    {
+      "type": "preview",
+      "kicker": "Otto's Board",
+      "home": "Germany",
+      "away": "Curaçao",
+      "kickoff": "17:00 UTC",
+      "pick": "Otto says Germany, comfortably. His last call drew 1-1 — that's 0 for 1. Trust the board.",
+      "pose": "pointing",
+      "accent": "orange"
+    },
+    {
+      "type": "preview",
+      "kicker": "The pick of the night",
+      "home": "Netherlands",
+      "away": "Japan",
+      "kickoff": "20:00 UTC",
+      "rewind": "Japan have knocked out giants before. The Netherlands won't want to be the next name on that list.",
+      "pose": "none",
+      "accent": "blue"
+    },
+    {
+      "type": "preview",
+      "kicker": "Also on the card",
+      "home": "Ivory Coast",
+      "away": "Ecuador",
+      "kickoff": "23:00 UTC",
+      "pose": "none",
+      "accent": "blue"
+    },
+    {
+      "type": "preview",
+      "kicker": "Also on the card",
+      "home": "Sweden",
+      "away": "Tunisia",
+      "kickoff": "02:00 UTC",
+      "pose": "none",
+      "accent": "blue"
+    },
+    {
+      "type": "cta",
+      "text": "Who's your pick? *Tap to vote.*",
+      "note": "Recap drops tomorrow, on the board.",
+      "pose": "pointing",
+      "accent": "orange"
+    }
+  ]
+}

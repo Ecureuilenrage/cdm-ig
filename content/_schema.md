@@ -134,3 +134,5 @@ Deux sections : `CAPTION` (hook 1re ligne, déroulé avec émojis ●, CTA follo
 - Slides : `npm run render -- --date=YYYY-MM-DD` (ajouter `--slide=N` pour une seule).
 - Stories : `npm run stories -- --date=YYYY-MM-DD` (ajouter `--story=N`) → `out/story-0N.png`.
 Les warnings d'overflow/zone utile s'affichent en fin de commande — raccourcir le texte concerné et re-rendre.
+
+**Lint temporel** (automatique au render/stories sur `content.json`) : le recap se poste **le lendemain** du match, donc « tonight / today / tomorrow / this evening » sont faux dans la copie du match. Le présent narratif reste OK ; ancrer au passé (« yesterday », « on matchday N »). Le build liste les `✗` (recap à corriger) et les `·` (slot preview cta/story à vérifier contre le calendrier). Seuls la slide `cta` et les stories à kicker preview (`· tonight`, `coming up`) ont le droit de regarder vers l'avant.

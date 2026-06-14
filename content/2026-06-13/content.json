@@ -1,0 +1,125 @@
+{
+  "matchDate": "2026-06-13",
+  "title": "Qatar's first point, won at the death",
+  "slides": [
+    {
+      "type": "cover",
+      "kicker": "Matchday 1 · June 13, 2026",
+      "hook": "Qatar's first-ever point. Won at *90+4'*.",
+      "score": { "home": "Qatar", "away": "Switzerland", "homeGoals": 1, "awayGoals": 1 },
+      "note": "Two tournaments, three defeats, then the last kick. *Finally*.",
+      "pose": "shocked",
+      "expression": "shocked",
+      "accent": "orange"
+    },
+    {
+      "type": "turning-point",
+      "minute": 17,
+      "kicker": "The lead",
+      "headline": "Switzerland go ahead from the *spot*",
+      "body": "Sixteen minutes in, Qatar pick up a yellow. A minute later, Embolo steps up and sends the keeper the wrong way. Switzerland lead, and the favourites look set.",
+      "annotations": [
+        { "text": "17' Embolo — penalty", "color": "blue" }
+      ],
+      "pose": "pointing",
+      "expression": "neutral",
+      "accent": "blue"
+    },
+    {
+      "type": "turning-point",
+      "minute": 90,
+      "kicker": "The twist",
+      "headline": "Muheim turns it into his *own* net",
+      "body": "Deep into stoppage time, a cross fizzes across the six-yard box. Miro Muheim stretches — and steers it past his own keeper. 90+4'. Qatar 1, Switzerland 1. A point from almost nothing.",
+      "annotations": [
+        { "text": "90'+4' Muheim — own goal", "color": "orange" }
+      ],
+      "pose": "celebrating",
+      "expression": "happy",
+      "accent": "orange"
+    },
+    {
+      "type": "stat-card",
+      "kicker": "Brazil 1-1 Morocco",
+      "value": "1–1",
+      "unit": "Morocco hold them again",
+      "context": "Saibari pounced on 21', Brahim Díaz the architect. Vinícius answered on 32'. Three years after Morocco first beat them, the favourites are *held* once more.",
+      "accent": "blue"
+    },
+    {
+      "type": "stat-card",
+      "kicker": "Australia 2-0 Turkey",
+      "value": "2–0",
+      "unit": "a clean opening win",
+      "context": "Irankunda lit the fuse on 27', Metcalfe doubled it on 75'. Turkey never found a way back. Australia start with a *clean* sheet and all three points.",
+      "pose": "pointing",
+      "accent": "orange"
+    },
+    {
+      "type": "stat-card",
+      "kicker": "Scotland 1-0 Haiti",
+      "value": "1–0",
+      "unit": "McGinn settles a tight one",
+      "context": "McGinn's finish on 28' was the difference. Four yellows flew, none of them red — a scrap Scotland edged. *One* goal, three points.",
+      "accent": "blue"
+    },
+    {
+      "type": "cta",
+      "text": "One illustrated story. *Every matchday.*",
+      "note": "Up next: Germany v Curaçao, Netherlands v Japan & 2 more.",
+      "pose": "pointing",
+      "accent": "blue"
+    }
+  ],
+  "stories": [
+    {
+      "character": "otto",
+      "kicker": "Today's story · matchday 1",
+      "big": "Qatar's first-ever point — won at *90+4'*.",
+      "note": "The full turn, on the board.",
+      "pose": "pointing",
+      "sticker": "[ link sticker: today's post ]",
+      "cta": "Full story → today's post"
+    },
+    {
+      "character": "vera",
+      "kicker": "Vera's file · matchday 1",
+      "big": "Four matches. *Zero* reds.",
+      "note": "Day off for Vera. She hated it.",
+      "pose": "neutral",
+      "expression": "neutral",
+      "sticker": "[ poll: “Cleanest matchday so far? Yes / Wait for the knockouts” ]",
+      "cta": "The whole file → today's post"
+    },
+    {
+      "character": "numa",
+      "kicker": "Numa's number · matchday 1",
+      "mega": "90+4'",
+      "unit": "the minute Qatar's wait finally ended",
+      "note": "Two tournaments, three defeats — then this. ...under protest.",
+      "pose": "celebrating",
+      "sticker": "[ emoji slider: “How dramatic was that?” ]",
+      "cta": "All the numbers → today's post"
+    },
+    {
+      "character": "numa",
+      "kicker": "Tonight · Germany v Curaçao",
+      "mega": "156,000",
+      "megaSize": 160,
+      "unit": "Curaçao's people — smallest nation ever here",
+      "note": "Beats Iceland's 2018 record. KO 19:00.",
+      "pose": "pointing",
+      "sticker": "[ poll: “Germany v Curaçao — routine, or an upset brewing?” ]",
+      "cta": "Tonight's preview → in the post"
+    },
+    {
+      "character": "otto",
+      "kicker": "Tonight · Netherlands v Japan",
+      "big": "Otto's call: *Netherlands*.",
+      "note": "He's 0 for 1, mind. Japan topple giants. KO 22:00.",
+      "pose": "pointing",
+      "sticker": "[ poll: “Tonight: Netherlands / Draw / Japan” ]",
+      "cta": "Make your call → in tonight's preview"
+    }
+  ]
+}
