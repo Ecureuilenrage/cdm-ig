@@ -54,6 +54,8 @@
 ### Contenu — cadence 3 posts/jour (D13)
 - [x] **[ENSEMBLE]** Spécifier le **post preview quotidien** (gabarit adaptable : 1 gros match en 3 slides + 1 slide/autre match) + définir le **3e slot** ✅ — preview livrée (lead + Numa's Rewind + Otto's Board + cartes) ; 3e slot = buffer evergreen (`npm run buffer`)
 - [x] **[CLAUDE]** Gabarit "preview" (slide/post) dans `content/_schema.md` ✅ — type `preview` + `preview.json` + `npm run preview` / `npm run build`
+- [x] **[CLAUDE] 3e slot industrialisé (14/06)** ✅ — moteur piloté par le calendrier **`npm run day`** (classe jour de match / jour creux + round) → recap + preview + 3e post auto, **jusqu'à la finale**. 3e post : **quiz** tiré de `facts.json` les jours de match (nouveau type de slide `quiz`, réponse factuelle verrouillée, `--draft` n'affine que le phrasé) · **état du tournoi** (`/standings` + top buteur) les jours creux · **evergreen** en secours. **Usine à evergreens IA** `npm run evergreen` (thématique Mondial, chaque fait `[VERIFY]`) + **barrière de vérif** dans `buffer` (`--verify`, refusé tant qu'il reste un `[VERIFY]`). Briques : client partagé `footballdata.mjs`, classifieur `calendar.mjs`, `third.mjs`/`day.mjs`. Docs (README, CLAUDE.md, _schema.md) à jour.
+- [ ] **[ENSEMBLE]** Faire valider/nettoyer les premiers drafts evergreen générés (`evergreen-03` Maroc, `04` buts les plus rapides, `05` plus petites nations) : fact-check 2 sources → retirer les `[VERIFY]` → `render` → `buffer --verify`. Puis étoffer la bibliothèque (1 evergreen/équipe au fil de l'eau).
 
 ### Identité (D12)
 - [ ] **[CLAUDE]** Tagline : finaliser (en cours) → MAJ `identity.md`, bio IG, hero site, slide CTA
@@ -143,7 +145,7 @@
 2. [ ] Rituel analytics hebdo (voir Récurrent) — décider Reels/merch sur données, pas au feeling
 3. [ ] Agent Content Manager (propose l'angle du jour, tu valides)
 4. [ ] Logo final généré en rough.js + favicon/avatar définitif
-5. [ ] 2-3 posts contextuels compressés ("Group of Death", "One-team group", "XI le plus cher du tournoi") — valeurs Transfermarkt saisies à la main, PAS de scraping
+5. [ ] 2-3 posts contextuels compressés ("Group of Death", "One-team group", "XI le plus cher du tournoi") — valeurs Transfermarkt saisies à la main, PAS de scraping. *(Les jours creux ont déjà un 3e post « état du tournoi » auto via `npm run day` ; ceux-ci sont les angles éditoriaux en plus.)*
 6. [ ] Blog SEO + pages stats (football-data : classements OK en free tier)
 7. [ ] Reels/Remotion — **gelé jusqu'à la phase à élimination directe**, conditionné à une traction mesurée
 8. [ ] Store merch + générateur d'assets print (débloqué par le logo)
@@ -155,13 +157,13 @@
 
 ### Chaque matin de match (~1-2h) — [CLAUDE] avec ta relecture
 
-1. `npm run fetch -- --date=<date>` → briefing + draft content.json (scores garantis)
+1. `npm run day -- --date=<date> [--draft]` → classe le jour + scaffolde **recap + preview + 3e post** (quiz les jours de match, état du tournoi les jours creux) + imprime la **planche du jour** (sous le capot : `fetch` + `third`)
 2. Recherche web des recaps de la veille — **chaque fait vérifié sur 2 sources**, surtout les minutes de buts
 3. Choisir l'angle : **UN match vedette** (cover + 2 turning-points) + le reste en stat-cards, et le **personnage signature du jour** (carton → Vera, record → Numa, tactique → Otto) pour la CTA + dernière story
-4. Compléter le draft + `caption.txt` (caption + alt-texts)
-5. `npm run render -- --date=<date>` — corriger les overflows en RACCOURCISSANT le texte
+4. Compléter le draft recap + `caption.txt` (caption + alt-texts) ; relire le 3e post (déjà rempli)
+5. `npm run build -- --date=<date>` (les dates listées par la planche) — corriger les overflows en RACCOURCISSANT le texte
 6. Contrôle visuel des PNG : hook lisible, 1 accent/slide, footer (handle · micro-ask · N/M), personnage sans collision
-7. Rendre les Stories du jour en même temps (`npm run stories`)
+7. Stories rendues par le même `build` (`content.json` → carrousel + stories + 3e post)
 
 ### Chaque après-midi/soir (~20 min) — [TOI]
 
@@ -177,7 +179,7 @@
 - IG Insights : reach, saves, partages, nouveaux abonnés **par post** → noter les 3 meilleurs hooks
 - Clics du link in bio + inscriptions email de la semaine (taux de conversion)
 - Revue `BACKLOG.md` + ce fichier : cocher, repriorisier, élaguer
-- Vérifier que le buffer evergreen contient ≥ 1 post prêt
+- Vérifier que le buffer evergreen contient ≥ 1 post prêt (`npm run buffer` ; « prêt » = rendu **et** vérifié). Produire/valider un evergreen au besoin (`npm run evergreen` → fact-check → `--verify`)
 
 ### À chaque fin de phase
 

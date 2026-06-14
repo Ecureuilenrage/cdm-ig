@@ -4,6 +4,7 @@ Hand-drawn football match storytelling. Every matchday of the 2026 tournament, o
 
 - **Stack**: HTML/CSS + [rough.js](https://roughjs.com) templates, screenshotted to 1080×1350 PNG by Playwright. 100% code-generated — no AI images, fully deterministic (seeded).
 - **Pipeline**: `npm run fetch` aggregates **football-data.org** (guaranteed scores) + **ESPN** (free, keyless — scorers, minutes, cards) + **Wikipedia** (2nd-source minute cross-check) into `content/<date>/facts.json`, pre-fills a draft `content/<date>/content.json`, and — with `--draft` — has **Claude** write it in the cast's voice (grounded *only* on the collected facts). Then `npm run build -- --date=<date>` renders the carousel + Stories (+ pre-match preview). Everything network-side is **fail-soft**; rendering is fully local & deterministic (seeded).
+- **Daily engine** (3 posts/day): `npm run day -- --date=<D>` reads the fixture calendar, classifies the day (match day vs rest day, tournament round) and scaffolds all three daily posts — the **recap** (yesterday), the evening **pre-match preview** (today), and a contextual **3rd post**: a facts-based **quiz** on match days, a **tournament-state** card on rest days, or an AI-drafted **evergreen** from the reserve. Works every day to the final.
 - **Funnel**: Instagram [@scribblepitch] → site → newsletter → digital wall chart.
 
 ## Quick start
@@ -11,14 +12,20 @@ Hand-drawn football match storytelling. Every matchday of the 2026 tournament, o
 ```
 npm install
 npx playwright install chromium
-npm run fetch -- --date=2026-06-11 --draft --preview   # FOOTBALL_DATA_KEY (+ ANTHROPIC_API_KEY for --draft) in .env
-# review the draft, verify any [VERIFY] tags on 2 sources, then:
-npm run build -- --date=2026-06-11                      # carousel + Stories (+ preview if present)
+npm run day -- --date=2026-06-14 --draft   # FOOTBALL_DATA_KEY (+ ANTHROPIC_API_KEY for --draft) in .env
+# day scaffolds all 3 posts + prints the day's plan. Review the drafts, verify any [VERIFY]
+# tags on 2 sources, then render the dates it lists:
+npm run build -- --date=2026-06-13         # recap + Stories + quiz (3rd post)
+npm run build -- --date=2026-06-14         # preview
 ```
 
-The morning collapses to ~2 commands: `fetch` (gather every fact + draft) → you review → `build` (render). Output lands in `content/<date>/out/`. See `CLAUDE.md` for the daily routine, `brand/identity.md` for the visual grammar, `content/_schema.md` for the slide contract, and `docs/pipeline.md` for how the data flows (which command hits the network, which are fully local).
+`npm run day` is the one morning command: it gathers facts, scaffolds the recap, the preview, and the contextual 3rd post, and tells you exactly what to review and which dates to `build`. (The lower-level `fetch` / `third` / `render` / `stories` / `preview` commands stay available for one-off work.) Output lands in `content/<date>/out/`. See `CLAUDE.md` for the daily routine, `brand/identity.md` for the visual grammar, `content/_schema.md` for the slide contract, and `docs/pipeline.md` for how the data flows (which command hits the network, which are fully local).
 
 ## Commands
+
+### `npm run day -- [--date=YYYY-MM-DD] [--draft]`
+
+The **morning orchestrator** (calendar-driven). For a publication day D it: classifies the day from the fixture calendar (match day vs rest day, tournament round), scaffolds the **recap** (J-1) + the **preview** (J) via `fetch`, generates the **3rd post** (`third`), and prints the **day's plan** — what to review and which dates to `build`. It does *not* render (you review the drafts first — the recap needs a human angle). `--draft` runs Claude on the recap + quiz copy. Defaults to today. Fail-soft.
 
 ### `npm run fetch -- [--date=YYYY-MM-DD] [--scorers] [--draft] [--preview]`
 
@@ -31,9 +38,9 @@ The morning aggregator. Pulls **scores** from [football-data.org](https://www.fo
 - `--preview`: scaffolds the evening pre-match post into `content/<J+1>/preview.json` (the marquee match in 3 slides + a card per other fixture).
 - `--scorers`: prints the tournament's aggregated top scorers (free tier).
 
-### `npm run render -- --date=YYYY-MM-DD [--slide=N]`
+### `npm run render -- --date=YYYY-MM-DD [--slide=N] [--file=<doc>.json]`
 
-Renders the carousel slides (1080×1350 PNG) for a given matchday. `--date` also accepts a non-date folder name (e.g. `evergreen-01` — the backup "Did you know?" posts in `content/evergreen-0*`).
+Renders the carousel slides (1080×1350 PNG) for a given matchday. `--file` renders any document in the day's folder (`content.json` default, `preview.json`, `third.json`). `--date` also accepts a non-date folder name (e.g. `evergreen-01` — the backup "Did you know?" posts in `content/evergreen-0*`).
 
 ### `npm run stories -- --date=YYYY-MM-DD [--story=N]`
 
@@ -45,11 +52,19 @@ Renders the pre-match post from `content/<date>/preview.json` → `out/preview-0
 
 ### `npm run build -- --date=YYYY-MM-DD`
 
-Renders everything in a day's folder in one go: carousel (`content.json`) + Stories + preview (`preview.json`) if present — the second of the two daily commands.
+Renders everything in a day's folder in one go: carousel (`content.json`) + Stories + preview (`preview.json`) + **3rd post** (`third.json`), whichever are present.
 
-### `npm run buffer [-- --next | --mark=evergreen-0N | --unmark=evergreen-0N]`
+### `npm run third -- --date=YYYY-MM-DD [--draft]`
 
-Manages the evergreen "3rd-slot" reserve (`content/evergreen-*`): inventory + which to post next, mark/unmark posted (state in `data/buffer-state.json`), and a low-reserve warning. Create a new one by duplicating an `evergreen-0N` folder and rendering it.
+Generates the **3rd post** and decides its kind automatically: if `content/<date>/facts.json` exists it builds a **quiz** mini-carousel (question → revealed answer → bonus number → cta) drawn **only** from the day's facts (no invented trivia); otherwise it builds a **tournament-state** card from football-data `/standings` + top scorer. Writes `content/<date>/third.json` (never overwrites). `--draft` polishes the copy with Claude — the factual answer stays locked.
+
+### `npm run evergreen -- (--team="X" | --theme="Y" | "free topic")`
+
+The **evergreen factory**: Claude drafts a timeless "Did you know?" post tied to the tournament (teams, records, fun stories) into the next `content/evergreen-0N`. **Every fact is suffixed with `[VERIFY]`** — fact-check on 2 sources and strip the tags before publishing. Needs `ANTHROPIC_API_KEY`.
+
+### `npm run buffer [-- --next | --mark=… | --unmark=… | --verify=… | --unverify=…]`
+
+Manages the evergreen "3rd-slot" reserve (`content/evergreen-*`): inventory, which to post next, mark/unmark posted, and a low-reserve warning (state in `data/buffer-state.json`). A **verification gate** guards AI-drafted evergreens: a post counts as **ready** only when it's rendered **and** `--verify`'d **and** unposted — and `--verify` refuses while any `[VERIFY]` tag remains in its `content.json`. Build new ones with `npm run evergreen`.
 
 ### `npm run shoot -- --path=/page.html --out=file.png [options]`
 
