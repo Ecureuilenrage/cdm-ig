@@ -1,0 +1,44 @@
+{
+  "matchDate": "2026-06-14",
+  "title": "Matchday 1 — quiz",
+  "slides": [
+    {
+      "type": "quiz",
+      "kicker": "Quiz · matchday 1",
+      "question": "Germany 7–1 Curaçao — at what minute does the *last* goal land?",
+      "options": [
+        "9'",
+        "23'",
+        "88'"
+      ],
+      "prompt": "Swipe for the answer →",
+      "pose": "pointing",
+      "accent": "blue",
+      "character": "numa"
+    },
+    {
+      "type": "stat-card",
+      "kicker": "Answer: C",
+      "value": "88'",
+      "unit": "Kai Havertz",
+      "context": "Kai Havertz nodded in the seventh German goal at the 88th minute to seal the rout.",
+      "pose": "shocked",
+      "accent": "blue"
+    },
+    {
+      "type": "stat-card",
+      "kicker": "One more for the board",
+      "value": "19",
+      "unit": "goals across 4 games",
+      "context": "Across all four openers, *nineteen* goals were scored — a loud first matchday.",
+      "accent": "blue"
+    },
+    {
+      "type": "cta",
+      "text": "One illustrated story. *Every matchday.*",
+      "note": "How many did you get? Tell us below.",
+      "pose": "pointing",
+      "accent": "blue"
+    }
+  ]
+}

@@ -1,0 +1,96 @@
+{
+  "matchDate": "2026-06-15",
+  "title": "Coming up — four matches, one slate",
+  "slides": [
+    {
+      "type": "preview",
+      "kicker": "Coming up · June 15, 2026",
+      "hook": "Four matches. *One slate.*",
+      "matches": [
+        { "home": "Spain", "away": "Cape Verde", "kickoff": "16:00 UTC" },
+        { "home": "Belgium", "away": "Egypt", "kickoff": "19:00 UTC" },
+        { "home": "Saudi Arabia", "away": "Uruguay", "kickoff": "22:00 UTC" },
+        { "home": "Iran", "away": "New Zealand", "kickoff": "01:00 UTC" }
+      ],
+      "pose": "pointing",
+      "accent": "orange"
+    },
+    {
+      "type": "preview",
+      "kicker": "Otto's Board",
+      "home": "Belgium",
+      "away": "Egypt",
+      "kickoff": "19:00 UTC",
+      "outcome": "1",
+      "pick": "Otto's call: *Belgium* — 20 places higher, and 3-0 up when they last met.",
+      "battle": { "a": "Egypt's Salah", "b": "Belgium's back line" },
+      "pose": "pointing",
+      "accent": "orange"
+    },
+    {
+      "type": "preview",
+      "kicker": "Numa's Rewind",
+      "home": "Belgium",
+      "away": "Egypt",
+      "kickoff": "19:00 UTC",
+      "number": { "value": "20", "unit": "FIFA places apart" },
+      "h2h": "Four meetings, all friendlies — Egypt lead 3-1. This is their first competitive clash.",
+      "pose": "celebrating",
+      "accent": "blue"
+    },
+    {
+      "type": "preview",
+      "kicker": "Otto's Board",
+      "home": "Saudi Arabia",
+      "away": "Uruguay",
+      "kickoff": "22:00 UTC",
+      "outcome": "2",
+      "pick": "Otto's call: *Uruguay* — two-time world champions, 45 places higher.",
+      "battle": { "a": "Saudi's high press", "b": "Uruguay's experience" },
+      "pose": "pointing",
+      "accent": "orange"
+    },
+    {
+      "type": "preview",
+      "kicker": "Numa's Rewind",
+      "home": "Saudi Arabia",
+      "away": "Uruguay",
+      "kickoff": "22:00 UTC",
+      "number": { "value": "45", "unit": "FIFA places apart" },
+      "h2h": "All square in three meetings — but Uruguay won the World Cup one, 1-0 (Suárez, 2018). World champions in 1930 & 1950.",
+      "pose": "celebrating",
+      "accent": "blue"
+    },
+    {
+      "type": "preview",
+      "kicker": "Otto's Board",
+      "home": "Spain",
+      "away": "Cape Verde",
+      "kickoff": "16:00 UTC",
+      "outcome": "1",
+      "pick": "Otto's call: *Spain*, comfortably — reigning Euro champions, ranked No. 2.",
+      "h2h": "First-ever meeting. Cape Verde — pop. ~525,000 — at their first World Cup.",
+      "pose": "pointing",
+      "accent": "orange"
+    },
+    {
+      "type": "preview",
+      "kicker": "Otto's Board",
+      "home": "Iran",
+      "away": "New Zealand",
+      "kickoff": "01:00 UTC",
+      "outcome": "1",
+      "pick": "Otto's call: *Iran* — 65 places higher, unbeaten in the matchup.",
+      "h2h": "First World Cup meeting — they last met back in 2003 (Iran won 3-0).",
+      "pose": "pointing",
+      "accent": "orange"
+    },
+    {
+      "type": "cta",
+      "text": "Who's your pick? *Tap to vote.*",
+      "note": "Recap drops tomorrow.",
+      "pose": "pointing",
+      "accent": "orange"
+    }
+  ]
+}

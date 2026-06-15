@@ -62,7 +62,7 @@ builds.add(date); // preview (+ third état tournoi si jour creux)
 console.log(`\n╔══ Planche du jour — à poster le ${date} ══╗`);
 let n = 0;
 if (c.recap.length) console.log(`  ${++n}. RECAP    → content/${c.recapDate}/  (relire le draft, choisir l'angle)`);
-if (c.preview.length) console.log(`  ${++n}. PREVIEW  → content/${date}/preview.json  (compléter hook / rewind / pick)`);
+if (c.preview.length) console.log(`  ${++n}. PREVIEW  → content/${date}/preview.json  (compléter hook + chaque carte : outcome 1/X/2 · pick · h2h)`);
 console.log(`  ${++n}. 3e POST  → content/${thirdDate}/third.json  (${quizDay ? 'quiz' : 'état du tournoi'})`);
 console.log(`\n  Puis rendre :`);
 for (const d of builds) console.log(`    npm run build -- --date=${d}`);

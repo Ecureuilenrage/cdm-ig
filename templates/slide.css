@@ -189,6 +189,88 @@ body { background: #888; }
   text-transform: uppercase; letter-spacing: 0.05em; font-size: 36px; margin-bottom: 14px;
 }
 
+/* preview — OVERVIEW : liste de tous les matchs du jour (slide de tête) */
+.preview .fixtures {
+  position: absolute; left: var(--margin); right: var(--margin);
+  display: flex; flex-direction: column; gap: 40px;
+}
+.preview .fix-row { text-align: center; }
+.preview .fix-teams {
+  font-family: var(--font-title); font-weight: 800; font-size: 56px; line-height: 1.05;
+  text-transform: uppercase; letter-spacing: 0.02em;
+}
+.preview .fix-teams .vs { font-family: var(--font-note); font-weight: 700; font-size: 44px; }
+.preview .fix-ko {
+  font-family: var(--font-note); font-weight: 700; font-size: 38px;
+  color: var(--ink-soft); margin-top: 6px;
+}
+
+/* preview — PRONO : 1/X/2 (choix entouré) + call d'Otto + head-to-head */
+.preview .odds {
+  position: absolute; left: var(--margin); right: var(--margin);
+  display: grid; grid-template-columns: 1fr 1fr 1fr; align-items: start;
+}
+.preview .odd-cell {
+  display: flex; flex-direction: column; align-items: center; gap: 10px;
+  width: max-content; max-width: 300px; margin: 0 auto;
+}
+.preview .odd-key {
+  font-family: var(--font-title); font-weight: 800; font-size: 130px; line-height: 1;
+}
+.preview .odd-lbl {
+  font-family: var(--font-note); font-weight: 700; font-size: 36px; line-height: 1.1;
+  text-align: center; text-transform: uppercase; letter-spacing: 0.02em; color: var(--ink-soft);
+}
+.preview .pick-line {
+  position: absolute; left: var(--margin); right: var(--margin); max-width: 940px;
+  font-family: var(--font-body); font-size: 48px; line-height: 1.4; font-weight: 600;
+}
+.preview .pick-line .lbl {
+  display: block; font-family: var(--font-note); font-weight: 700;
+  text-transform: uppercase; letter-spacing: 0.05em; font-size: 36px; margin-bottom: 12px;
+  color: var(--ink-soft);
+}
+.preview .h2h {
+  position: absolute; left: var(--margin); right: var(--margin); max-width: 940px;
+  transform: rotate(-1deg);
+  font-family: var(--font-note); font-weight: 700; font-size: 42px; line-height: 1.25;
+  color: var(--ink-soft);
+}
+.preview .h2h .lbl {
+  text-transform: uppercase; letter-spacing: 0.04em; font-size: 34px; margin-right: 12px;
+}
+
+/* preview — OTTO'S READ : key battle (gros match), flèche dessinée entre les deux */
+.preview .read { position: absolute; left: var(--margin); right: var(--margin); }
+.preview .read .lbl {
+  display: block; font-family: var(--font-note); font-weight: 700;
+  text-transform: uppercase; letter-spacing: 0.05em; font-size: 34px;
+  color: var(--ink-soft); margin-bottom: 16px;
+}
+.preview .read .battle {
+  display: flex; align-items: center;
+  font-family: var(--font-title); font-weight: 800; font-size: 52px; line-height: 1.05;
+}
+.preview .read .battle .b-gap { display: inline-block; width: 90px; flex: 0 0 auto; }
+
+/* preview — NUMA'S NUMBER : le chiffre du match (slide Numa) */
+.preview .num { position: absolute; left: var(--margin); right: var(--margin); text-align: center; }
+.preview .num .val { font-family: var(--font-title); font-weight: 800; font-size: 150px; line-height: 1; }
+.preview .num .unit {
+  font-family: var(--font-note); font-weight: 700; font-size: 46px;
+  color: var(--ink-soft); margin-top: 8px;
+}
+
+/* preview — REWIND / FILE : bloc texte en focus (Numa h2h, Vera discipline) */
+.preview .rewind {
+  position: absolute; left: var(--margin); right: var(--margin);
+  font-family: var(--font-body); font-size: 50px; line-height: 1.4; font-weight: 600;
+}
+.preview .rewind .lbl {
+  display: block; font-family: var(--font-note); font-weight: 700;
+  text-transform: uppercase; letter-spacing: 0.05em; font-size: 36px; margin-bottom: 16px;
+}
+
 /* ---- cta ---- */
 .cta { position: absolute; inset: 0; padding: var(--margin); text-align: center; }
 .cta .headline { margin-top: 90px; }

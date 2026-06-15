@@ -35,7 +35,7 @@ The morning aggregator. Pulls **scores** from [football-data.org](https://www.fo
 - Self-throttles on football-data rate-limit headers; raw responses cached 10 min in `data/raw/` (gitignored). Editorial day: a US evening kick-off belongs to day D if `utcDate - 8h` falls on D.
 - Never overwrites an existing file — writes `*.draft.json` next to it.
 - `--draft` (needs `ANTHROPIC_API_KEY`): **Claude** writes the editorial copy in the cast's voice from `facts.json` only — never inventing a scorer, minute, or record — into `content.draft.llm.json` + `caption.draft.txt`. Default model `claude-opus-4-8` (override via `SCRIBBLE_LLM_MODEL`).
-- `--preview`: scaffolds the evening pre-match post into `content/<J+1>/preview.json` (the marquee match in 3 slides + a card per other fixture).
+- `--preview`: scaffolds the evening pre-match post into `content/<J+1>/preview.json` — **tiered format**: an OVERVIEW slide listing every fixture, the marquee match in 2 slides (*Otto's Board* = 1/X/2 pick + key battle, *Numa's Rewind* = a number + head-to-head), and a compact prediction card per other fixture. The cast is drawn per slide (accent → character: orange→Otto, blue→Numa, red→Vera).
 - `--scorers`: prints the tournament's aggregated top scorers (free tier).
 
 ### `npm run render -- --date=YYYY-MM-DD [--slide=N] [--file=<doc>.json]`

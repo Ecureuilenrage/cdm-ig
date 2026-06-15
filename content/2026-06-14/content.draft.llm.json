@@ -1,0 +1,118 @@
+{
+  "matchDate": "2026-06-14",
+  "title": "Matchday 1 — Germany Run Riot, Late Drama Elsewhere",
+  "slides": [
+    {
+      "type": "cover",
+      "kicker": "Matchday 1 · June 14, 2026",
+      "hook": "Germany *bury* Curaçao seven-one to open matchday one.",
+      "score": {
+        "home": "Germany",
+        "away": "Curaçao",
+        "homeGoals": 7,
+        "awayGoals": 1
+      },
+      "note": "Next openers are loading. We chart every goal. Trust the *board*.",
+      "pose": "shocked",
+      "accent": "orange"
+    },
+    {
+      "type": "turning-point",
+      "minute": 6,
+      "kicker": "The setup",
+      "headline": "Curaçao *answer* an early German strike",
+      "body": "Nmecha opens at six minutes, Wirtz supplying. Curaçao refuse the script. Comenencia *equalises* at 21. One-one, and briefly the favourites look mortal.",
+      "annotations": [
+        {
+          "text": "6' Felix Nmecha",
+          "color": "blue"
+        },
+        {
+          "text": "21' Livano Comenencia",
+          "color": "blue"
+        }
+      ],
+      "accent": "blue"
+    },
+    {
+      "type": "turning-point",
+      "minute": 47,
+      "kicker": "The turn",
+      "headline": "The dam *breaks* before and after the half",
+      "body": "Schlotterbeck heads Germany back ahead at 38. Havertz converts deep in first-half stoppage. Musiala strikes at 47. From there the *flood* arrives — Brown, Undav, and Havertz again pile on for seven.",
+      "annotations": [
+        {
+          "text": "78' Deniz Undav",
+          "color": "blue"
+        },
+        {
+          "text": "88' Kai Havertz",
+          "color": "blue"
+        }
+      ],
+      "pose": "celebrating",
+      "accent": "orange"
+    },
+    {
+      "type": "stat-card",
+      "kicker": "Sweden vs Tunisia",
+      "value": "5–1",
+      "unit": "full time",
+      "context": "Sweden run riot. Ayari *bookends* it with goals at 7 and 90+6. Isak turns provider three times; Rekik's 43rd-minute reply was Tunisia's only answer.",
+      "accent": "blue"
+    },
+    {
+      "type": "stat-card",
+      "kicker": "Netherlands vs Japan",
+      "value": "2–2",
+      "unit": "full time",
+      "context": "Van Dijk and Summerville twice nudge the Dutch ahead. Japan *answer* both — Kamada striking at 89 to steal a point. Three Dutch yellows tell the story.",
+      "accent": "blue"
+    },
+    {
+      "type": "stat-card",
+      "kicker": "Ivory Coast vs Ecuador",
+      "value": "1–0",
+      "unit": "full time",
+      "context": "Goalless until the *death*. Amad Diallo pokes home at 90, Singo assisting. Four bookings underline a tense, scrappy night in Group play.",
+      "accent": "blue"
+    },
+    {
+      "type": "cta",
+      "text": "One illustrated story. *Every matchday.*",
+      "note": "Tomorrow: Spain vs Cape Verde, Belgium vs Egypt & 2 more.",
+      "pose": "pointing",
+      "accent": "orange"
+    }
+  ],
+  "stories": [
+    {
+      "character": "otto",
+      "kicker": "Today's story · matchday 1",
+      "big": "Germany pressed, Curaçao buckled, and the board *filled* up fast.",
+      "note": "",
+      "pose": "pointing",
+      "sticker": "[ link sticker: today's post ]",
+      "cta": "Full story → today's post"
+    },
+    {
+      "character": "numa",
+      "kicker": "Numa's number · matchday 1",
+      "mega": "7",
+      "unit": "German goals",
+      "pose": "celebrating",
+      "sticker": "[ emoji slider ]",
+      "cta": "All the numbers → today's post",
+      "note": "Most Germany have scored in a single tournament match since 2014, when they also won 7–1. [VERIFY]"
+    },
+    {
+      "character": "vera",
+      "kicker": "Vera's file · matchday 1",
+      "big": "TODO — la note de discipline en lettre",
+      "note": "",
+      "pose": "pointing",
+      "sticker": "[ poll ]",
+      "cta": "The whole file → today's post"
+    }
+  ]
+}

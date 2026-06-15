@@ -83,24 +83,31 @@ L'`accent` désigne le personnage signature du jour (voir « Signature du jour �
 
 ### preview (post avant-match — cadence 3 posts/jour, D13)
 
-Vit dans `content/<date>/preview.json` (même schéma racine `{ matchDate, title, slides }`), rendu par `npm run preview -- --date=YYYY-MM-DD` → `out/preview-0N.png`. Trois usages d'une même slide `preview` selon les champs fournis :
+Vit dans `content/<date>/preview.json` (même schéma racine `{ matchDate, title, slides }`), rendu par `npm run preview -- --date=YYYY-MM-DD` → `out/preview-0N.png`.
+
+**Gabarit standard TIERED (généré par `npm run fetch -- --date=J --preview`)** : une slide **OVERVIEW** (tous les matchs du jour) → le(s) **gros match(s) en 2 slides** : *Otto's Board* (prono 1/X/2 + key battle) puis *Numa's Rewind* (un chiffre + head-to-head) → le **reste en cartes compactes** (prono + note h2h) → cta. On voit dès la 1re slide qu'il y a plusieurs matchs, et les gros matchs respirent. Le **personnage est déduit de l'accent** (orange→Otto, blue→Numa, red→Vera) et **dessiné** sur la slide. Tous les `TODO` sont à compléter avec des faits **vérifiés sur le web (2 sources)**.
+
+Les usages d'une slide `preview` selon les champs fournis :
 
 ```json
-{ "type": "preview",
-  "kicker": "Coming up · Month D, YYYY",
-  "hook": "Accroche 8-12 mots, *accent* (slide de TÊTE uniquement)",   // optionnel
-  "home": "Brazil", "away": "Morocco",
-  "kickoff": "22:00 UTC",                                              // optionnel
-  "rewind": "Anecdote / head-to-head (slide Numa, accent blue)",       // optionnel
-  "pick": "Pronostic d'Otto (slide Otto, accent orange)",              // optionnel
+{ "type": "preview", "kicker": "Coming up · Month D, YYYY",
+  "hook": "Accroche 8-12 mots, *accent* (OVERVIEW / LEAD)",            // optionnel
+  "matches": [ { "home": "Spain", "away": "Cape Verde", "kickoff": "16:00 UTC" } ],  // OVERVIEW
+  "home": "Belgium", "away": "Egypt", "kickoff": "19:00 UTC",          // board / rewind / file
+  "outcome": "1",        // OTTO'S BOARD — "1" = home · "X" = draw · "2" = away (le choix est entouré)
+  "pick": "Le call d'Otto (1-2 phrases, *accent* sur l'idée)",         // OTTO'S BOARD
+  "battle": { "a": "Egypt's Salah", "b": "Belgium's back line" },      // OTTO'S BOARD (gros match) — key battle, flèche dessinée
+  "h2h": "Head-to-head + 1 anecdote vérifiée",                         // carte compacte (note Numa) OU Numa's Rewind
+  "number": { "value": "20", "unit": "FIFA places apart" },            // NUMA'S REWIND — le chiffre du match
+  "discipline": "La note discipline (cartons, VAR, match tendu)",      // VERA'S FILE
   "pose": "pointing", "accent": "orange" }
 ```
 
-- **LEAD** : `hook` présent → accroche 96px + matchup au centre + coach. C'est la 1re slide.
-- **FOCUS** : `rewind` (rituel *Numa's Rewind*) OU `pick` (*Otto's Board*) → matchup compact en haut + le texte en focus. Le label est posé automatiquement.
-- **CARTE** : juste `home`/`away`/`kickoff` (mettre `pose: "none"` pour masquer le coach) → un match secondaire du jour.
-
-Gabarit type (généré par `npm run fetch -- --date=J --preview`, écrit `content/<J+1>/preview.json`) : le match vedette en 3 slides (lead → Numa's Rewind → Otto's Board) + 1 carte par autre match + cta. `rewind`/`pick`/`hook` restent des TODO à compléter (anecdotes vérifiées sur le web).
+- **OVERVIEW** : `matches[]` → liste centrée de tous les matchs (Team v Team · kickoff) dans un cadre, Otto en bas (`pose: "none"` pour masquer). 1re slide, `hook` optionnel au-dessus.
+- **OTTO'S BOARD** (accent orange) : `outcome` → matchup + rangée **1 / X / 2** (choix entouré + légende home/draw/away) + `pick`. Si `battle` → **gros match** : key battle « The game turns on : a → b » (flèche) + Otto en grand. Sinon **carte compacte** : `h2h` en note Numa + petit Otto.
+- **NUMA'S REWIND** (accent blue) : `h2h`/`number`/`rewind` **sans** `outcome` → matchup + le `number` (gros chiffre) + head-to-head + Numa dessiné.
+- **VERA'S FILE** (accent red) : `discipline` → matchup + note discipline + Vera dessinée. Situationnel (derby, arbitre à cartons, match tendu).
+- **LEAD / FOCUS / CARTE** (compat ancien format) : `hook` seul / `pick` seul / `home`+`away` seuls.
 
 ### quiz (3e post — jours de match)
 

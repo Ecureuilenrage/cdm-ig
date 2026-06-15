@@ -1,0 +1,265 @@
+{
+  "matchDate": "2026-06-14",
+  "matchday": 1,
+  "generatedFrom": "football-data (scores garantis) + ESPN (events, fail-soft)",
+  "matches": [
+    {
+      "home": "Germany",
+      "away": "Curaçao",
+      "score": {
+        "home": 7,
+        "away": 1
+      },
+      "featured": true,
+      "events": {
+        "goals": [
+          {
+            "minute": "6'",
+            "kind": "goal",
+            "team": "Germany",
+            "scorer": "Felix Nmecha",
+            "assist": "Florian Wirtz"
+          },
+          {
+            "minute": "21'",
+            "kind": "goal",
+            "team": "Curaçao",
+            "scorer": "Livano Comenencia",
+            "assist": null
+          },
+          {
+            "minute": "38'",
+            "kind": "goal",
+            "team": "Germany",
+            "scorer": "Nico Schlotterbeck",
+            "assist": "Nathaniel Brown"
+          },
+          {
+            "minute": "45'+5'",
+            "kind": "penalty",
+            "team": "Germany",
+            "scorer": "Kai Havertz",
+            "assist": null
+          },
+          {
+            "minute": "47'",
+            "kind": "goal",
+            "team": "Germany",
+            "scorer": "Jamal Musiala",
+            "assist": "Joshua Kimmich"
+          },
+          {
+            "minute": "68'",
+            "kind": "goal",
+            "team": "Germany",
+            "scorer": "Nathaniel Brown",
+            "assist": "Deniz Undav"
+          },
+          {
+            "minute": "78'",
+            "kind": "goal",
+            "team": "Germany",
+            "scorer": "Deniz Undav",
+            "assist": "Joshua Kimmich"
+          },
+          {
+            "minute": "88'",
+            "kind": "goal",
+            "team": "Germany",
+            "scorer": "Kai Havertz",
+            "assist": "Deniz Undav"
+          }
+        ],
+        "cards": [],
+        "yellowCount": 0,
+        "redCount": 0,
+        "subs": 8
+      },
+      "crosscheck": {
+        "source": "wikipedia",
+        "title": "2026 FIFA World Cup Group E",
+        "minutesAgree": null
+      },
+      "wikiNote": "Germany's seven goals were the most they scored in a World Cup match since 2014, when they also defeated Brazil 7–1."
+    },
+    {
+      "home": "Sweden",
+      "away": "Tunisia",
+      "score": {
+        "home": 5,
+        "away": 1
+      },
+      "featured": false,
+      "events": {
+        "goals": [
+          {
+            "minute": "7'",
+            "kind": "goal",
+            "team": "Sweden",
+            "scorer": "Yasin Ayari",
+            "assist": null
+          },
+          {
+            "minute": "30'",
+            "kind": "goal",
+            "team": "Sweden",
+            "scorer": "Alexander Isak",
+            "assist": "Viktor Gyökeres"
+          },
+          {
+            "minute": "43'",
+            "kind": "goal",
+            "team": "Tunisia",
+            "scorer": "Omar Rekik",
+            "assist": "Hannibal Mejbri"
+          },
+          {
+            "minute": "59'",
+            "kind": "goal",
+            "team": "Sweden",
+            "scorer": "Viktor Gyökeres",
+            "assist": "Alexander Isak"
+          },
+          {
+            "minute": "84'",
+            "kind": "goal",
+            "team": "Sweden",
+            "scorer": "Mattias Svanberg",
+            "assist": "Alexander Isak"
+          },
+          {
+            "minute": "90'+6'",
+            "kind": "goal",
+            "team": "Sweden",
+            "scorer": "Yasin Ayari",
+            "assist": "Lucas Bergvall"
+          }
+        ],
+        "cards": [
+          {
+            "minute": "54'",
+            "color": "yellow",
+            "team": "Tunisia",
+            "player": "Rani Khedira"
+          }
+        ],
+        "yellowCount": 1,
+        "redCount": 0,
+        "subs": 10
+      }
+    },
+    {
+      "home": "Netherlands",
+      "away": "Japan",
+      "score": {
+        "home": 2,
+        "away": 2
+      },
+      "featured": false,
+      "events": {
+        "goals": [
+          {
+            "minute": "51'",
+            "kind": "goal",
+            "team": "Netherlands",
+            "scorer": "Virgil van Dijk",
+            "assist": "Ryan Gravenberch"
+          },
+          {
+            "minute": "57'",
+            "kind": "goal",
+            "team": "Japan",
+            "scorer": "Keito Nakamura",
+            "assist": "Takefusa Kubo"
+          },
+          {
+            "minute": "64'",
+            "kind": "goal",
+            "team": "Netherlands",
+            "scorer": "Crysencio Summerville",
+            "assist": "Ryan Gravenberch"
+          },
+          {
+            "minute": "89'",
+            "kind": "goal",
+            "team": "Japan",
+            "scorer": "Daichi Kamada",
+            "assist": "Koki Ogawa"
+          }
+        ],
+        "cards": [
+          {
+            "minute": "61'",
+            "color": "yellow",
+            "team": "Netherlands",
+            "player": "Crysencio Summerville"
+          },
+          {
+            "minute": "83'",
+            "color": "yellow",
+            "team": "Netherlands",
+            "player": "Memphis Depay"
+          },
+          {
+            "minute": "90'+1'",
+            "color": "yellow",
+            "team": "Netherlands",
+            "player": "Micky van de Ven"
+          }
+        ],
+        "yellowCount": 3,
+        "redCount": 0,
+        "subs": 10
+      }
+    },
+    {
+      "home": "Ivory Coast",
+      "away": "Ecuador",
+      "score": {
+        "home": 1,
+        "away": 0
+      },
+      "featured": false,
+      "events": {
+        "goals": [
+          {
+            "minute": "90'",
+            "kind": "goal",
+            "team": "Ivory Coast",
+            "scorer": "Amad Diallo",
+            "assist": "Wilfried Singo"
+          }
+        ],
+        "cards": [
+          {
+            "minute": "28'",
+            "color": "yellow",
+            "team": "Ivory Coast",
+            "player": "Seko Fofana"
+          },
+          {
+            "minute": "38'",
+            "color": "yellow",
+            "team": "Ivory Coast",
+            "player": "Franck Kessié"
+          },
+          {
+            "minute": "40'",
+            "color": "yellow",
+            "team": "Ivory Coast",
+            "player": "Guela Doué"
+          },
+          {
+            "minute": "73'",
+            "color": "yellow",
+            "team": "Ecuador",
+            "player": "Jackson Porozo"
+          }
+        ],
+        "yellowCount": 4,
+        "redCount": 0,
+        "subs": 9
+      }
+    }
+  ]
+}

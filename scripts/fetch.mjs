@@ -344,28 +344,44 @@ if (args.preview) {
     console.log(`\n(--preview) Aucun match le ${pvDate} — pas de preview générée.`);
   } else {
     const ko = (m) => `${new Date(m.utcDate).toISOString().slice(11, 16)} UTC`;
-    const marquee = nextDay[0]; // heuristique : 1er coup d'envoi ; l'humain re-choisit le match vedette
-    const mq = { home: name(marquee.homeTeam), away: name(marquee.awayTeam), kickoff: ko(marquee) };
+    const dayMatches = nextDay.map((m) => ({ home: name(m.homeTeam), away: name(m.awayTeam), kickoff: ko(m) }));
+    // L'overview liste TOUS les matchs ; on cap les cartes prono pour ne pas exploser le carrousel.
+    const MAX_PRONO_CARDS = MAX_STAT_CARDS + 2;
+    const cards = dayMatches.slice(0, MAX_PRONO_CARDS);
+    if (dayMatches.length > cards.length) {
+      console.log(`  ⚠ ${dayMatches.length - cards.length} match(s) listé(s) dans l'overview mais sans carte prono (cap ${MAX_PRONO_CARDS}).`);
+    }
+    // Format TIERED : le(s) gros match(s) en 2 slides (Otto's Board + Numa's Rewind),
+    // le reste en cartes compactes. marquee = heuristique 1er match ; l'humain re-choisit.
+    const marquee = cards[0];
+    const ottoBoard = (m, extra) => ({
+      type: 'preview', kicker: "Otto's Board",
+      home: m.home, away: m.away, kickoff: m.kickoff,
+      outcome: '1', // TODO — 1 = home win · X = draw · 2 = away win — VÉRIFIER
+      pick: "TODO — Otto's call, verified (1-2 phrases, *accent* sur l'idée)",
+      ...extra, pose: 'pointing', accent: 'orange',
+    });
     const preview = {
       matchDate: pvDate,
       title: 'TODO — angle de la preview',
       slides: [
-        // le match vedette en 3 slides (D13) : accroche, Numa's Rewind, Otto's Board
+        // 1) OVERVIEW — tous les matchs du jour (on sait direct qu'il y en a plusieurs)
         { type: 'preview', kicker: `Coming up · ${prettyDate(pvDate)}`,
           hook: 'TODO — *hook* here (8-12 words)',
-          ...mq, pose: 'pointing', accent: 'orange' },
-        { type: 'preview', kicker: "Numa's Rewind", ...mq,
-          rewind: 'TODO — anecdote / h2h vérifiée sur le web (ex. « 8th World Cup meeting »)',
-          pose: 'celebrating', accent: 'blue' },
-        { type: 'preview', kicker: "Otto's Board", ...mq,
-          pick: "TODO — Otto's call (he's usually wrong)",
-          pose: 'pointing', accent: 'orange' },
-        // 1 carte par autre match du jour
-        ...nextDay.slice(1, 1 + MAX_STAT_CARDS).map((m) => ({
-          type: 'preview', kicker: 'Also on the card',
-          home: name(m.homeTeam), away: name(m.awayTeam), kickoff: ko(m),
-          pose: 'none', accent: 'blue',
-        })),
+          matches: dayMatches, pose: 'pointing', accent: 'orange' },
+        // 2-3) GROS MATCH — Otto's Board (prono 1/X/2 + key battle) + Numa's Rewind (chiffre + h2h)
+        ...(marquee ? [
+          ottoBoard(marquee, { battle: { a: 'TODO — key man / unit', b: 'TODO — zone' } }),
+          { type: 'preview', kicker: "Numa's Rewind",
+            home: marquee.home, away: marquee.away, kickoff: marquee.kickoff,
+            number: { value: 'TODO', unit: 'TODO — ex. FIFA places apart' },
+            h2h: 'TODO — head-to-head vérifié (2 sources) + 1 anecdote marquante',
+            pose: 'celebrating', accent: 'blue' },
+        ] : []),
+        // 4..N) AUTRES MATCHS — carte compacte (prono + note h2h)
+        ...cards.slice(1).map((m) => ottoBoard(m, { h2h: 'TODO — head-to-head vérifié (2 sources)' })),
+        // (option) match chaud → ajouter une Vera's File :
+        //   { type: 'preview', kicker: "Vera's File", home, away, discipline: 'TODO', accent: 'red' }
         { type: 'cta', text: "Who's your pick? *Tap to vote.*", note: 'Recap drops tomorrow.', pose: 'pointing', accent: 'orange' },
       ],
     };

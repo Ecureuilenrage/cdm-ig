@@ -1,0 +1,130 @@
+{
+  "matchDate": "2026-06-14",
+  "title": "Matchday 1 — Germany run riot, drama everywhere else",
+  "slides": [
+    {
+      "type": "cover",
+      "kicker": "Matchday 1 · June 14, 2026",
+      "hook": "Germany *bury* Curaçao seven-one.",
+      "score": {
+        "home": "Germany",
+        "away": "Curaçao",
+        "homeGoals": 7,
+        "awayGoals": 1
+      },
+      "note": "Curaçao levelled early. Then the flood. *Trust the board.*",
+      "pose": "shocked",
+      "expression": "shocked",
+      "accent": "orange"
+    },
+    {
+      "type": "turning-point",
+      "minute": 6,
+      "kicker": "The setup",
+      "headline": "Curaçao *answer* an early German strike",
+      "body": "Nmecha opens at six, Wirtz supplying. Then Curaçao refuse the script — Comenencia levels at 21 for the nation's first-ever World Cup goal. One-one, and briefly the giants look *mortal*.",
+      "annotations": [
+        { "text": "6' Felix Nmecha", "color": "blue" },
+        { "text": "21' Comenencia — Curaçao's 1st", "color": "blue" }
+      ],
+      "accent": "blue"
+    },
+    {
+      "type": "turning-point",
+      "minute": 47,
+      "kicker": "The turn",
+      "headline": "The dam *breaks* either side of the half",
+      "body": "Schlotterbeck heads Germany back ahead at 38. Havertz converts in first-half stoppage. Musiala strikes at 47. Then the *flood* — Brown, Undav and Havertz again pile on, all the way to seven.",
+      "annotations": [
+        { "text": "78' Deniz Undav", "color": "blue" },
+        { "text": "88' Havertz — his 2nd", "color": "blue" }
+      ],
+      "pose": "celebrating",
+      "expression": "happy",
+      "accent": "orange"
+    },
+    {
+      "type": "stat-card",
+      "kicker": "Sweden 5–1 Tunisia",
+      "value": "5–1",
+      "unit": "Ayari scores twice",
+      "context": "Sweden run riot. Ayari *bookends* it at 7' and 90+6'. Isak turns provider three times; Rekik's 43rd-minute strike was Tunisia's only reply.",
+      "accent": "blue"
+    },
+    {
+      "type": "stat-card",
+      "kicker": "Netherlands 2–2 Japan",
+      "value": "2–2",
+      "unit": "Kamada steals a point",
+      "context": "Van Dijk and Summerville each nudge the Dutch ahead. Japan *answer* both — Kamada striking at 89 to rescue a draw. Three Dutch yellows tell the story.",
+      "accent": "blue"
+    },
+    {
+      "type": "stat-card",
+      "kicker": "Ivory Coast 1–0 Ecuador",
+      "value": "1–0",
+      "unit": "won at the death",
+      "context": "Goalless into the 90th — then Amad Diallo pokes home, Singo supplying. Ivory Coast booked three before the break, no reds, and held on for all three points.",
+      "pose": "pointing",
+      "accent": "red"
+    },
+    {
+      "type": "cta",
+      "text": "One illustrated story. *Every matchday.*",
+      "note": "Up next: Spain v Cape Verde, Belgium v Egypt & 2 more.",
+      "pose": "pointing",
+      "accent": "blue"
+    }
+  ],
+  "stories": [
+    {
+      "character": "otto",
+      "kicker": "Today's story · matchday 1",
+      "big": "Germany *bury* Curaçao seven-one.",
+      "note": "Nineteen goals across four games. The full rout, on the board.",
+      "pose": "pointing",
+      "sticker": "[ link sticker: today's post ]",
+      "cta": "Full story → today's post"
+    },
+    {
+      "character": "vera",
+      "kicker": "Vera's file · matchday 1",
+      "big": "Eight yellows. *Zero* reds.",
+      "note": "Ivory Coast booked three before the break — and won anyway. Filed.",
+      "pose": "neutral",
+      "expression": "neutral",
+      "sticker": "[ poll: “Chippiest game of the day? Ivory Coast / Netherlands” ]",
+      "cta": "The whole file → today's post"
+    },
+    {
+      "character": "numa",
+      "kicker": "Numa's number · matchday 1",
+      "mega": "239",
+      "unit": "Germany's World Cup goals",
+      "note": "Goal seven nudged them past Brazil — now top scorers in World Cup history. ...under protest.",
+      "pose": "celebrating",
+      "sticker": "[ emoji slider: “How ominous is this Germany side?” ]",
+      "cta": "All the numbers → today's post"
+    },
+    {
+      "character": "numa",
+      "kicker": "Tonight · Spain v Cape Verde",
+      "mega": "524,000",
+      "megaSize": 160,
+      "unit": "Cape Verde's people — debutants tonight",
+      "note": "Among the smallest nations ever here. First-ever meeting with Spain. KO 16:00 UTC.",
+      "pose": "pointing",
+      "sticker": "[ poll: “Spain routine, or upset brewing?” ]",
+      "cta": "Tonight's preview → in the post"
+    },
+    {
+      "character": "otto",
+      "kicker": "Tonight · the full card",
+      "big": "Four more openers *tonight*.",
+      "note": "Spain v Cape Verde · Belgium v Egypt · Saudi v Uruguay · Iran v NZ. Otto's board says Spain.",
+      "pose": "pointing",
+      "sticker": "[ poll: “Which one are you watching?” ]",
+      "cta": "All four → in tonight's preview"
+    }
+  ]
+}
